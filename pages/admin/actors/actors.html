@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/pages/admin/actors/actors.css">
+    <link rel="stylesheet" href="/styles/global.css">
+    <title>Actors</title>
+</head>
+
+<body>
+    <div class="movie-container">
+        <div class="side-bar">
+            <div class="movie-logo">
+                <img class="logo-img" src="/assets/icons/logo.svg" alt="">
+                <span class="logo-text">filmalisa</span>
+            </div>
+            <ul class="side-bar-list">
+                <li class="side-bar-item"><span class="side-bar-item-icon"><img src="/assets/icons/dashboard.svg"
+                            alt=""></span>Dashboard</li>
+                <li class="side-bar-item"><span class="side-bar-item-icon"><img src="/assets/icons/movies.svg"
+                            alt=""></span>Movies</li>
+                <li class="side-bar-item"><span class="side-bar-item-icon"><img src="/assets/icons/categories.svg"
+                            alt=""></span>Categories</li>
+                <li class="side-bar-item"><span class="side-bar-item-icon"><img src="/assets/icons/users.svg"
+                            alt=""></span>Users</li>
+                <li class="side-bar-item"><span class="side-bar-item-icon"><img src="/assets/icons/comments.svg"
+                            alt=""></span>Comments</li>
+                <li class="side-bar-item"><span class="side-bar-item-icon"><img src="/assets/icons/contactus.svg"
+                            alt=""></span>Contact us</li>
+                <li class="side-bar-item active"><span class="side-bar-item-icon"><img src="/assets/icons/actors.svg"
+                            alt=""></span>Actors</li>
+
+            </ul>
+            <div class="logout"><img src="/assets/icons/logout.svg" alt=""></div>
+        </div>
+
+        <div class="main">
+            <div class="top-section">
+                <div class="greeting">
+                    <h3>Hi Admin</h3>
+                    <h1>Movies</h1>
+                </div>
+                <div class="admin-profile-info">
+                    <button id="create-btn">Create</button>
+                    <div class="admin-profile">
+                        <img src="/assets/images/profile-image..png" alt="">
+                        <span>Admin</span>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table actors-table ">
+                <thead class="table-thead">
+                    <tr>
+                        <th>ID</th>
+                        <th>Actor Name</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="table-tbody table-light">
+                    <tr>
+                        <td>1</td>
+                        <td><img class="movie-icon" src="/assets/icons/title-movie.svg" alt="">Lost In Space</td>
+                        <td>John Doe</td>
+                        <td>Action</td>
+                        <td>
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+          
+             <div class="actors-modal">
+                <input id="actor-name-input" class="input" type="text" placeholder="actor name">
+                <input id="movie-title-input" class="input" type="text" placeholder="movie title">
+                <div class="category-dropdown">
+                    <div class="selected-option">Select Category <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="options">
+                        <div class="option">Action</div>
+                        <div class="option">Comedy</div>
+                        <div class="option">Drama</div>
+                        <div class="option">Horror</div>
+                        <div class="option">Romance</div>
+                    </div>
+                </div>
+                <button id="add-actor-btn" class="submit-btn">Submit</button>
+             </div>
+        </div>
+    </div>
+    <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/pages/admin/movies/movies.js"></script>
+</body>
+
+</html>

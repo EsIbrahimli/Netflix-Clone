@@ -168,8 +168,8 @@
     text-align: center;
 }
 
-.movie-table .movie-icon{
-    padding-right:15px;
+.movie-table .movie-icon {
+    padding-right: 15px;
 }
 
 
@@ -186,6 +186,23 @@
     border: none;
 }
 
+.edit-btn,
+.delete-btn {
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.edit-btn i {
+    color: #4CAF50;
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.delete-btn i {
+    color: #F44336;
+    font-size: 18px;
+}
 
 /*Movie2 Modal Styles*/
 
@@ -208,8 +225,8 @@
     display: flex;
     flex-direction: column;
     gap: 21px;
-    width:100%;
-    flex:4;
+    width: 100%;
+    flex: 4;
 }
 
 .movie-table {
@@ -221,12 +238,57 @@
     background-color: transparent;
     padding: 16px 10px;
     font-size: 14px;
-    width:100%;
-    color: #FFFFFF
+    width: 100%;
+    color: #FFFFFF;
+    outline: none;
 }
 
 .movies-modal .input::placeholder {
-    color: #475069;
+    color: #4d515f;
+}
+
+.category-dropdown {
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+}
+
+.category-dropdown .selected-option {
+    border: 1px solid #323B54;
+    background-color: transparent;
+    padding: 16px 10px;
+    font-size: 14px;
+    color: #4d515f;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-dropdown .options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #171616;
+    border: 1px solid #323B54;
+    border-top: none;
+    z-index: 1;
+}
+
+.category-dropdown:hover .options {
+    display: block;
+}
+
+.category-dropdown .option {
+    padding: 10px;
+    font-size: 14px;
+    color: #FFFFFF;
+    transition: background-color 0.3s ease;
+}
+
+.category-dropdown .option:hover {
+    background-color: #2f3032;
 }
 
 .modal-right .modal-image {
@@ -236,11 +298,11 @@
     object-fit: cover;
 }
 
-.modal-right{
-    flex:1;
+.modal-right {
+    flex: 1;
 }
 
-.modal-checkbox-submit{
+.modal-checkbox-submit {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -248,19 +310,25 @@
     margin-top: 10px;
 }
 
-.checkbox-label{
-    padding-right:1.41px;
-    font-size:14px;
-    font-weight:400;
-    color:#475069;
+.checkbox-label {
+    padding-right: 1.41px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4d515f;
 }
 
-#btn-submit{
+#btn-submit {
     background-color: #9B51DE;
-    padding: 3px 18.5px;
+    padding: 5px 20.5px;
     font-size: 14px;
     font-weight: 500;
     color: #ffff;
-    border-radius:5px;
+    border:none;
+    border-radius: 5px;
 }
 
+
+#btn-submit:hover {
+    background-color: #7a39b3;
+    cursor: pointer;
+}
