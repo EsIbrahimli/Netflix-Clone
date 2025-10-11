@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/pages/admin/movies/movies.css">
     <link rel="stylesheet" href="/styles/global.css">
@@ -30,6 +33,8 @@
                             alt=""></span>Comments</li>
                 <li class="side-bar-item"><span class="side-bar-item-icon"><img src="/assets/icons/contactus.svg"
                             alt=""></span>Contact us</li>
+                <li class="side-bar-item"><span class="side-bar-item-icon"><img src="/assets/icons/actors.svg"
+                            alt=""></span>Actors</li>
             </ul>
             <div class="logout"><img src="/assets/icons/logout.svg" alt=""></div>
         </div>
@@ -68,8 +73,8 @@
                         <td>Sci-Fi</td>
                         <td>8.8</td>
                         <td>
-                            <button class="btn edit-btn bg-success text-light">Edit</button>
-                            <button class="btn delete-btn bg-danger text-light">Delete</button>
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 </tbody>
@@ -83,7 +88,16 @@
                     <input id="input-fragman" class="input" type="text" placeholder="fragman(youtube embed url)">
                     <input id="input-watch" class="input" type="text" placeholder="watch url">
                     <input id="input-imdb" class="input" type="text" placeholder="imdb">
-                    <input id="input-category" class="input" type="text" placeholder="category">
+                    <div class="category-dropdown">
+                        <div class="selected-option">category <i class="fa-solid fa-chevron-down"></i></div>
+                        <div class="options">
+                            <div class="option">Action</div>
+                            <div class="option">Comedy</div>
+                            <div class="option">Drama</div>
+                            <div class="option">Horror</div>
+                            <div class="option">Romance</div>
+                        </div>
+                    </div>
                     <div class="modal-checkbox-submit">
                         <div class="modal-checkbox">
                             <label class="checkbox-label" for="sex">Adult</label>
