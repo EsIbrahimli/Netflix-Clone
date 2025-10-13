@@ -52,6 +52,10 @@
     font-size: 14px;
 }
 
+.side-bar-link {
+      color: #FFFFFF !important;
+}
+
 .side-bar-item {
     font-display: flex;
     align-items: center;
@@ -67,6 +71,10 @@
 .side-bar-item:hover {
     background-color: #58209D;
     color: #FFFFFF;
+}
+
+.side-bar-link:hover {
+    color: #ffff;
 }
 
 .side-bar-item-icon {
@@ -161,29 +169,43 @@
 /*Movie1 Table Styles*/
 
 .movie-table {
-    width: 100%;
+    /* width: 100%; */
     border: none;
     font-family: 'Nunito Sans', sans-serif;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     text-align: center;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .movie-table .movie-icon {
     padding-right: 15px;
 }
 
-
-.table-thead {
+.head-table {
     background-color: #1E1E1E;
     border-radius: 4px;
 }
 
+.movie-table th{
+    padding: 20px;
+}
 
-.table-thead th {
+.movie-table td{
+    padding:10px;
+}
+
+.head-table th {
     font-size: 14px;
     font-weight: 400;
     color: #F2F2F2;
     border: none;
+}
+
+.body-table {
+    color: #000000;
+    background-color: #ffff;
 }
 
 .edit-btn,
@@ -194,15 +216,14 @@
 }
 
 .edit-btn i {
-    color: #4CAF50;
     font-size: 18px;
     margin-right: 10px;
 }
 
 .delete-btn i {
-    color: #F44336;
     font-size: 18px;
 }
+
 
 /*Movie2 Modal Styles*/
 
@@ -210,9 +231,9 @@
     background-color: #171616;
     color: #FFFFFF;
     display: flex;
-    gap: 84px;
+    gap: 82px;
     padding: 50px 30px 80px 30px;
-    width: 60%;
+    width: 50%;
     margin: auto;
     border-radius: 8px;
     position: absolute;
@@ -236,7 +257,7 @@
 .movies-modal .input {
     border: 1px solid #323B54;
     background-color: transparent;
-    padding: 16px 10px;
+    padding: 14px 10px;
     font-size: 14px;
     width: 100%;
     color: #FFFFFF;
@@ -247,13 +268,15 @@
     color: #4d515f;
 }
 
-.category-dropdown {
+.category-dropdown,
+.actors-dropdown {
     position: relative;
     width: 100%;
     cursor: pointer;
 }
 
-.category-dropdown .selected-option {
+.category-dropdown .selected-option,
+.actors-dropdown .selected-option {
     border: 1px solid #323B54;
     background-color: transparent;
     padding: 16px 10px;
@@ -264,10 +287,11 @@
     align-items: center;
 }
 
-.category-dropdown .options {
+.category-dropdown .options,
+.actors-dropdown .options {
     display: none;
     position: absolute;
-    top: 100%;
+    bottom: 100%;
     left: 0;
     width: 100%;
     background-color: #171616;
@@ -276,11 +300,13 @@
     z-index: 1;
 }
 
-.category-dropdown:hover .options {
+.category-dropdown:hover .options,
+.actors-dropdown:hover .options {
     display: block;
 }
 
-.category-dropdown .option {
+.category-dropdown .option,
+.actors-dropdown .option {
     padding: 10px;
     font-size: 14px;
     color: #FFFFFF;
@@ -323,7 +349,7 @@
     font-size: 14px;
     font-weight: 500;
     color: #ffff;
-    border:none;
+    border: none;
     border-radius: 5px;
 }
 

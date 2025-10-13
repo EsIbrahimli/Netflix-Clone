@@ -64,6 +64,10 @@
     transition: background-color 0.3s ease;
 }
 
+.side-bar-link:hover {
+    color: #ffff;
+}
+
 .side-bar-item:hover {
     background-color: #58209D;
     color: #FFFFFF;
@@ -149,8 +153,11 @@
     width: 100%;
     border: none;
     font-family: 'Nunito Sans', sans-serif;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     text-align: center;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .users-table .user-icon {
@@ -158,15 +165,28 @@
 }
 
 
-.table-thead {
+.head-table {
     background-color: #1E1E1E;
     border-radius: 4px;
 }
 
 
-.table-thead th {
+.head-table th {
     font-size: 14px;
     font-weight: 400;
     color: #F2F2F2;
     border: none;
+}
+
+.users-table th {
+    padding: 20px;
+}
+
+.users-table td {
+    padding: 10px;
+}
+
+.body-table {
+    color: #000000;
+    background-color: #ffff;
 }
