@@ -1,0 +1,71 @@
+.body {
+  width: 100vw;
+
+  background-color: #0f0f0f;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* ---- Bədən ---- */
+.login-container {
+  width: 100px;
+  height: 100px;
+  background-color: radial-gradient(circle at center, #141414, #000);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.logo {
+  width: 150px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+/* ---- Başlıq ---- */
+
+.login-container h2 {
+  margin-bottom: 25px;
+  font-size: 32px;
+  color: #d0c7ff;
+}
+/* ---- Input-lar ---- */
+.login-container input {
+  width: 300px;
+  padding: 14px;
+  margin: 10px 0;
+  display: flex;
+  border: none;
+  border-radius: 8px;
+  background-color: #222;
+  color: #fff;
+  font-size: 16px;
+}
+
+.login-container input:focus {
+  outline: none;
+  box-shadow: 0 0 6px rgba(132, 56, 255, 0.6);
+}
+
+/* ---- Düymə ---- */
+.login-container button {
+  width: 300px;
+  padding: 14px;
+  margin-top: 15px;
+  background-color: linear-gradient(90deg, #8438ff, #b264ff);
+  color: #490101;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 17px;
+  transition: all 0.3s ease;
+}
+.login-container button:hover {
+  transform: scale(1.05);
+  background-color: linear-gradient(90deg, #9a50ff, #c47aff);
+}
