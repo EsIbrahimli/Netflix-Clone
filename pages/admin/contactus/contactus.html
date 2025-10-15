@@ -1,63 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Filmalisa Dashboard</title>
-  <link rel="stylesheet" href="./contactus.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="/styles/global.css">
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="contactus.css">
 </head>
+
 <body>
 
-  <div class="sidebar">
-    <h2 class="logo">filmalisa</h2>
+  <div class="side-bar">
+    <div class="logo">
+      <img class="logo-img" src="/assets/icons/logo.svg" alt="">
+      <span class="logo-text">filmalisa</span>
+    </div>
 
-    <ul class="menu">
-      <li><a href="#">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zM13 21h8v-8h-8v8zM13 13h8V3h-8v10zM3 21h8v-8H3v8z"/></svg>
-        <span>Dashboard</span>
-      </a></li>
-
-      <li><a href="#">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 22v-2a4 4 0 0 1 4-4h14M16 8a4 4 0 1 0-8 0v4a4 4 0 0 0 8 0V8z"/></svg>
-        <span>Movies</span>
-      </a></li>
-
-      <li><a href="#">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-        <span>Categories</span>
-      </a></li>
-
-      <li><a href="#">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-8 0v2M12 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
-        <span>Users</span>
-      </a></li>
-
-      <li><a href="#">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        <span>Comments</span>
-      </a></li>
-
-      <li class="active"><a href="#">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10a8.38 8.38 0 0 1-.9 3.8l-7.1 7.1a.996.996 0 0 1-1.4 0l-7.1-7.1A8.38 8.38 0 0 1 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <span>Contact us</span>
-      </a></li>
+    <ul class="side-bar-list">
+      <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/dashboard/dashboard.html"><span
+            class="side-bar-item-icon"><img src="/assets/icons/dashboard.svg" alt=""></span>Dashboard</a></li>
+      <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/movies/movies.html"><span
+            class="side-bar-item-icon"><img src="/assets/icons/movies.svg" alt=""></span>Movies</a></li>
+      <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/categories/categories.html"><span
+            class="side-bar-item-icon"><img src="/assets/icons/categories.svg" alt=""></span>Categories</a></li>
+      <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/users/users.html"><span
+            class="side-bar-item-icon"><img src="/assets/icons/users.svg" alt=""></span>Users</a></li>
+      <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/comments/comments.html"><span
+            class="side-bar-item-icon"><img src="/assets/icons/comments.svg" alt=""></span>Comments</a></li>
+      <li class="side-bar-item active"><a class="side-bar-link" href="/pages/admin/contactus/contactus.html"><span
+            class="side-bar-item-icon"><img src="/assets/icons/contactus.svg" alt=""></span>Contact us</a></li>
+      <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/actors/actors.html"><span
+            class="side-bar-item-icon"><img src="/assets/icons/actors.svg" alt=""></span>Actors</a></li>
     </ul>
 
-    <a href="#" class="logout">Logout</a>
+    <div class="logout"><img src="/assets/icons/logout.svg" alt=""></div>
   </div>
 
   <div class="main">
     <div class="header">
       <h3>Hi Admin<br><span>Contact us</span></h3>
       <div class="profile">
-        <img src="https://i.pravatar.cc/40" alt="Admin">
+        <img src="/assets/icons/profile-img.svg" alt="Admin">
         <p>Admin</p>
       </div>
     </div>
 
-    <div class="content">
-      </div>
-    </div>
+    <table class="contactus-table">
+      <thead class="head-table">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Reason</th>
+          <th>View</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody class="body-table">
+        <tr>
+          <td>1</td>
+          <td>John Doe</td>
+          <td>john.doe@example.com</td>
+          <td>This is a sample reason.</td>
+          <td>
+            <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </td>
+          <td>
+            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
   </div>
+  <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="contactus.js"></script>
 </body>
+
 </html>
