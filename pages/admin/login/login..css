@@ -60,13 +60,13 @@
   outline: none;
   border-radius: 12px;
   transition: outline 0.5s ease;
+  color:#ffff;
+  padding:0px 0px 0px 40px;
 }
 
 #login-username::placeholder,
 #login-password::placeholder {
   color: #475069;
-  /* padding: 18px 0px 22px 40px; */
-  padding-left:42px;
 }
 
 #login-username:hover,
@@ -77,7 +77,7 @@
 
 
 /* ---- Düymə ---- */
-#login-submit{
+#login-btn{
   width:100%;
   padding: 14px;
   margin-top: 15px;
@@ -92,6 +92,6 @@
 }
 
 
-#login-submit:hover {
+#login-btn:hover {
     background-color: #7a39b3;
 }
