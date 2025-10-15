@@ -1,19 +1,12 @@
 .body {
-  width: 100vw;
-
   background-color: #0f0f0f;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
 }
 
 /* ---- Bədən ---- */
 .login-container {
-  width: 100px;
-  height: 100px;
   background-color: radial-gradient(circle at center, #141414, #000);
+  margin-top:90px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,50 +15,83 @@
 }
 
 .logo {
-  width: 150px;
+  width: 249px;
+  height: 214px;
   height: auto;
-  margin-bottom: 20px;
 }
 
 /* ---- Başlıq ---- */
 
-.login-container h2 {
+.admin-login-title {
+  font-family: 'Numans';
   margin-bottom: 25px;
-  font-size: 32px;
-  color: #d0c7ff;
-}
-/* ---- Input-lar ---- */
-.login-container input {
-  width: 300px;
-  padding: 14px;
-  margin: 10px 0;
-  display: flex;
-  border: none;
-  border-radius: 8px;
-  background-color: #222;
-  color: #fff;
-  font-size: 16px;
+  font-size: 70px;
+  font-weight: 400;
+  color: #C3C8D4;
+  margin: 16px 0px 40px 0px;
 }
 
-.login-container input:focus {
-  outline: none;
-  box-shadow: 0 0 6px rgba(132, 56, 255, 0.6);
+/* ---- Input-lar ---- */
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
+.login-input {
+  position: relative;
+
+}
+
+.login-input img {
+  position: absolute;
+  left: 10px;
+  top: 22px;
+}
+
+#login-username,
+#login-password {
+  width: 547px;
+  height: 64px;
+  margin-bottom: 16px;
+  border: 1px solid #323B54;
+  background-color: transparent;
+  outline: none;
+  border-radius: 12px;
+  transition: outline 0.5s ease;
+}
+
+#login-username::placeholder,
+#login-password::placeholder {
+  color: #475069;
+  /* padding: 18px 0px 22px 40px; */
+  padding-left:42px;
+}
+
+#login-username:hover,
+#login-password:hover {
+  outline: none;
+  outline: 1px solid #b264ff;
+}
+
 
 /* ---- Düymə ---- */
-.login-container button {
-  width: 300px;
+#login-submit{
+  width:100%;
   padding: 14px;
   margin-top: 15px;
-  background-color: linear-gradient(90deg, #8438ff, #b264ff);
-  color: #490101;
+  background-color: #9B51E0;
+  color: #ffff;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
-  font-size: 17px;
+  font-size: 16px;
+  font-weight: 400;
   transition: all 0.3s ease;
 }
-.login-container button:hover {
-  transform: scale(1.05);
-  background-color: linear-gradient(90deg, #9a50ff, #c47aff);
+
+
+#login-submit:hover {
+    background-color: #7a39b3;
 }
