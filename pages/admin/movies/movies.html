@@ -60,10 +60,11 @@
             </div>
 
 
-            <table class="movie-table ">
+            <table class="movie-table">
                 <thead class="head-table ">
                     <tr>
                         <th>ID</th>
+                        <th></th>
                         <th>Title</th>
                         <th>Overview</th>
                         <th>Category</th>
@@ -73,9 +74,10 @@
                     </tr>
                 </thead>
                 <tbody class="body-table">
-                    <tr>
+                    <!-- <tr>
                         <td>1</td>
-                        <td><img class="movie-icon" src="/assets/icons/title-movie.svg" alt="">Lost In Space</td>
+                        <td><img class="movie-icon" src="/assets/icons/title-movie.svg" alt=""></td>
+                        <td>Lost In Space</td>
                         <td>A thrilling sci-fi adventure</td>
                         <td>Sci-Fi</td>
                         <td>8.8</td>
@@ -85,24 +87,13 @@
                         <td>
                             <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
                         </td>
-                    </tr>
+                    </tr> -->
 
-                    <tr>
-                        <td>1</td>
-                        <td><img class="movie-icon" src="/assets/icons/title-movie.svg" alt="">Lost In Space</td>
-                        <td>A thrilling sci-fi adventure</td>
-                        <td>Sci-Fi</td>
-                        <td>8.8</td>
-                        <td>
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                        </td>
-                        <td>
-                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
 
+
+            <!-- Modal -->
             <div class="movies-modal">
                 <div class="modal-left">
                     <input id="input-title" class="input" type="text" placeholder="title">
@@ -147,6 +138,12 @@
                     <img class="modal-image" src="/assets/icons/modal-img.svg" alt="">
                 </div>
             </div>
+
+
+            <!-- Pagination.... -->
+            <nav aria-label="Movies pagination-nav">
+                <ul class="pagination justify-content-center mt-3"></ul>
+            </nav>
         </div>
     </div>
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
