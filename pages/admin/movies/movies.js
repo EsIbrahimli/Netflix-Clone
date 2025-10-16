@@ -2,7 +2,7 @@ const tableBody = document.querySelector('.body-table');
 const logoutBtn = document.querySelector('.logout');
 const token = localStorage.getItem('token');
 let currentPage = 1;
-const itemsPerPage = 9;
+const itemsPerPage = 8;
 let allMovies = [];
 
 async function getMovies() {
@@ -54,48 +54,65 @@ function showPage(page) {
     `).join('');
 }
 
+
 function renderPagination() {
-    const totalPages = Math.ceil(allMovies.length / itemsPerPage);
-    const pagination = document.querySelector('.pagination');
+  const totalPages = Math.ceil(allMovies.length / itemsPerPage);
+  const pagination = document.querySelector('.pagination');
+  let html = '';
 
-    let html = '';
+  const visiblePages = 3; // eyni anda neçə səhifə görünsün
+  let startPage = Math.max(1, currentPage - Math.floor(visiblePages / 2));
+  let endPage = Math.min(totalPages, startPage + visiblePages - 1);
 
-    // Prev düyməsi
-    html += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
-                <a class="page-link" href="#" data-page="${currentPage - 1}">Prev</a>
-             </li>`;
+  // Əgər sonlara yaxınlaşırsa
+  if (endPage - startPage < visiblePages - 1) {
+    startPage = Math.max(1, endPage - visiblePages + 1);
+  }
 
-    // Səhifə nömrələri
-    for (let i = 1; i <= totalPages; i++) {
-        html += `<li class="page-item ${i === currentPage ? 'active' : ''}">
-                    <a class="page-link" href="#" data-page="${i}">${i}</a>
-                 </li>`;
-    }
+  // Prev düyməsi
+  html += `
+    <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+      <a class="page-link" href="#" data-page="${currentPage - 1}">&laquo;</a>
+    </li>
+  `;
 
-    // Next düyməsi
-    html += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
-                <a class="page-link" href="#" data-page="${currentPage + 1}">Next</a>
-             </li>`;
+  // Səhifə nömrələri
+  for (let i = startPage; i <= endPage; i++) {
+    html += `
+      <li class="page-item ${i === currentPage ? 'active' : ''}">
+        <a class="page-link" href="#" data-page="${i}">${i}</a>
+      </li>
+    `;
+  }
 
-    pagination.innerHTML = html;
+  // Next düyməsi
+  html += `
+    <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+      <a class="page-link" href="#" data-page="${currentPage + 1}">&raquo;</a>
+    </li>
+  `;
 
-    // Click event
-    pagination.querySelectorAll('.page-link').forEach(link => {
-        link.addEventListener('click', e => {
-            e.preventDefault();
-            const page = Number(e.target.dataset.page);
-            if (page >= 1 && page <= totalPages) {
-                currentPage = page;
-                showPage(currentPage);
-                renderPagination();
-            }
-        });
+  pagination.innerHTML = html;
+
+  // Klik hadisəsi
+  const links = pagination.querySelectorAll('.page-link');
+  links.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const page = Number(e.target.dataset.page);
+      if (page >= 1 && page <= totalPages) {
+        currentPage = page;
+        showPage(currentPage);
+        renderPagination();
+      }
     });
+  });
 }
+
 
 renderMovies();
 
-logoutBtn.addEventListener('click',()=>{
+logoutBtn.addEventListener('click', () => {
     localStorage.removeItem('token');
     window.location.href = '/pages/admin/login/login.html';
 })

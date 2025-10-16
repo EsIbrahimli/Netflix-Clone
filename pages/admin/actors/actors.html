@@ -21,20 +21,24 @@
                 <span class="logo-text">filmalisa</span>
             </div>
             <ul class="side-bar-list">
-                <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/dashboard/dashboard.html"><span class="side-bar-item-icon"><img src="/assets/icons/dashboard.svg"
-                            alt=""></span>Dashboard</a></li>
-                <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/movies/movies.html"><span class="side-bar-item-icon"><img src="/assets/icons/movies.svg"
-                            alt=""></span>Movies</a></li>
-                <li class="side-bar-item"><a class="side-bar-link"  href="/pages/admin/categories/categories.html"><span class="side-bar-item-icon"><img src="/assets/icons/categories.svg"
-                            alt=""></span>Categories</a></li>
-                <li class="side-bar-item"><a class="side-bar-link"  href="/pages/admin/users/users.html"><span class="side-bar-item-icon"><img src="/assets/icons/users.svg"
-                            alt=""></span>Users</a></li>
-                <li class="side-bar-item"><a class="side-bar-link"  href="/pages/admin/comments/comments.html"><span class="side-bar-item-icon"><img src="/assets/icons/comments.svg"
-                            alt=""></span>Comments</a></li>
-                <li class="side-bar-item"><a class="side-bar-link"  href="/pages/admin/contactus/contactus.html"><span class="side-bar-item-icon"><img src="/assets/icons/contactus.svg"
-                            alt=""></span>Contact us</a></li>
-                <li class="side-bar-item active"><a class="side-bar-link"  href="/pages/admin/actors/actors.html"><span class="side-bar-item-icon"><img src="/assets/icons/actors.svg"
-                            alt=""></span>Actors</a></li>
+                <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/dashboard/dashboard.html"><span
+                            class="side-bar-item-icon"><img src="/assets/icons/dashboard.svg"
+                                alt=""></span>Dashboard</a></li>
+                <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/movies/movies.html"><span
+                            class="side-bar-item-icon"><img src="/assets/icons/movies.svg" alt=""></span>Movies</a></li>
+                <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/categories/categories.html"><span
+                            class="side-bar-item-icon"><img src="/assets/icons/categories.svg"
+                                alt=""></span>Categories</a></li>
+                <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/users/users.html"><span
+                            class="side-bar-item-icon"><img src="/assets/icons/users.svg" alt=""></span>Users</a></li>
+                <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/comments/comments.html"><span
+                            class="side-bar-item-icon"><img src="/assets/icons/comments.svg" alt=""></span>Comments</a>
+                </li>
+                <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/contactus/contactus.html"><span
+                            class="side-bar-item-icon"><img src="/assets/icons/contactus.svg" alt=""></span>Contact
+                        us</a></li>
+                <li class="side-bar-item active"><a class="side-bar-link" href="/pages/admin/actors/actors.html"><span
+                            class="side-bar-item-icon"><img src="/assets/icons/actors.svg" alt=""></span>Actors</a></li>
             </ul>
             <div class="logout"><img src="/assets/icons/logout.svg" alt=""></div>
         </div>
@@ -66,7 +70,7 @@
                     </tr>
                 </thead>
                 <tbody class="body-table">
-                    <tr>
+                    <!-- <tr>
                         <td>1</td>
                         <td><img class="movie-icon" src="/assets/icons/title-movie.svg" alt=""></td>
                         <td>John</td>
@@ -77,16 +81,26 @@
                         <td>
                               <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
                         </td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
-          
-             <div class="actors-modal">
+
+            <div class="actors-modal ">
+                <div class="actors-form-wrapper">
                 <input id="actor-name-input" class="input" type="text" placeholder="name">
                 <input id="actor-surname-input" class="input" type="text" placeholder="surname">
                 <input id="actor-img-input" class="input" type="text" placeholder="image url">
                 <button id="add-actor-btn" class="submit-btn">Create</button>
-             </div>
+            </div>
+            <div class="actors-img-wrapper">
+                <img src="/assets/images/default.jpg" alt="">
+            </div>
+            </div>
+
+            <!-- Pagination.... -->
+            <nav aria-label="Movies pagination-nav">
+                <ul class="pagination pagination-lg justify-content-center mt-3"></ul>
+            </nav>
         </div>
     </div>
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
