@@ -1,0 +1,97 @@
+.body {
+  background-color: #0f0f0f;
+  height: 100vh;
+}
+
+/* ---- Bədən ---- */
+.login-container {
+  background-color: radial-gradient(circle at center, #141414, #000);
+  margin-top:90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.logo {
+  width: 249px;
+  height: 214px;
+  height: auto;
+}
+
+/* ---- Başlıq ---- */
+
+.admin-login-title {
+  font-family: 'Numans';
+  margin-bottom: 25px;
+  font-size: 70px;
+  font-weight: 400;
+  color: #C3C8D4;
+  margin: 16px 0px 40px 0px;
+}
+
+/* ---- Input-lar ---- */
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-input {
+  position: relative;
+
+}
+
+.login-input img {
+  position: absolute;
+  left: 10px;
+  top: 22px;
+}
+
+#login-username,
+#login-password {
+  width: 547px;
+  height: 64px;
+  margin-bottom: 16px;
+  border: 1px solid #323B54;
+  background-color: transparent;
+  outline: none;
+  border-radius: 12px;
+  transition: outline 0.5s ease;
+  color:#ffff;
+  padding:0px 0px 0px 40px;
+}
+
+#login-username::placeholder,
+#login-password::placeholder {
+  color: #475069;
+}
+
+#login-username:hover,
+#login-password:hover {
+  outline: none;
+  outline: 1px solid #b264ff;
+}
+
+
+/* ---- Düymə ---- */
+#login-btn{
+  width:100%;
+  padding: 14px;
+  margin-top: 15px;
+  background-color: #9B51E0;
+  color: #ffff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 400;
+  transition: all 0.3s ease;
+}
+
+
+#login-btn:hover {
+    background-color: #7a39b3;
+}

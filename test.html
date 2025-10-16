@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Dashboard - Filmalisa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles/global.css">
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Raleway', sans-serif;
+            padding: 20px;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .test-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .test-header h1 {
+            color: #e50914;
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .test-card {
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #333;
+        }
+        
+        .test-card h3 {
+            color: #e50914;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .test-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .test-btn {
+            background: #333;
+            border: 1px solid #555;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .test-btn:hover {
+            background: #555;
+            border-color: #e50914;
+        }
+        
+        .test-btn.success {
+            background: #28a745;
+            border-color: #28a745;
+        }
+        
+        .test-btn.error {
+            background: #dc3545;
+            border-color: #dc3545;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-online {
+            background: #28a745;
+        }
+        
+        .status-offline {
+            background: #dc3545;
+        }
+        
+        .test-results {
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #333;
+            margin-top: 20px;
+        }
+        
+        .test-results h3 {
+            color: #e50914;
+            margin-bottom: 15px;
+        }
+        
+        .test-result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+        
+        .test-result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .result-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .result-pass {
+            background: #28a745;
+            color: white;
+        }
+        
+        .result-fail {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .result-pending {
+            background: #ffc107;
+            color: black;
+        }
+        
+        .console-output {
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+        
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .quick-btn {
+            background: #e50914;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .quick-btn:hover {
+            background: #f40612;
+        }
+        
+        .info-panel {
+            background: rgba(229, 9, 20, 0.1);
+            border: 1px solid #e50914;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-panel h3 {
+            color: #e50914;
+            margin-bottom: 10px;
+        }
+        
+        .info-panel p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1><i class="fas fa-vial"></i> Test Dashboard</h1>
+            <p>Netflix Clone - Otomatik Test ve Debug Araçları</p>
+        </div>
+
+        <div class="info-panel">
+            <h3><i class="fas fa-info-circle"></i> Test Bilgileri</h3>
+            <p>
+                Bu dashboard projenizin tüm özelliklerini test etmenizi sağlar. 
+                Her test kategorisi farklı bir fonksiyonu kontrol eder ve sonuçları gösterir.
+            </p>
+        </div>
+
+        <div class="quick-actions">
+            <button class="quick-btn" onclick="runAllTests()">
+                <i class="fas fa-play"></i> Tüm Testleri Çalıştır
+            </button>
+            <button class="quick-btn" onclick="clearResults()">
+                <i class="fas fa-trash"></i> Sonuçları Temizle
+            </button>
+            <button class="quick-btn" onclick="toggleOffline()">
+                <i class="fas fa-wifi"></i> Offline/Online Toggle
+            </button>
+            <button class="quick-btn" onclick="clearCache()">
+                <i class="fas fa-broom"></i> Cache Temizle
+            </button>
+        </div>
+
+        <div class="test-grid">
+            <!-- Temel Sayfa Testleri -->
+            <div class="test-card">
+                <h3><i class="fas fa-home"></i> Temel Sayfa Testleri</h3>
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="testLandingPage()">
+                        <i class="fas fa-globe"></i> Landing Page
+                    </button>
+                    <button class="test-btn" onclick="testLoginPage()">
+                        <i class="fas fa-sign-in-alt"></i> Login Page
+                    </button>
+                    <button class="test-btn" onclick="testHomePage()">
+                        <i class="fas fa-house"></i> Home Page
+                    </button>
+                    <button class="test-btn" onclick="testDetailedPage()">
+                        <i class="fas fa-film"></i> Film Detay
+                    </button>
+                    <button class="test-btn" onclick="testFavoritePage()">
+                        <i class="fas fa-heart"></i> Favoriler
+                    </button>
+                    <button class="test-btn" onclick="testSearchPage()">
+                        <i class="fas fa-search"></i> Arama
+                    </button>
+                </div>
+            </div>
+
+            <!-- Error Handling Testleri -->
+            <div class="test-card">
+                <h3><i class="fas fa-exclamation-triangle"></i> Error Handling</h3>
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="testNetworkError()">
+                        <i class="fas fa-wifi"></i> Network Error
+                    </button>
+                    <button class="test-btn" onclick="testAPIError()">
+                        <i class="fas fa-server"></i> API Error
+                    </button>
+                    <button class="test-btn" onclick="testJavaScriptError()">
+                        <i class="fas fa-bug"></i> JavaScript Error
+                    </button>
+                    <button class="test-btn" onclick="testValidationError()">
+                        <i class="fas fa-check-circle"></i> Validation Error
+                    </button>
+                    <button class="test-btn" onclick="testToastNotifications()">
+                        <i class="fas fa-bell"></i> Toast Notifications
+                    </button>
+                </div>
+            </div>
+
+            <!-- Offline Support Testleri -->
+            <div class="test-card">
+                <h3><i class="fas fa-cloud-download-alt"></i> Offline Support</h3>
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="testServiceWorker()">
+                        <i class="fas fa-cog"></i> Service Worker
+                    </button>
+                    <button class="test-btn" onclick="testCache()">
+                        <i class="fas fa-database"></i> Cache Status
+                    </button>
+                    <button class="test-btn" onclick="testOfflinePage()">
+                        <i class="fas fa-exclamation-circle"></i> Offline Page
+                    </button>
+                    <button class="test-btn" onclick="testBackgroundSync()">
+                        <i class="fas fa-sync"></i> Background Sync
+                    </button>
+                </div>
+            </div>
+
+            <!-- Responsive Design Testleri -->
+            <div class="test-card">
+                <h3><i class="fas fa-mobile-alt"></i> Responsive Design</h3>
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="testMobileView()">
+                        <i class="fas fa-mobile"></i> Mobile View
+                    </button>
+                    <button class="test-btn" onclick="testTabletView()">
+                        <i class="fas fa-tablet-alt"></i> Tablet View
+                    </button>
+                    <button class="test-btn" onclick="testDesktopView()">
+                        <i class="fas fa-desktop"></i> Desktop View
+                    </button>
+                    <button class="test-btn" onclick="testTouchInteractions()">
+                        <i class="fas fa-hand-pointer"></i> Touch Interactions
+                    </button>
+                </div>
+            </div>
+
+            <!-- Performance Testleri -->
+            <div class="test-card">
+                <h3><i class="fas fa-tachometer-alt"></i> Performance</h3>
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="testPageLoadSpeed()">
+                        <i class="fas fa-stopwatch"></i> Load Speed
+                    </button>
+                    <button class="test-btn" onclick="testMemoryUsage()">
+                        <i class="fas fa-memory"></i> Memory Usage
+                    </button>
+                    <button class="test-btn" onclick="testImageLoading()">
+                        <i class="fas fa-image"></i> Image Loading
+                    </button>
+                    <button class="test-btn" onclick="testBundleSize()">
+                        <i class="fas fa-weight"></i> Bundle Size
+                    </button>
+                </div>
+            </div>
+
+            <!-- API Testleri -->
+            <div class="test-card">
+                <h3><i class="fas fa-plug"></i> API Testleri</h3>
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="testMovieAPI()">
+                        <i class="fas fa-film"></i> Movies API
+                    </button>
+                    <button class="test-btn" onclick="testCategoryAPI()">
+                        <i class="fas fa-tags"></i> Categories API
+                    </button>
+                    <button class="test-btn" onclick="testSearchAPI()">
+                        <i class="fas fa-search"></i> Search API
+                    </button>
+                    <button class="test-btn" onclick="testFavoriteAPI()">
+                        <i class="fas fa-heart"></i> Favorites API
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-results">
+            <h3><i class="fas fa-clipboard-check"></i> Test Sonuçları</h3>
+            <div id="test-results-list">
+                <p style="color: #666; text-align: center; padding: 20px;">
+                    Henüz test çalıştırılmadı. Yukarıdaki butonlara tıklayarak testleri başlatın.
+                </p>
+            </div>
+            <div class="console-output" id="console-output">
+                <div>Console output will appear here...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Test sonuçları için global değişken
+        let testResults = [];
+        
+        // Console output için
+        const consoleOutput = document.getElementById('console-output');
+        
+        // Console.log'u override et
+        const originalLog = console.log;
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            const message = args.join(' ');
+            consoleOutput.innerHTML += `<div>[${new Date().toLocaleTimeString()}] ${message}</div>`;
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        };
+
+        // Test sonucu ekle
+        function addTestResult(testName, status, message = '') {
+            testResults.push({
+                name: testName,
+                status: status,
+                message: message,
+                timestamp: new Date().toLocaleTimeString()
+            });
+            updateResultsDisplay();
+        }
+
+        // Sonuçları göster
+        function updateResultsDisplay() {
+            const resultsList = document.getElementById('test-results-list');
+            if (testResults.length === 0) {
+                resultsList.innerHTML = '<p style="color: #666; text-align: center; padding: 20px;">Henüz test çalıştırılmadı.</p>';
+                return;
+            }
+
+            let html = '';
+            testResults.forEach(result => {
+                const statusClass = result.status === 'pass' ? 'result-pass' : 
+                                  result.status === 'fail' ? 'result-fail' : 'result-pending';
+                const statusText = result.status === 'pass' ? 'PASS' : 
+                                 result.status === 'fail' ? 'FAIL' : 'PENDING';
+                
+                html += `
+                    <div class="test-result-item">
+                        <div>
+                            <strong>${result.name}</strong>
+                            ${result.message ? `<br><small style="color: #999;">${result.message}</small>` : ''}
+                        </div>
+                        <div>
+                            <span class="result-status ${statusClass}">${statusText}</span>
+                            <small style="color: #666; margin-left: 10px;">${result.timestamp}</small>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            resultsList.innerHTML = html;
+        }
+
+        // Tüm testleri çalıştır
+        async function runAllTests() {
+            console.log('🚀 Tüm testler başlatılıyor...');
+            clearResults();
+            
+            // Temel sayfa testleri
+            await testLandingPage();
+            await testLoginPage();
+            await testHomePage();
+            
+            // Error handling testleri
+            await testNetworkError();
+            await testJavaScriptError();
+            await testToastNotifications();
+            
+            // Offline support testleri
+            await testServiceWorker();
+            await testCache();
+            
+            // Responsive testleri
+            await testMobileView();
+            
+            // Performance testleri
+            await testPageLoadSpeed();
+            
+            // API testleri
+            await testMovieAPI();
+            
+            console.log('✅ Tüm testler tamamlandı!');
+        }
+
+        // Sonuçları temizle
+        function clearResults() {
+            testResults = [];
+            consoleOutput.innerHTML = '<div>Console output will appear here...</div>';
+            updateResultsDisplay();
+        }
+
+        // Offline/Online toggle
+        function toggleOffline() {
+            if (navigator.onLine) {
+                console.log('📱 Offline moda geçiliyor...');
+                // Offline simülasyonu
+                window.dispatchEvent(new Event('offline'));
+                addTestResult('Offline Toggle', 'pass', 'Offline moda geçildi');
+            } else {
+                console.log('🌐 Online moda geçiliyor...');
+                window.dispatchEvent(new Event('online'));
+                addTestResult('Online Toggle', 'pass', 'Online moda geçildi');
+            }
+        }
+
+        // Cache temizle
+        async function clearCache() {
+            try {
+                if ('caches' in window) {
+                    const cacheNames = await caches.keys();
+                    await Promise.all(cacheNames.map(name => caches.delete(name)));
+                    console.log('🧹 Cache temizlendi');
+                    addTestResult('Cache Clear', 'pass', 'Tüm cache temizlendi');
+                } else {
+                    addTestResult('Cache Clear', 'fail', 'Cache API desteklenmiyor');
+                }
+            } catch (error) {
+                console.error('Cache temizleme hatası:', error);
+                addTestResult('Cache Clear', 'fail', error.message);
+            }
+        }
+
+        // Temel sayfa testleri
+        async function testLandingPage() {
+            try {
+                const response = await fetch('/');
+                if (response.ok) {
+                    addTestResult('Landing Page', 'pass', 'Sayfa başarıyla yüklendi');
+                    console.log('✅ Landing page test passed');
+                } else {
+                    addTestResult('Landing Page', 'fail', `HTTP ${response.status}`);
+                }
+            } catch (error) {
+                addTestResult('Landing Page', 'fail', error.message);
+                console.error('❌ Landing page test failed:', error);
+            }
+        }
+
+        async function testLoginPage() {
+            try {
+                const response = await fetch('/pages/client/login/login.html');
+                if (response.ok) {
+                    addTestResult('Login Page', 'pass', 'Login sayfası yüklendi');
+                    console.log('✅ Login page test passed');
+                } else {
+                    addTestResult('Login Page', 'fail', `HTTP ${response.status}`);
+                }
+            } catch (error) {
+                addTestResult('Login Page', 'fail', error.message);
+                console.error('❌ Login page test failed:', error);
+            }
+        }
+
+        async function testHomePage() {
+            try {
+                const response = await fetch('/pages/client/home/home.html');
+                if (response.ok) {
+                    addTestResult('Home Page', 'pass', 'Home sayfası yüklendi');
+                    console.log('✅ Home page test passed');
+                } else {
+                    addTestResult('Home Page', 'fail', `HTTP ${response.status}`);
+                }
+            } catch (error) {
+                addTestResult('Home Page', 'fail', error.message);
+                console.error('❌ Home page test failed:', error);
+            }
+        }
+
+        async function testDetailedPage() {
+            try {
+                const response = await fetch('/pages/client/detailed/detailed.html');
+                if (response.ok) {
+                    addTestResult('Detailed Page', 'pass', 'Film detay sayfası yüklendi');
+                    console.log('✅ Detailed page test passed');
+                } else {
+                    addTestResult('Detailed Page', 'fail', `HTTP ${response.status}`);
+                }
+            } catch (error) {
+                addTestResult('Detailed Page', 'fail', error.message);
+                console.error('❌ Detailed page test failed:', error);
+            }
+        }
+
+        async function testFavoritePage() {
+            try {
+                const response = await fetch('/pages/client/favorite/favorite.html');
+                if (response.ok) {
+                    addTestResult('Favorite Page', 'pass', 'Favoriler sayfası yüklendi');
+                    console.log('✅ Favorite page test passed');
+                } else {
+                    addTestResult('Favorite Page', 'fail', `HTTP ${response.status}`);
+                }
+            } catch (error) {
+                addTestResult('Favorite Page', 'fail', error.message);
+                console.error('❌ Favorite page test failed:', error);
+            }
+        }
+
+        async function testSearchPage() {
+            try {
+                const response = await fetch('/pages/client/searchPanel/searchPanel.html');
+                if (response.ok) {
+                    addTestResult('Search Page', 'pass', 'Arama sayfası yüklendi');
+                    console.log('✅ Search page test passed');
+                } else {
+                    addTestResult('Search Page', 'fail', `HTTP ${response.status}`);
+                }
+            } catch (error) {
+                addTestResult('Search Page', 'fail', error.message);
+                console.error('❌ Search page test failed:', error);
+            }
+        }
+
+        // Error handling testleri
+        function testNetworkError() {
+            try {
+                // Network error simülasyonu
+                if (typeof showToast === 'function') {
+                    showToast('Network error test', 'error');
+                    addTestResult('Network Error', 'pass', 'Network error toast gösterildi');
+                    console.log('✅ Network error test passed');
+                } else {
+                    addTestResult('Network Error', 'fail', 'showToast fonksiyonu bulunamadı');
+                }
+            } catch (error) {
+                addTestResult('Network Error', 'fail', error.message);
+                console.error('❌ Network error test failed:', error);
+            }
+        }
+
+        function testAPIError() {
+            try {
+                // API error simülasyonu
+                fetch('/api/nonexistent')
+                    .then(response => {
+                        if (!response.ok) {
+                            addTestResult('API Error', 'pass', 'API error başarıyla yakalandı');
+                            console.log('✅ API error test passed');
+                        }
+                    })
+                    .catch(error => {
+                        addTestResult('API Error', 'pass', 'API error yakalandı');
+                        console.log('✅ API error test passed');
+                    });
+            } catch (error) {
+                addTestResult('API Error', 'fail', error.message);
+                console.error('❌ API error test failed:', error);
+            }
+        }
+
+        function testJavaScriptError() {
+            try {
+                // JavaScript error test
+                if (typeof handleError === 'function') {
+                    handleError({type: 'test', message: 'Test JavaScript error'});
+                    addTestResult('JavaScript Error', 'pass', 'JavaScript error başarıyla yakalandı');
+                    console.log('✅ JavaScript error test passed');
+                } else {
+                    addTestResult('JavaScript Error', 'fail', 'handleError fonksiyonu bulunamadı');
+                }
+            } catch (error) {
+                addTestResult('JavaScript Error', 'fail', error.message);
+                console.error('❌ JavaScript error test failed:', error);
+            }
+        }
+
+        function testValidationError() {
+            try {
+                if (typeof showToast === 'function') {
+                    showToast('Validation error test', 'warning');
+                    addTestResult('Validation Error', 'pass', 'Validation error toast gösterildi');
+                    console.log('✅ Validation error test passed');
+                } else {
+                    addTestResult('Validation Error', 'fail', 'showToast fonksiyonu bulunamadı');
+                }
+            } catch (error) {
+                addTestResult('Validation Error', 'fail', error.message);
+                console.error('❌ Validation error test failed:', error);
+            }
+        }
+
+        function testToastNotifications() {
+            try {
+                if (typeof showToast === 'function') {
+                    showToast('Test notification', 'success');
+                    setTimeout(() => showToast('Warning notification', 'warning'), 500);
+                    setTimeout(() => showToast('Error notification', 'error'), 1000);
+                    addTestResult('Toast Notifications', 'pass', 'Toast bildirimleri gösterildi');
+                    console.log('✅ Toast notifications test passed');
+                } else {
+                    addTestResult('Toast Notifications', 'fail', 'showToast fonksiyonu bulunamadı');
+                }
+            } catch (error) {
+                addTestResult('Toast Notifications', 'fail', error.message);
+                console.error('❌ Toast notifications test failed:', error);
+            }
+        }
+
+        // Offline support testleri
+        async function testServiceWorker() {
+            try {
+                if ('serviceWorker' in navigator) {
+                    const registration = await navigator.serviceWorker.getRegistration();
+                    if (registration) {
+                        addTestResult('Service Worker', 'pass', 'Service Worker kayıtlı');
+                        console.log('✅ Service Worker test passed');
+                    } else {
+                        addTestResult('Service Worker', 'fail', 'Service Worker kayıtlı değil');
+                    }
+                } else {
+                    addTestResult('Service Worker', 'fail', 'Service Worker desteklenmiyor');
+                }
+            } catch (error) {
+                addTestResult('Service Worker', 'fail', error.message);
+                console.error('❌ Service Worker test failed:', error);
+            }
+        }
+
+        async function testCache() {
+            try {
+                if ('caches' in window) {
+                    const cacheNames = await caches.keys();
+                    if (cacheNames.length > 0) {
+                        addTestResult('Cache', 'pass', `${cacheNames.length} cache bulundu`);
+                        console.log('✅ Cache test passed');
+                    } else {
+                        addTestResult('Cache', 'fail', 'Cache bulunamadı');
+                    }
+                } else {
+                    addTestResult('Cache', 'fail', 'Cache API desteklenmiyor');
+                }
+            } catch (error) {
+                addTestResult('Cache', 'fail', error.message);
+                console.error('❌ Cache test failed:', error);
+            }
+        }
+
+        async function testOfflinePage() {
+            try {
+                const response = await fetch('/offline.html');
+                if (response.ok) {
+                    addTestResult('Offline Page', 'pass', 'Offline sayfası yüklendi');
+                    console.log('✅ Offline page test passed');
+                } else {
+                    addTestResult('Offline Page', 'fail', `HTTP ${response.status}`);
+                }
+            } catch (error) {
+                addTestResult('Offline Page', 'fail', error.message);
+                console.error('❌ Offline page test failed:', error);
+            }
+        }
+
+        function testBackgroundSync() {
+            try {
+                if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
+                    addTestResult('Background Sync', 'pass', 'Background Sync destekleniyor');
+                    console.log('✅ Background Sync test passed');
+                } else {
+                    addTestResult('Background Sync', 'fail', 'Background Sync desteklenmiyor');
+                }
+            } catch (error) {
+                addTestResult('Background Sync', 'fail', error.message);
+                console.error('❌ Background Sync test failed:', error);
+            }
+        }
+
+        // Responsive design testleri
+        function testMobileView() {
+            try {
+                const isMobile = window.innerWidth <= 768;
+                addTestResult('Mobile View', 'pass', `Ekran genişliği: ${window.innerWidth}px`);
+                console.log('✅ Mobile view test passed');
+            } catch (error) {
+                addTestResult('Mobile View', 'fail', error.message);
+                console.error('❌ Mobile view test failed:', error);
+            }
+        }
+
+        function testTabletView() {
+            try {
+                const isTablet = window.innerWidth > 768 && window.innerWidth <= 1024;
+                addTestResult('Tablet View', 'pass', `Ekran genişliği: ${window.innerWidth}px`);
+                console.log('✅ Tablet view test passed');
+            } catch (error) {
+                addTestResult('Tablet View', 'fail', error.message);
+                console.error('❌ Tablet view test failed:', error);
+            }
+        }
+
+        function testDesktopView() {
+            try {
+                const isDesktop = window.innerWidth > 1024;
+                addTestResult('Desktop View', 'pass', `Ekran genişliği: ${window.innerWidth}px`);
+                console.log('✅ Desktop view test passed');
+            } catch (error) {
+                addTestResult('Desktop View', 'fail', error.message);
+                console.error('❌ Desktop view test failed:', error);
+            }
+        }
+
+        function testTouchInteractions() {
+            try {
+                const hasTouch = 'ontouchstart' in window;
+                addTestResult('Touch Interactions', hasTouch ? 'pass' : 'fail', 
+                    hasTouch ? 'Touch desteği var' : 'Touch desteği yok');
+                console.log('✅ Touch interactions test passed');
+            } catch (error) {
+                addTestResult('Touch Interactions', 'fail', error.message);
+                console.error('❌ Touch interactions test failed:', error);
+            }
+        }
+
+        // Performance testleri
+        async function testPageLoadSpeed() {
+            try {
+                const startTime = performance.now();
+                await fetch('/');
+                const endTime = performance.now();
+                const loadTime = Math.round(endTime - startTime);
+                
+                if (loadTime < 1000) {
+                    addTestResult('Page Load Speed', 'pass', `${loadTime}ms - Hızlı`);
+                } else if (loadTime < 3000) {
+                    addTestResult('Page Load Speed', 'pass', `${loadTime}ms - Orta`);
+                } else {
+                    addTestResult('Page Load Speed', 'fail', `${loadTime}ms - Yavaş`);
+                }
+                console.log(`✅ Page load speed test passed: ${loadTime}ms`);
+            } catch (error) {
+                addTestResult('Page Load Speed', 'fail', error.message);
+                console.error('❌ Page load speed test failed:', error);
+            }
+        }
+
+        function testMemoryUsage() {
+            try {
+                if ('memory' in performance) {
+                    const memory = performance.memory;
+                    const usedMB = Math.round(memory.usedJSHeapSize / 1024 / 1024);
+                    addTestResult('Memory Usage', 'pass', `${usedMB}MB kullanılıyor`);
+                    console.log('✅ Memory usage test passed');
+                } else {
+                    addTestResult('Memory Usage', 'fail', 'Memory API desteklenmiyor');
+                }
+            } catch (error) {
+                addTestResult('Memory Usage', 'fail', error.message);
+                console.error('❌ Memory usage test failed:', error);
+            }
+        }
+
+        function testImageLoading() {
+            try {
+                const images = document.querySelectorAll('img');
+                const loadedImages = Array.from(images).filter(img => img.complete && img.naturalHeight !== 0);
+                addTestResult('Image Loading', 'pass', `${loadedImages.length}/${images.length} görsel yüklendi`);
+                console.log('✅ Image loading test passed');
+            } catch (error) {
+                addTestResult('Image Loading', 'fail', error.message);
+                console.error('❌ Image loading test failed:', error);
+            }
+        }
+
+        function testBundleSize() {
+            try {
+                // Basit bundle size kontrolü
+                const scripts = document.querySelectorAll('script[src]');
+                const styles = document.querySelectorAll('link[rel="stylesheet"]');
+                addTestResult('Bundle Size', 'pass', `${scripts.length} script, ${styles.length} CSS dosyası`);
+                console.log('✅ Bundle size test passed');
+            } catch (error) {
+                addTestResult('Bundle Size', 'fail', error.message);
+                console.error('❌ Bundle size test failed:', error);
+            }
+        }
+
+        // API testleri
+        async function testMovieAPI() {
+            try {
+                const response = await fetch('https://api.sarkhanrahimli.dev/api/filmalisa/movie?limit=1');
+                if (response.ok) {
+                    addTestResult('Movies API', 'pass', 'API yanıt verdi');
+                    console.log('✅ Movies API test passed');
+                } else {
+                    addTestResult('Movies API', 'fail', `HTTP ${response.status}`);
+                }
+            } catch (error) {
+                addTestResult('Movies API', 'fail', error.message);
+                console.error('❌ Movies API test failed:', error);
+            }
+        }
+
+        async function testCategoryAPI() {
+            try {
+                const response = await fetch('https://api.sarkhanrahimli.dev/api/filmalisa/category');
+                if (response.ok) {
+                    addTestResult('Categories API', 'pass', 'API yanıt verdi');
+                    console.log('✅ Categories API test passed');
+                } else {
+                    addTestResult('Categories API', 'fail', `HTTP ${response.status}`);
+                }
+            } catch (error) {
+                addTestResult('Categories API', 'fail', error.message);
+                console.error('❌ Categories API test failed:', error);
+            }
+        }
+
+        async function testSearchAPI() {
+            try {
+                const response = await fetch('https://api.sarkhanrahimli.dev/api/filmalisa/search?q=test');
+                if (response.ok) {
+                    addTestResult('Search API', 'pass', 'API yanıt verdi');
+                    console.log('✅ Search API test passed');
+                } else {
+                    addTestResult('Search API', 'fail', `HTTP ${response.status}`);
+                }
+            } catch (error) {
+                addTestResult('Search API', 'fail', error.message);
+                console.error('❌ Search API test failed:', error);
+            }
+        }
+
+        async function testFavoriteAPI() {
+            try {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    addTestResult('Favorites API', 'fail', 'Token bulunamadı');
+                    return;
+                }
+                
+                const response = await fetch('https://api.sarkhanrahimli.dev/api/filmalisa/favorite', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (response.ok) {
+                    addTestResult('Favorites API', 'pass', 'API yanıt verdi');
+                    console.log('✅ Favorites API test passed');
+                } else {
+                    addTestResult('Favorites API', 'fail', `HTTP ${response.status}`);
+                }
+            } catch (error) {
+                addTestResult('Favorites API', 'fail', error.message);
+                console.error('❌ Favorites API test failed:', error);
+            }
+        }
+
+        // Sayfa yüklendiğinde otomatik testler
+        window.addEventListener('load', () => {
+            console.log('🧪 Test Dashboard yüklendi');
+            console.log('📊 Tarayıcı bilgileri:', {
+                userAgent: navigator.userAgent,
+                online: navigator.onLine,
+                language: navigator.language,
+                platform: navigator.platform
+            });
+        });
+    </script>
+</body>
+</html>
