@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - Filmalisa</title>
+    <link rel="stylesheet" href="/styles/global.css">
+    <style>
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: #000;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        
+        .offline-container {
+            max-width: 600px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .offline-icon {
+            font-size: 5rem;
+            color: #e50914;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #e50914;
+            font-weight: bold;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            color: #aaa;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+        
+        .offline-features {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+        
+        .offline-features h3 {
+            color: #e50914;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .feature-list li {
+            color: #ccc;
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            font-size: 1rem;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            color: #e50914;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: #e50914;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .btn:hover {
+            background: #f40612;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(229, 9, 20, 0.3);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        }
+        
+        .connection-status {
+            margin-top: 30px;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        
+        .connection-status.offline {
+            background: rgba(220, 53, 69, 0.2);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+            color: #ff6b7a;
+        }
+        
+        .connection-status.online {
+            background: rgba(40, 167, 69, 0.2);
+            border: 1px solid rgba(40, 167, 69, 0.3);
+            color: #6bcf7f;
+        }
+        
+        .retry-indicator {
+            display: none;
+            margin-top: 20px;
+        }
+        
+        .retry-indicator.active {
+            display: block;
+        }
+        
+        .retry-spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #333;
+            border-top: 2px solid #e50914;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .offline-container {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">📺</div>
+        <h1>You're Offline</h1>
+        <p class="subtitle">Don't worry, you can still enjoy Filmalisa!</p>
+        
+        <p>
+            It looks like you're not connected to the internet right now. 
+            While you're offline, you can still access previously viewed content 
+            and enjoy a seamless experience.
+        </p>
+        
+        <div class="offline-features">
+            <h3>What you can do offline:</h3>
+            <ul class="feature-list">
+                <li>Browse previously loaded movies and shows</li>
+                <li>Access your favorites list</li>
+                <li>View cached movie details</li>
+                <li>Use the search functionality (cached results)</li>
+                <li>Navigate through the app interface</li>
+            </ul>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn" onclick="retryConnection()">
+                <i class="fas fa-wifi"></i>
+                Try Again
+            </button>
+            <a href="/pages/client/home/home.html" class="btn btn-secondary">
+                <i class="fas fa-home"></i>
+                Go to Home
+            </a>
+        </div>
+        
+        <div class="retry-indicator" id="retry-indicator">
+            <div class="retry-spinner"></div>
+            Checking connection...
+        </div>
+        
+        <div class="connection-status offline" id="connection-status">
+            <i class="fas fa-wifi"></i>
+            Currently offline
+        </div>
+    </div>
+
+    <script>
+        // Check connection status
+        function updateConnectionStatus() {
+            const statusElement = document.getElementById('connection-status');
+            const isOnline = navigator.onLine;
+            
+            if (isOnline) {
+                statusElement.className = 'connection-status online';
+                statusElement.innerHTML = '<i class="fas fa-wifi"></i> Connection restored!';
+                
+                // Auto-redirect to home after 2 seconds
+                setTimeout(() => {
+                    window.location.href = '/pages/client/home/home.html';
+                }, 2000);
+            } else {
+                statusElement.className = 'connection-status offline';
+                statusElement.innerHTML = '<i class="fas fa-wifi"></i> Currently offline';
+            }
+        }
+        
+        // Retry connection
+        function retryConnection() {
+            const retryIndicator = document.getElementById('retry-indicator');
+            const tryAgainBtn = document.querySelector('.btn');
+            
+            retryIndicator.classList.add('active');
+            tryAgainBtn.disabled = true;
+            tryAgainBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checking...';
+            
+            // Simulate connection check
+            setTimeout(() => {
+                retryIndicator.classList.remove('active');
+                tryAgainBtn.disabled = false;
+                tryAgainBtn.innerHTML = '<i class="fas fa-wifi"></i> Try Again';
+                
+                if (navigator.onLine) {
+                    window.location.href = '/pages/client/home/home.html';
+                } else {
+                    updateConnectionStatus();
+                }
+            }, 2000);
+        }
+        
+        // Listen for online/offline events
+        window.addEventListener('online', () => {
+            updateConnectionStatus();
+        });
+        
+        window.addEventListener('offline', () => {
+            updateConnectionStatus();
+        });
+        
+        // Initial status check
+        updateConnectionStatus();
+        
+        // Register service worker if not already registered
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(registration => {
+                    console.log('Service Worker registered:', registration);
+                })
+                .catch(error => {
+                    console.log('Service Worker registration failed:', error);
+                });
+        }
+    </script>
+</body>
+</html>

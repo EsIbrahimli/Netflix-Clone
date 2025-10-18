@@ -46,6 +46,7 @@
                     <h1>Users</h1>
                 </div>
                 <div class="admin-profile-info">
+                    <button id="create-user-btn" class="create-btn">Create User</button>
                     <div class="admin-profile">
                         <img src="/assets/icons/profile-img.svg" alt="">
                         <span>Admin</span>
@@ -60,6 +61,7 @@
                         <th>ID</th>
                         <th>Username</th>
                         <th>Email</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody class="body-table">
@@ -70,6 +72,51 @@
                     </tr>
                 </tbody>
             </table>
+
+            <!-- Create User Modal -->
+            <div class="modal" id="user-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="modal-title">Create User</h3>
+                        <button class="modal-close" id="modal-close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="user-form">
+                            <div class="form-group">
+                                <label for="username">Username:</label>
+                                <input type="text" id="username" placeholder="Enter username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" placeholder="Enter email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" id="password" placeholder="Enter password" required>
+                                <div class="password-requirements">
+                                    <p class="requirements-title">Password Requirements:</p>
+                                    <ul class="requirements-list">
+                                        <li id="req-length">✓ At least 8 characters</li>
+                                        <li id="req-letter">✓ Contains letters</li>
+                                        <li id="req-number">✓ Contains numbers</li>
+                                        <li id="req-special">✓ Contains special characters</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm-password">Confirm Password:</label>
+                                <input type="password" id="confirm-password" placeholder="Confirm password" required>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn-cancel" id="cancel-btn">Cancel</button>
+                                <button type="submit" class="btn-save" id="save-btn">Save User</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>

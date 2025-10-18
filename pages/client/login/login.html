@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Filmalisa</title>
+    <link rel="stylesheet" href="/styles/global.css">
+    <link rel="stylesheet" href="/pages/client/login/login.css">
+    <script src="/js/error-handler.js"></script>
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="login-header">
+            <a href="/index.html">
+                <img src="/assets/icons/logo.svg" alt="Filmalisa" class="logo">
+            </a>
+        </div>
+
+        <div class="login-container">
+            <div class="login-box">
+                <h1>Sign In</h1>
+                <form id="login-form">
+                    <div class="input-group">
+                        <input type="email" id="email" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn-login">Sign In</button>
+                    <div class="form-footer">
+                        <label>
+                            <input type="checkbox" id="remember">
+                            <span>Remember me</span>
+                        </label>
+                    </div>
+                </form>
+                <div class="signup-link">
+                    <p>New to Filmalisa? <a href="/pages/client/registr/registr.html">Sign up now</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/pages/client/login/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Filmalisa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles/global.css">
+    <link rel="stylesheet" href="/pages/client/home/home.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="/pages/client/home/home.html" class="logo">
+                <img src="/assets/icons/logo.svg" alt="Filmalisa">
+                <span>filmalisa</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/pages/client/home/home.html" class="active">Home</a></li>
+                <li><a href="/pages/client/favorite/favorite.html">My List</a></li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <a href="/pages/client/searchPanel/searchPanel.html" class="search-icon">
+                <i class="fas fa-search"></i>
+            </a>
+            <div class="profile-menu">
+                <img src="/assets/icons/profile-img.svg" alt="Profile" class="profile-img">
+                <div class="dropdown">
+                    <a href="/pages/client/account/account.html">Account</a>
+                    <a href="#" id="logout">Sign Out</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero-banner" id="hero-banner">
+        <div class="hero-content">
+            <h1 class="hero-title" id="hero-title">Loading...</h1>
+            <div class="hero-buttons">
+                <button class="btn-play" id="hero-play">
+                    <i class="fas fa-play"></i> Play
+                </button>
+                <button class="btn-info" id="hero-info">
+                    <i class="fas fa-info-circle"></i> More Info
+                </button>
+            </div>
+            <p class="hero-description" id="hero-description">Loading description...</p>
+        </div>
+        <div class="hero-fade"></div>
+    </div>
+
+    <div class="content-rows" id="content-rows">
+        <!-- Movie rows will be dynamically inserted here -->
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Filmalisa. All rights reserved.</p>
+    </footer>
+
+    <script src="/pages/client/home/home.js"></script>
+</body>
+</html>

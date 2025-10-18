@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My List - Filmalisa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles/global.css">
+    <link rel="stylesheet" href="/pages/client/favorite/favorite.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="/pages/client/home/home.html" class="logo">
+                <img src="/assets/icons/logo.svg" alt="Filmalisa">
+                <span>filmalisa</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/pages/client/home/home.html">Home</a></li>
+                <li><a href="/pages/client/favorite/favorite.html" class="active">My List</a></li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <a href="/pages/client/searchPanel/searchPanel.html" class="search-icon">
+                <i class="fas fa-search"></i>
+            </a>
+            <div class="profile-menu">
+                <img src="/assets/icons/profile-img.svg" alt="Profile" class="profile-img">
+                <div class="dropdown">
+                    <a href="/pages/client/account/account.html">Account</a>
+                    <a href="#" id="logout">Sign Out</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="favorites-container">
+        <div class="page-header">
+            <h1><i class="fas fa-heart"></i> My List</h1>
+            <p id="favorites-count">Loading your favorites...</p>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-container" id="loading-container">
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Loading your favorites...</p>
+            </div>
+        </div>
+
+        <!-- Error State -->
+        <div class="error-container" id="error-container" style="display: none;">
+            <div class="error-message">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h2>Unable to load favorites</h2>
+                <p>We couldn't load your favorite movies. Please check your connection and try again.</p>
+                <button id="retry-btn" class="btn-retry">
+                    <i class="fas fa-redo"></i> Try Again
+                </button>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-container" id="empty-container" style="display: none;">
+            <div class="empty-message">
+                <i class="fas fa-heart-broken"></i>
+                <h2>Your list is empty</h2>
+                <p>Start building your collection by adding movies to your favorites!</p>
+                <a href="/pages/client/home/home.html" class="btn-browse">
+                    <i class="fas fa-film"></i> Browse Movies
+                </a>
+            </div>
+        </div>
+
+        <!-- Content State -->
+        <div class="content-container" id="content-container" style="display: none;">
+            <!-- Filter and Sort Controls -->
+            <div class="controls-section">
+                <div class="filter-controls">
+                    <select id="category-filter" class="filter-select">
+                        <option value="">All Categories</option>
+                    </select>
+                    <select id="sort-select" class="filter-select">
+                        <option value="recent">Recently Added</option>
+                        <option value="title">Title A-Z</option>
+                        <option value="rating">IMDB Rating</option>
+                        <option value="year">Release Year</option>
+                    </select>
+                </div>
+                <div class="view-controls">
+                    <button id="grid-view" class="view-btn active">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <button id="list-view" class="view-btn">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Favorites Grid -->
+            <div class="favorites-grid" id="favorites-grid">
+                <!-- Movies will be dynamically inserted here -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <!-- Pagination controls will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Batch Actions -->
+        <div class="batch-actions" id="batch-actions" style="display: none;">
+            <div class="batch-info">
+                <span id="selected-count">0</span> movies selected
+            </div>
+            <div class="batch-buttons">
+                <button id="select-all-btn" class="batch-btn">Select All</button>
+                <button id="deselect-all-btn" class="batch-btn">Deselect All</button>
+                <button id="remove-selected-btn" class="batch-btn danger">
+                    <i class="fas fa-trash"></i> Remove Selected
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Movie Detail Modal -->
+    <div class="modal" id="movie-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Movie Details</h3>
+                <button class="modal-close" id="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Movie details will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="/pages/client/favorite/favorite.js"></script>
+</body>
+</html>

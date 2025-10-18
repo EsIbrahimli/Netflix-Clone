@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Filmalisa</title>
+    <link rel="stylesheet" href="/styles/global.css">
+    <link rel="stylesheet" href="/pages/client/registr/registr.css">
+    <script src="/js/error-handler.js"></script>
+</head>
+<body>
+    <div class="register-wrapper">
+        <div class="register-header">
+            <a href="/index.html">
+                <img src="/assets/icons/logo.svg" alt="Filmalisa" class="logo">
+            </a>
+        </div>
+
+        <div class="register-container">
+            <div class="register-box">
+                <h1>Sign Up</h1>
+                <form id="register-form">
+                    <div class="input-group">
+                        <input type="text" id="username" placeholder="Username" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="email" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password" placeholder="Password" required>
+                        <div class="password-requirements">
+                            <p class="requirements-title">Password Requirements:</p>
+                            <ul class="requirements-list">
+                                <li id="req-length">✓ At least 8 characters</li>
+                                <li id="req-letter">✓ Contains letters</li>
+                                <li id="req-number">✓ Contains numbers</li>
+                                <li id="req-special">✓ Contains special characters</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+                    </div>
+                    <button type="submit" class="btn-register">Sign Up</button>
+                </form>
+                <div class="signin-link">
+                    <p>Already have an account? <a href="/pages/client/login/login.html">Sign in now</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/pages/client/registr/registr.js"></script>
+</body>
+</html>
