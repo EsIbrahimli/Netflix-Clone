@@ -6,6 +6,7 @@ const actorSurnameInput = document.getElementById('actor-surname-input');
 const actorImgInput = document.getElementById('actor-img-input');
 const addActorBtn = document.getElementById('add-actor-btn');
 const actorsModal = document.querySelector('.actors-modal');
+const movieContainer = document.querySelector('.movie-container');
 const token = localStorage.getItem('token');
 
 
@@ -13,7 +14,7 @@ let currentPage = 1;
 const itemsPerPage = 8;
 let allActors = [];
 
-
+//Api functions
 async function getActors() {
     const url = `https://api.sarkhanrahimli.dev/api/filmalisa/admin/actors`;
     const options = {
@@ -143,15 +144,32 @@ renderActors();
 //EVENTS 
 
 createBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
     actorsModal.style.display = 'flex';
 })
 
-actorsModal.addEventListener('click', (e) => {
-    if (e.target === actorsModal) {
-        // actorsModal.classList.remove('show');
-        actorsModal.style.display = 'none';
-    }
+window.addEventListener('click', (e) => {
+    actorsModal.style.display = 'none';
 });
+
+actorsModal.addEventListener('click', (e) => {
+    e.stopPropagation();
+});
+
+
+addActorBtn.addEventListener('click', async () => {
+    const newActor = {
+        name: actorNameInput.value.trim(),
+        surname: actorSurnameInput.value.trim(),
+        img_url: actorImgInput.value.trim()
+    }
+
+    await addNewActor(newActor);
+    await renderActors();
+    console.log('Actor added successfully');
+    actorsModal.style.display = 'none';
+})
+
 
 logoutBtn.addEventListener('click', () => {
     localStorage.removeItem('token');
