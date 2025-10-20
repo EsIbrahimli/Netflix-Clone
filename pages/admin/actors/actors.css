@@ -269,6 +269,13 @@
     color: #4d515f;
 }
 
+.actor-create-img{
+    border-radius: 12px;
+    width: 180px;
+    height: 260px;
+    object-fit: cover;
+}
+
 .actors-img-wrapper img{
     border-radius: 12px;;
 }
