@@ -397,8 +397,15 @@
 
 
 /* Pagination Styles */
-.pagination-nav {
-    align-self: center;
+.main{
+    position: relative;
+}
+
+.pagination-nav{
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .page-item .page-link {
