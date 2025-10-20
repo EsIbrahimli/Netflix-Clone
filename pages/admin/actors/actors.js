@@ -7,6 +7,15 @@ const actorImgInput = document.getElementById('actor-img-input');
 const addActorBtn = document.getElementById('add-actor-btn');
 const actorsModal = document.querySelector('.actors-modal');
 const movieContainer = document.querySelector('.movie-container');
+const actorsEditModal = document.querySelector('.actors-edit-modal');
+const editNameInput = document.getElementById('actor-name-input-upt');
+const editSurnameInput = document.getElementById('actor-surname-input-upt');
+const editImgInput = document.getElementById('actor-img-input-upt');
+const editActorBtn = document.getElementById('edit-actor-btn');
+const actorsDeleteModal = document.querySelector('.actors-delete-modal');
+const deleteActorBtn = document.getElementById('delete-actors-btn');
+const cancelDeleteActorBtn = document.getElementById('cancel-actors-btn');
+const actorEditImg = document.querySelector('.actor-edit-img');
 const token = localStorage.getItem('token');
 
 
@@ -35,7 +44,7 @@ async function getActors() {
 }
 
 async function addNewActor(newActor) {
-    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/admin/actors`;
+    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/admin/actor`;
     const options = {
         method: 'POST',
         headers: {
@@ -52,6 +61,44 @@ async function addNewActor(newActor) {
         console.log('Error:', error);
     }
 }
+
+async function deleteActorById(id) {
+    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/admin/actor/${id}`;
+    const options = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    }
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+async function updateActorById(id, updatedActor) {
+    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/admin/actor/${id}`;
+    const options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(updatedActor)
+    }
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+/*- ------------------------------------------------*/
 
 async function renderActors() {
     const dataActors = await getActors();
@@ -73,10 +120,10 @@ function showPage(page) {
                         <td>${actor.name}</td>
                         <td>${actor.surname}</td>
                         <td>
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="edit-btn" onclick="chooseActors(${actor.id}, 'edit')"><i class="fa-solid fa-pen"></i></button>
                         </td>
                         <td>
-                              <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                              <button class="delete-btn" onclick="chooseActors(${actor.id}, 'remove')"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
         `).join('');
@@ -137,9 +184,49 @@ function renderPagination() {
     });
 }
 
-
-
 renderActors();
+
+async function chooseActors(id, method) {
+    console.log(id, method);
+    try {
+        const dataActors = await getActors();
+        allActors = dataActors.data;
+        // console.log(categoriesData);
+        if (method === 'remove') {
+            localStorage.setItem('actorId', JSON.stringify(id));
+            actorsDeleteModal.style.display = 'flex';
+        } else if (method === 'edit') {
+            const actor = allActors.find(cat => cat.id === id);
+            if (actor) {
+                editNameInput.value = actor.name;
+                editSurnameInput.value = actor.surname;
+                editImgInput.value = actor.img_url;
+                actorEditImg.src = actor.img_url;
+                localStorage.setItem('actorId', JSON.stringify(id));
+                actorsEditModal.style.display = 'flex';
+            }
+        }
+    } catch (error) {
+        console.error('Xəta baş verdi:', error);
+        Toastify({
+            text: "Xeta bas verdi, zehmet olmasa yeniden cehd et!",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#a72a28ff", 
+            stopOnFocus: true,
+            style: {
+                borderRadius: "10px",
+                boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+                fontSize: "15px",
+                fontWeight: "500",
+                padding: "12px 18px"
+            },
+        }).showToast();
+        return;
+    }
+}
 
 //EVENTS 
 
@@ -149,7 +236,15 @@ createBtn.addEventListener('click', (e) => {
 })
 
 window.addEventListener('click', (e) => {
-    actorsModal.style.display = 'none';
+    if (actorsModal.style.display === 'flex' && !actorsModal.contains(e.target)) {
+        actorsModal.style.display = 'none';
+    }
+    if (actorsEditModal.style.display === 'flex' && !actorsEditModal.contains(e.target)) {
+        actorsEditModal.style.display = 'none';
+    }
+    if (actorsDeleteModal.style.display === 'flex' && !actorsDeleteModal.contains(e.target)) {
+        actorsDeleteModal.style.display = 'none';
+    }
 });
 
 actorsModal.addEventListener('click', (e) => {
@@ -164,11 +259,110 @@ addActorBtn.addEventListener('click', async () => {
         img_url: actorImgInput.value.trim()
     }
 
+    if(!newActor.name || !newActor.surname || !newActor.img_url){
+
+          Toastify({
+            text: "Zəhmət olmasa aktoyor adı daxil et!",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#a72a28ff",
+            stopOnFocus: true,
+            style: {
+                borderRadius: "10px",
+                boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+                fontSize: "15px",
+                fontWeight: "500",
+                padding: "12px 18px"
+            },
+        }).showToast();
+        return;
+    }
+
     await addNewActor(newActor);
     await renderActors();
     console.log('Actor added successfully');
     actorsModal.style.display = 'none';
+    actorNameInput.value = '';
+    actorSurnameInput.value = '';
+    actorImgInput.value = '';
+
+        Toastify({
+        text: "Aktyor uğurla əlavə edildi ✅",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#28a745",
+        style: {
+            borderRadius: "10px",
+            boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+            fontSize: "15px",
+            fontWeight: "500",
+            padding: "12px 18px"
+        },
+    }).showToast();
 })
+
+editActorBtn.addEventListener('click', async () => {
+    const localId = JSON.parse(localStorage.getItem('actorId'));
+   console.log(localId);
+    const updatedCActor = {
+        name: editNameInput.value,
+        surname: editSurnameInput.value,
+        img_url: editImgInput.value
+
+    }
+
+    await updateActorById(localId, updatedCActor);
+    await renderActors();
+
+    actorsEditModal.style.display = 'none';
+    editNameInput.value = '';
+    editSurnameInput.value = '';
+    editImgInput.value = '';
+
+       Toastify({
+        text: "Aktyor uğurla edit olundu ✅",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#28a745",
+        style: {
+            borderRadius: "10px",
+            boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+            fontSize: "15px",
+            fontWeight: "500",
+            padding: "12px 18px"
+        },
+    }).showToast();
+});
+
+deleteActorBtn.addEventListener('click', async () => {
+    const localId = JSON.parse(localStorage.getItem('actorId'));
+    await deleteActorById(localId);
+    await renderActors();
+    actorsDeleteModal.style.display = 'none';
+
+       Toastify({
+        text: "Aktyor uğurla silindi ✅",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#28a745",
+        style: {
+            borderRadius: "10px",
+            boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+            fontSize: "15px",
+            fontWeight: "500",
+            padding: "12px 18px"
+        },
+    }).showToast();
+});
+
+cancelDeleteActorBtn.addEventListener('click', () => {
+    actorsDeleteModal.style.display = 'none';
+});
 
 
 logoutBtn.addEventListener('click', () => {
