@@ -10,6 +10,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/styles/global.css">
   <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <link rel="stylesheet" href="contactus.css">
 </head>
 
@@ -76,8 +77,26 @@
         </tr>
       </tbody>
     </table>
+            <!-- Contact us View Modal-->
+            <div class="contactus-view-modal">  
+                <p class="contactus-view"></p>
+          </div>
 
+            <!--Contact us Delete Modal-->
+          <div class="contactus-delete-modal">
+                  <h3>Are you sure you want to delete this contact us?</h3>
+                  <div class="delete-modal-buttons">
+                      <button id="delete-contactus-btn" class="delete-btn">Yes</button>
+                      <button id="cancel-contactus-btn" class="cancel-btn">No</button>
+                  </div>
+          </div>
+
+          <!-- Pagination.... -->
+            <nav class="pagination-nav" aria-label="Contact us pagination-nav">
+              <ul class="pagination pagination-lg justify-content-center mt-3"></ul>
+          </nav> 
   </div>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="contactus.js"></script>
 </body>
