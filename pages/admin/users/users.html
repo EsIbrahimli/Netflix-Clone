@@ -20,21 +20,25 @@
                 <img class="logo-img" src="/assets/icons/logo.svg" alt="">
                 <span class="logo-text">filmalisa</span>
             </div>
-             <ul class="side-bar-list">
-                <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/dashboard/dashboard.html"><span class="side-bar-item-icon"><img src="/assets/icons/dashboard.svg"
-                            alt=""></span>Dashboard</a></li>
-                <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/movies/movies.html"><span class="side-bar-item-icon"><img src="/assets/icons/movies.svg"
-                            alt=""></span>Movies</a></li>
-                <li class="side-bar-item"><a class="side-bar-link"  href="/pages/admin/categories/categories.html"><span class="side-bar-item-icon"><img src="/assets/icons/categories.svg"
-                            alt=""></span>Categories</a></li>
-                <li class="side-bar-item active"><a class="side-bar-link"  href="/pages/admin/users/users.html"><span class="side-bar-item-icon"><img src="/assets/icons/users.svg"
-                            alt=""></span>Users</a></li>
-                <li class="side-bar-item"><a class="side-bar-link"  href="/pages/admin/comments/comments.html"><span class="side-bar-item-icon"><img src="/assets/icons/comments.svg"
-                            alt=""></span>Comments</a></li>
-                <li class="side-bar-item"><a class="side-bar-link"  href="/pages/admin/contactus/contactus.html"><span class="side-bar-item-icon"><img src="/assets/icons/contactus.svg"
-                            alt=""></span>Contact us</a></li>
-                <li class="side-bar-item"><a class="side-bar-link"  href="/pages/admin/actors/actors.html"><span class="side-bar-item-icon"><img src="/assets/icons/actors.svg"
-                            alt=""></span>Actors</a></li>
+            <ul class="side-bar-list">
+                <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/dashboard/dashboard.html"><span
+                            class="side-bar-item-icon"><img src="/assets/icons/dashboard.svg"
+                                alt=""></span>Dashboard</a></li>
+                <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/movies/movies.html"><span
+                            class="side-bar-item-icon"><img src="/assets/icons/movies.svg" alt=""></span>Movies</a></li>
+                <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/categories/categories.html"><span
+                            class="side-bar-item-icon"><img src="/assets/icons/categories.svg"
+                                alt=""></span>Categories</a></li>
+                <li class="side-bar-item active"><a class="side-bar-link" href="/pages/admin/users/users.html"><span
+                            class="side-bar-item-icon"><img src="/assets/icons/users.svg" alt=""></span>Users</a></li>
+                <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/comments/comments.html"><span
+                            class="side-bar-item-icon"><img src="/assets/icons/comments.svg" alt=""></span>Comments</a>
+                </li>
+                <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/contactus/contactus.html"><span
+                            class="side-bar-item-icon"><img src="/assets/icons/contactus.svg" alt=""></span>Contact
+                        us</a></li>
+                <li class="side-bar-item"><a class="side-bar-link" href="/pages/admin/actors/actors.html"><span
+                            class="side-bar-item-icon"><img src="/assets/icons/actors.svg" alt=""></span>Actors</a></li>
             </ul>
             <div class="logout"><img src="/assets/icons/logout.svg" alt=""></div>
         </div>
@@ -46,7 +50,6 @@
                     <h1>Users</h1>
                 </div>
                 <div class="admin-profile-info">
-                    <button id="create-user-btn" class="create-btn">Create User</button>
                     <div class="admin-profile">
                         <img src="/assets/icons/profile-img.svg" alt="">
                         <span>Admin</span>
@@ -54,69 +57,28 @@
                 </div>
             </div>
 
-
+            <!--USERS TABLE-->
             <table class="users-table ">
                 <thead class="head-table">
                     <tr>
                         <th>ID</th>
                         <th>Username</th>
                         <th>Email</th>
-                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody class="body-table">
-                    <tr>
+                    <!-- <tr>
                         <td>1</td>
                         <td>John Doe</td>
                         <td>john.doe@example.com</td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
 
-            <!-- Create User Modal -->
-            <div class="modal" id="user-modal">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 id="modal-title">Create User</h3>
-                        <button class="modal-close" id="modal-close">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="user-form">
-                            <div class="form-group">
-                                <label for="username">Username:</label>
-                                <input type="text" id="username" placeholder="Enter username" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email:</label>
-                                <input type="email" id="email" placeholder="Enter email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password:</label>
-                                <input type="password" id="password" placeholder="Enter password" required>
-                                <div class="password-requirements">
-                                    <p class="requirements-title">Password Requirements:</p>
-                                    <ul class="requirements-list">
-                                        <li id="req-length">✓ At least 8 characters</li>
-                                        <li id="req-letter">✓ Contains letters</li>
-                                        <li id="req-number">✓ Contains numbers</li>
-                                        <li id="req-special">✓ Contains special characters</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="confirm-password">Confirm Password:</label>
-                                <input type="password" id="confirm-password" placeholder="Confirm password" required>
-                            </div>
-                            <div class="form-actions">
-                                <button type="button" class="btn-cancel" id="cancel-btn">Cancel</button>
-                                <button type="submit" class="btn-save" id="save-btn">Save User</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            <!--Pagination-->
+            <nav class="pagination-nav" aria-label="Movies pagination-nav">
+                <ul class="pagination pagination-lg justify-content-center mt-3"></ul>
+            </nav>
 
         </div>
     </div>

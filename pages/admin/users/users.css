@@ -406,25 +406,42 @@
     color: #dc3545;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .admin-profile-info {
-        flex-direction: column;
-        gap: 10px;
-        align-items: stretch;
-    }
-    
-    .create-btn {
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-    
-    .modal-content {
-        width: 95%;
-        margin: 10% auto;
-    }
-    
-    .form-actions {
-        flex-direction: column;
-    }
+
+/* Pagination Styles */
+.main{
+    position: relative;
+}
+
+.pagination-nav{
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.page-item .page-link {
+    background-color: #ffff;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid #000000;
+}
+
+.page-item .page-link:hover {
+    background-color: #7a39b3;
+    color: #ffff;
+    border: none;
+    cursor: pointer;
+    border: 1px solid #000000;
+}
+
+.page-item {
+    color: #000000;
+    border: none;
+}
+
+.page-item.active .page-link {
+    background-color: #9B51DE !important;
+    border: 1px solid #000000;
 }
