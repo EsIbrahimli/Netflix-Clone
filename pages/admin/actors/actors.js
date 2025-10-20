@@ -16,6 +16,7 @@ const actorsDeleteModal = document.querySelector('.actors-delete-modal');
 const deleteActorBtn = document.getElementById('delete-actors-btn');
 const cancelDeleteActorBtn = document.getElementById('cancel-actors-btn');
 const actorEditImg = document.querySelector('.actor-edit-img');
+const actorCreateImg = document.querySelector('.actor-create-img');
 const token = localStorage.getItem('token');
 
 
@@ -235,9 +236,56 @@ createBtn.addEventListener('click', (e) => {
     actorsModal.style.display = 'flex';
 })
 
+// Image URL Preview for Create Modal
+actorImgInput.addEventListener('input', (e) => {
+    const imageUrl = e.target.value.trim();
+    
+    if (imageUrl && imageUrl.startsWith('http')) {
+        // URL düzgün formatda olduqda şəkili yüklə
+        actorCreateImg.src = imageUrl;
+        
+        // Şəkil yüklənməsə error handler
+        actorCreateImg.onerror = () => {
+            actorCreateImg.src = '/assets/images/default.jpg';
+        };
+        
+        // Şəkil uğurla yükləndikdə
+        actorCreateImg.onload = () => {
+            console.log('Şəkil uğurla yükləndi');
+        };
+    } else if (imageUrl === '') {
+        // Input boşdursa default şəkil
+        actorCreateImg.src = '/assets/images/default.jpg';
+    }
+})
+
+// Image URL Preview for Edit Modal
+editImgInput.addEventListener('input', (e) => {
+    const imageUrl = e.target.value.trim();
+    
+    if (imageUrl && imageUrl.startsWith('http')) {
+        // URL düzgün formatda olduqda şəkili yüklə
+        actorEditImg.src = imageUrl;
+        
+        // Şəkil yüklənməsə error handler
+        actorEditImg.onerror = () => {
+            actorEditImg.src = '/assets/images/default.jpg';
+        };
+        
+        // Şəkil uğurla yükləndikdə
+        actorEditImg.onload = () => {
+            console.log('Şəkil uğurla yükləndi');
+        };
+    } else if (imageUrl === '') {
+        // Input boşdursa default şəkil
+        actorEditImg.src = '/assets/images/default.jpg';
+    }
+})
+
 window.addEventListener('click', (e) => {
     if (actorsModal.style.display === 'flex' && !actorsModal.contains(e.target)) {
         actorsModal.style.display = 'none';
+        actorCreateImg.src = '/assets/images/default.jpg';
     }
     if (actorsEditModal.style.display === 'flex' && !actorsEditModal.contains(e.target)) {
         actorsEditModal.style.display = 'none';
@@ -287,6 +335,7 @@ addActorBtn.addEventListener('click', async () => {
     actorNameInput.value = '';
     actorSurnameInput.value = '';
     actorImgInput.value = '';
+    actorCreateImg.src = '/assets/images/default.jpg';
 
         Toastify({
         text: "Aktyor uğurla əlavə edildi ✅",
