@@ -7,6 +7,7 @@ const moviesDeleteModal = document.querySelector('.movies-delete-modal');
 const modalOverlay = document.querySelector('.modal-overlay');
 const deleteMovieBtn = document.getElementById('delete-movie-btn');
 const cancelMovieBtn = document.getElementById('cancel-movie-btn');
+//Token
 const token = localStorage.getItem('token');
 
 let currentPage = 1;
@@ -58,7 +59,6 @@ async function getActors() {
     }
 }
 
-// API Functions
 async function getMovies() {
     const url = `https://api.sarkhanrahimli.dev/api/filmalisa/admin/movies`;
     const options = {
@@ -175,129 +175,110 @@ async function updateMovieById(id, updatedMovie) {
     }
 }
 
-// Dropdown Render Functions
-function renderCategoryDropdown(isEdit = false) {
-    const dropdownContainer = isEdit ? 
-        document.querySelector('.edit-category-dropdown') : 
-        document.querySelector('.category-dropdown');
-    
-    const dropdown = dropdownContainer.querySelector('.options');
+// Setup Dropdowns
+function setupCategoryDropdown(isEdit = false) {
+    const prefix = isEdit ? 'edit-' : '';
+    const dropdownContainer = document.querySelector(`.${prefix}category-dropdown`);
     const selectedOption = dropdownContainer.querySelector('.selected-option');
-    
-    // Clear existing content and event listeners
-    const newSelectedOption = selectedOption.cloneNode(true);
-    selectedOption.parentNode.replaceChild(newSelectedOption, selectedOption);
-    
-    dropdown.innerHTML = allCategories.map(category => `
-        <div class="option" data-id="${category.id}">${category.name}</div>
-    `).join('');
+    const optionsContainer = dropdownContainer.querySelector('.options');
 
-    // Toggle dropdown on selected option click
-    newSelectedOption.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dropdownContainer.classList.toggle('active');
+    // Clear previous content
+    optionsContainer.innerHTML = '';
+
+    // Add categories
+    allCategories.forEach(category => {
+        const option = document.createElement('div');
+        option.className = 'option';
+        option.textContent = category.name;
+        option.dataset.id = category.id;
         
-        // Close other dropdowns
-        if (isEdit) {
-            document.querySelector('.edit-actors-dropdown')?.classList.remove('active');
-        } else {
-            document.querySelector('.actors-dropdown')?.classList.remove('active');
-        }
-    });
-
-    // Add click listeners
-    dropdown.querySelectorAll('.option').forEach(option => {
-        option.addEventListener('click', (e) => {
-            const categoryId = parseInt(e.target.dataset.id);
-            const categoryName = e.target.textContent;
-            
+        option.addEventListener('click', () => {
             if (isEdit) {
-                editSelectedCategory = categoryId;
-                newSelectedOption.innerHTML = 
-                    `${categoryName} <i class="fa-solid fa-chevron-down"></i>`;
+                editSelectedCategory = category.id;
             } else {
-                selectedCategory = categoryId;
-                newSelectedOption.innerHTML = 
-                    `${categoryName} <i class="fa-solid fa-chevron-down"></i>`;
+                selectedCategory = category.id;
             }
-            
-            // Close dropdown after selection
+            selectedOption.innerHTML = `${category.name} <i class="fa-solid fa-chevron-down"></i>`;
             dropdownContainer.classList.remove('active');
         });
+        
+        optionsContainer.appendChild(option);
     });
-}
 
-function renderActorsDropdown(isEdit = false) {
-    const dropdownContainer = isEdit ? 
-        document.querySelector('.edit-actors-dropdown') : 
-        document.querySelector('.actors-dropdown');
-    
-    const dropdown = dropdownContainer.querySelector('.options');
-    const selectedOption = dropdownContainer.querySelector('.selected-option');
-    
-    // Clear existing event listeners
-    const newSelectedOption = selectedOption.cloneNode(true);
-    selectedOption.parentNode.replaceChild(newSelectedOption, selectedOption);
-    
-    dropdown.innerHTML = allActors.map(actor => `
-        <div class="option" data-id="${actor.id}">
-            <input type="checkbox" id="${isEdit ? 'edit-' : ''}actor-${actor.id}" value="${actor.id}">
-            <label for="${isEdit ? 'edit-' : ''}actor-${actor.id}">${actor.name} ${actor.surname}</label>
-        </div>
-    `).join('');
-
-    // Toggle dropdown on selected option click
-    newSelectedOption.addEventListener('click', (e) => {
+    // Toggle dropdown
+    selectedOption.onclick = (e) => {
         e.stopPropagation();
         dropdownContainer.classList.toggle('active');
-        
         // Close other dropdowns
-        if (isEdit) {
-            document.querySelector('.edit-category-dropdown')?.classList.remove('active');
-        } else {
-            document.querySelector('.category-dropdown')?.classList.remove('active');
-        }
-    });
+        document.querySelectorAll(`.${prefix}actors-dropdown`).forEach(d => d.classList.remove('active'));
+    };
+}
 
-    // Add click listeners for checkboxes
-    dropdown.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+function setupActorsDropdown(isEdit = false) {
+    const prefix = isEdit ? 'edit-' : '';
+    const dropdownContainer = document.querySelector(`.${prefix}actors-dropdown`);
+    const selectedOption = dropdownContainer.querySelector('.selected-option');
+    const optionsContainer = dropdownContainer.querySelector('.options');
+
+    // Clear previous content
+    optionsContainer.innerHTML = '';
+
+    // Add actors
+    allActors.forEach(actor => {
+        const option = document.createElement('div');
+        option.className = 'option';
+        
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = `${prefix}actor-${actor.id}`;
+        checkbox.value = actor.id;
+        
+        const label = document.createElement('label');
+        label.htmlFor = `${prefix}actor-${actor.id}`;
+        label.textContent = `${actor.name} ${actor.surname}`;
+        
         checkbox.addEventListener('change', (e) => {
             e.stopPropagation();
-            const actorId = parseInt(e.target.value);
+            const actorId = parseInt(checkbox.value);
             
             if (isEdit) {
-                if (e.target.checked) {
+                if (checkbox.checked) {
                     if (!editSelectedActors.includes(actorId)) {
                         editSelectedActors.push(actorId);
                     }
                 } else {
                     editSelectedActors = editSelectedActors.filter(id => id !== actorId);
                 }
-                updateSelectedActorsDisplay(isEdit);
+                updateSelectedActorsDisplay(true);
             } else {
-                if (e.target.checked) {
+                if (checkbox.checked) {
                     if (!selectedActors.includes(actorId)) {
                         selectedActors.push(actorId);
                     }
                 } else {
                     selectedActors = selectedActors.filter(id => id !== actorId);
                 }
-                updateSelectedActorsDisplay(isEdit);
+                updateSelectedActorsDisplay(false);
             }
         });
+        
+        option.appendChild(checkbox);
+        option.appendChild(label);
+        optionsContainer.appendChild(option);
     });
 
-    // Prevent dropdown from closing when clicking inside options
-    dropdown.addEventListener('click', (e) => {
+    // Toggle dropdown
+    selectedOption.onclick = (e) => {
         e.stopPropagation();
-    });
+        dropdownContainer.classList.toggle('active');
+        // Close other dropdowns
+        document.querySelectorAll(`.${prefix}category-dropdown`).forEach(d => d.classList.remove('active'));
+    };
 }
 
 function updateSelectedActorsDisplay(isEdit = false) {
-    const selectedOption = isEdit ? 
-        document.querySelector('.edit-actors-dropdown .selected-option') : 
-        document.querySelector('.actors-dropdown .selected-option');
-    
+    const prefix = isEdit ? 'edit-' : '';
+    const selectedOption = document.querySelector(`.${prefix}actors-dropdown .selected-option`);
     const actors = isEdit ? editSelectedActors : selectedActors;
     
     if (actors.length > 0) {
@@ -323,6 +304,12 @@ async function loadDropdownData() {
     if (actorsData && actorsData.data) {
         allActors = actorsData.data;
     }
+
+    // Setup dropdowns for both modals
+    setupCategoryDropdown(false); // Create modal
+    setupActorsDropdown(false);   // Create modal
+    setupCategoryDropdown(true);  // Edit modal
+    setupActorsDropdown(true);    // Edit modal
 }
 
 // Render Functions
@@ -369,14 +356,12 @@ function renderPagination() {
     startPage = Math.max(1, endPage - visiblePages + 1);
   }
 
-    // Prev button
   html += `
     <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
       <a class="page-link" href="#" data-page="${currentPage - 1}">&laquo;</a>
     </li>
   `;
 
-    // Page numbers
   for (let i = startPage; i <= endPage; i++) {
     html += `
       <li class="page-item ${i === currentPage ? 'active' : ''}">
@@ -385,7 +370,6 @@ function renderPagination() {
     `;
   }
 
-    // Next button
   html += `
     <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
       <a class="page-link" href="#" data-page="${currentPage + 1}">&raquo;</a>
@@ -394,7 +378,6 @@ function renderPagination() {
 
   pagination.innerHTML = html;
 
-    // Click event
   const links = pagination.querySelectorAll('.page-link');
   links.forEach(link => {
     link.addEventListener('click', e => {
@@ -411,10 +394,13 @@ function renderPagination() {
 
 // Modal Functions - Make them global so onclick can access them
 window.openEditModal = async function(movieId) {
+    console.log('Opening edit modal for movie:', movieId);
     try {
         const movieData = await getMovieById(movieId);
+        console.log('Movie data received:', movieData);
         const movie = movieData.data;
 
+        // Fill form fields
         document.getElementById('edit-input-title').value = movie.title || '';
         document.getElementById('edit-input-overview').value = movie.overview || '';
         document.getElementById('edit-input-cover').value = movie.cover_url || '';
@@ -423,40 +409,55 @@ window.openEditModal = async function(movieId) {
         document.getElementById('edit-input-imdb').value = movie.imdb || '';
         document.getElementById('edit-input-runTimeMin').value = movie.run_time_min || '';
         document.getElementById('edit-sex').checked = movie.is_adult || false;
+        
+        console.log('Form fields filled successfully');
 
         // Update the image preview
         const editImage = document.querySelector('.modal-edit-image');
         if (movie.cover_url) {
             editImage.src = movie.cover_url;
+        } else {
+            editImage.src = '/assets/icons/modal-img.svg';
         }
 
-        // Set selected category
+        // Reset and set selected actors first
+        editSelectedActors = movie.actors ? movie.actors.map(actor => actor.id) : [];
+        
+        // Reset and set selected category
         if (movie.category) {
             editSelectedCategory = movie.category.id;
+        } else {
+            editSelectedCategory = null;
+        }
+
+        // Re-setup dropdowns to ensure they're fresh
+        setupCategoryDropdown(true);
+        setupActorsDropdown(true);
+
+        // Now set the display values and check checkboxes
+        if (movie.category) {
             document.querySelector('.edit-category-dropdown .selected-option').innerHTML = 
                 `${movie.category.name} <i class="fa-solid fa-chevron-down"></i>`;
         } else {
-            editSelectedCategory = null;
             document.querySelector('.edit-category-dropdown .selected-option').innerHTML = 
                 `category <i class="fa-solid fa-chevron-down"></i>`;
         }
-
-        // Set selected actors
-        editSelectedActors = movie.actors ? movie.actors.map(actor => actor.id) : [];
         
-        // Render dropdowns with data
-        renderCategoryDropdown(true);
-        renderActorsDropdown(true);
-        
-        // Check the selected actors
+        // Check the selected actors in checkboxes
         if (movie.actors && movie.actors.length > 0) {
-            movie.actors.forEach(actor => {
-                const checkbox = document.getElementById(`edit-actor-${actor.id}`);
-                if (checkbox) {
-                    checkbox.checked = true;
-                }
-            });
-            updateSelectedActorsDisplay(true);
+            // Small delay to ensure checkboxes are rendered
+            setTimeout(() => {
+                movie.actors.forEach(actor => {
+                    const checkbox = document.getElementById(`edit-actor-${actor.id}`);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+                });
+                updateSelectedActorsDisplay(true);
+            }, 10);
+        } else {
+            document.querySelector('.edit-actors-dropdown .selected-option').innerHTML = 
+                `actors <i class="fa-solid fa-chevron-down"></i>`;
         }
 
         localStorage.setItem('movieId', JSON.stringify(movieId));
@@ -491,19 +492,31 @@ window.openDeleteModal = function(movieId) {
 createBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     
+    // Reset form
+    document.getElementById('input-title').value = '';
+    document.getElementById('input-overview').value = '';
+    document.getElementById('input-cover').value = '';
+    document.getElementById('input-fragman').value = '';
+    document.getElementById('input-watch').value = '';
+    document.getElementById('input-imdb').value = '';
+    document.getElementById('input-runTimeMin').value = '';
+    document.getElementById('sex').checked = false;
+    document.querySelector('.modal-image').src = '/assets/icons/modal-img.svg';
+    
     // Reset selections
     selectedActors = [];
     selectedCategory = null;
-    
-    // Render dropdowns
-    renderCategoryDropdown(false);
-    renderActorsDropdown(false);
     
     // Reset displays
     document.querySelector('.category-dropdown .selected-option').innerHTML = 
         `category <i class="fa-solid fa-chevron-down"></i>`;
     document.querySelector('.actors-dropdown .selected-option').innerHTML = 
         `actors <i class="fa-solid fa-chevron-down"></i>`;
+    
+    // Uncheck all actor checkboxes
+    document.querySelectorAll('.actors-dropdown input[type="checkbox"]').forEach(cb => {
+        cb.checked = false;
+    });
     
     moviesModal.style.display = 'flex';
     modalOverlay.classList.add('active');
@@ -515,25 +528,17 @@ modalOverlay.addEventListener('click', () => {
     moviesEditModal.style.display = 'none';
     moviesDeleteModal.style.display = 'none';
     modalOverlay.classList.remove('active');
+    
+    // Close all dropdowns
+    document.querySelectorAll('.category-dropdown, .actors-dropdown, .edit-category-dropdown, .edit-actors-dropdown').forEach(dropdown => {
+        dropdown.classList.remove('active');
+    });
 });
 
-window.addEventListener('click', (e) => {
-    // Close modals
-    if (moviesModal.style.display === 'flex' && !moviesModal.contains(e.target) && !e.target.closest('#create-btn')) {
-        moviesModal.style.display = 'none';
-        modalOverlay.classList.remove('active');
-    }
-    if (moviesEditModal.style.display === 'flex' && !moviesEditModal.contains(e.target)) {
-        moviesEditModal.style.display = 'none';
-        modalOverlay.classList.remove('active');
-    }
-    if (moviesDeleteModal.style.display === 'flex' && !moviesDeleteModal.contains(e.target)) {
-        moviesDeleteModal.style.display = 'none';
-        modalOverlay.classList.remove('active');
-    }
-    
-    // Close dropdowns when clicking outside
-    document.querySelectorAll('.category-dropdown, .actors-dropdown, .edit-category-dropdown, .edit-actors-dropdown').forEach(dropdown => {
+// Close dropdowns when clicking outside
+document.addEventListener('click', (e) => {
+    const dropdowns = document.querySelectorAll('.category-dropdown, .actors-dropdown, .edit-category-dropdown, .edit-actors-dropdown');
+    dropdowns.forEach(dropdown => {
         if (!dropdown.contains(e.target)) {
             dropdown.classList.remove('active');
         }
@@ -557,7 +562,6 @@ coverInput.addEventListener('input', (e) => {
     
     if (imageUrl && imageUrl.startsWith('http')) {
         modalImage.src = imageUrl;
-        
         modalImage.onerror = () => {
             modalImage.src = '/assets/icons/modal-img.svg';
         };
@@ -575,7 +579,6 @@ editCoverInput.addEventListener('input', (e) => {
     
     if (imageUrl && imageUrl.startsWith('http')) {
         editModalImage.src = imageUrl;
-        
         editModalImage.onerror = () => {
             editModalImage.src = '/assets/icons/modal-img.svg';
         };
@@ -623,18 +626,6 @@ btnSubmit.addEventListener('click', async () => {
 
         await createMovie(newMovie);
         await renderMovies();
-        
-        // Reset form
-        document.getElementById('input-title').value = '';
-        document.getElementById('input-overview').value = '';
-        document.getElementById('input-cover').value = '';
-        document.getElementById('input-fragman').value = '';
-        document.getElementById('input-watch').value = '';
-        document.getElementById('input-imdb').value = '';
-        document.getElementById('input-runTimeMin').value = '';
-        document.getElementById('sex').checked = false;
-        selectedActors = [];
-        selectedCategory = null;
         
         moviesModal.style.display = 'none';
         modalOverlay.classList.remove('active');
@@ -801,12 +792,12 @@ cancelMovieBtn.addEventListener('click', () => {
 logoutBtn.addEventListener('click', () => {
     localStorage.removeItem('token');
     window.location.href = '/pages/admin/login/login.html';
-});
-
-// Initialize
+});// Initialize
 async function init() {
     await loadDropdownData();
     await renderMovies();
 }
 
 init();
+
+
