@@ -1,232 +1,265 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Raleway', sans-serif;
-    background-color: #000;
-    color: #fff;
+  font-family: Arial, sans-serif;
+  background-color: #000;
+  color: #fff;
 }
 
-.landing-container {
-    min-height: 100vh;
-}
-
-.landing-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 50px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 8%;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
 }
 
 .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.logo img {
-    height: 40px;
+.logo h1 {
+  font-size: 1.4rem;
+  color: #fff;
 }
 
-.logo span {
-    font-size: 24px;
-    font-weight: bold;
-    color: #e50914;
+.signin-btn {
+  background: #e50914;
+  border: none;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.auth-buttons {
-    display: flex;
-    gap: 20px;
-    align-items: center;
+/* Hero Section */
+.hero {
+  position: relative;
+  height: 90vh;
+  background: url('https://www.figma.com/design/c26l66sfAIUh1ritsWTiGk/Filmalisa?node-id=0-1&node-type=canvas&t=aJjepsFVEogMhdTl-0') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
-.btn-login {
-    background-color: #e50914;
-    color: #fff;
-    padding: 8px 20px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: background-color 0.3s;
-}
-
-.btn-login:hover {
-    background-color: #f40612;
-}
-
-.hero-section {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23111" width="1200" height="800"/></svg>');
-    background-size: cover;
-    background-position: center;
-    padding: 0 20px;
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .hero-content {
-    max-width: 900px;
-    padding-top: 80px;
+  position: relative;
+  z-index: 2;
 }
 
-.hero-content h1 {
-    font-size: 48px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    line-height: 1.2;
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
 }
 
-.hero-content > p {
-    font-size: 24px;
-    margin-bottom: 30px;
+.hero p {
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
 }
 
-.cta-section {
-    margin-top: 40px;
+.form input {
+  padding: 0.8rem;
+  width: 250px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 10px;
 }
 
-.cta-text {
-    font-size: 18px;
-    margin-bottom: 20px;
+.form button {
+  padding: 0.8rem 1.5rem;
+  background: #9B51E0;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.email-form {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
+/* Sections */
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 60px 10%;
+  border-top: 8px solid #222;
 }
 
-.email-form input {
-    flex: 1;
-    min-width: 300px;
-    max-width: 500px;
-    padding: 15px 20px;
-    font-size: 16px;
-    border: 1px solid #444;
-    border-radius: 4px;
-    background-color: rgba(255,255,255,0.1);
-    color: #fff;
+.section.reverse {
+  flex-direction: row-reverse;
 }
 
-.email-form input::placeholder {
-    color: #999;
+.section img {
+  width: 400px;
 }
 
-.btn-get-started {
-    padding: 15px 30px;
-    font-size: 18px;
-    font-weight: 600;
-    background-color: #e50914;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    transition: background-color 0.3s;
+.text h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.btn-get-started:hover {
-    background-color: #f40612;
+.text p {
+  font-size: 1rem;
+  color: #bbb;
+  line-height: 1.5;
 }
 
-.features-section {
-    padding: 80px 50px;
-    border-top: 8px solid #222;
+/* Contact */
+.contact {
+  text-align: center;
+  padding: 50px 10%;
+  border-top: 8px solid #222;
 }
 
-.feature {
-    display: flex;
-    align-items: center;
-    gap: 50px;
-    max-width: 1200px;
-    margin: 0 auto 80px;
-    padding: 40px 0;
+.contact input,
+.contact textarea {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
 }
 
-.feature.reverse {
-    flex-direction: row-reverse;
+.contact button {
+  background: #9B51E0;
+  color: #fff;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.feature-text {
-    flex: 1;
+/* FAQ */
+.faq {
+  border-top: 8px solid #222;
+  padding: 50px 10%;
 }
 
-.feature-text h2 {
-    font-size: 42px;
-    margin-bottom: 20px;
-    font-weight: 700;
+.faq h2 {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.feature-text p {
-    font-size: 20px;
-    color: #ddd;
-    line-height: 1.6;
+.faq-item {
+  background: #303030;
+  margin: 10px 0;
+  border-radius: 4px;
 }
 
-.feature-image {
-    flex: 1;
-    text-align: center;
+.faq-question {
+  width: 100%;
+  background: none;
+  color: #fff;
+  border: none;
+  text-align: left;
+  padding: 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.feature-image img {
-    max-width: 400px;
-    width: 100%;
+.faq-answer {
+  display: none;
+  padding: 15px;
+  background: #444;
 }
 
-.landing-footer {
-    padding: 40px 50px;
-    border-top: 8px solid #222;
-    text-align: center;
-    color: #999;
+/* Footer */
+footer {
+  background: #000;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 0.9rem;
+  color: #bbb;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
-    .landing-header {
-        padding: 20px;
-    }
-
-    .hero-content h1 {
-        font-size: 32px;
-    }
-
-    .hero-content > p {
-        font-size: 18px;
-    }
-
-    .email-form {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .email-form input {
-        min-width: 100%;
-    }
-
-    .feature {
-        flex-direction: column !important;
-        text-align: center;
-    }
-
-    .feature-text h2 {
-        font-size: 32px;
-    }
-
-    .feature-text p {
-        font-size: 18px;
-    }
+  .section {
+    flex-direction: column;
+    text-align: center;
+  }
+  .section img {
+    width: 80%;
+    margin-top: 20px;
+  }
 }
+
+body {
+    margin: 0;
+    background-color: #000;
+    font-family: Arial, sans-serif;
+  }
+
+  footer {
+    background-color: #000;
+    color: #737373;
+    padding: 50px 15%;
+  }
+
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+
+  .footer-links ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .footer-links li {
+    margin-bottom: 10px;
+  }
+
+  .footer-links a {
+    color: #737373;
+    font-size: 13px;
+    text-decoration: none;
+  }
+
+  .footer-links a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .footer-links {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-links {
+      grid-template-columns: 1fr;
+    }
+  }
