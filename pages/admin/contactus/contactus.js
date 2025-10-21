@@ -5,14 +5,7 @@ const contactusDeleteModal = document.querySelector('.contactus-delete-modal');
 const deleteContactusBtn = document.getElementById('delete-contactus-btn');
 const cancelDeleteBtn = document.getElementById('cancel-contactus-btn');
 const logoutBtn = document.querySelector('.logout');
-
-// Debug: Elementlərin seçildiyini yoxla
-console.log('Modal elements:', {
-    contactusViewModal,
-    contactusDeleteModal,
-    deleteContactusBtn,
-    cancelDeleteBtn
-});
+const modalOverlay = document.querySelector('.modal-overlay');
 
 let currentPage = 1;
 const itemsPerPage = 8;
@@ -162,8 +155,10 @@ async function chooseContactus(id, method) {
         if (method === 'search') {
             contactusView.textContent = contactus.reason;
             contactusViewModal.style.display = 'flex';
+            modalOverlay.classList.add('active');
         } else if (method === 'remove') {
             contactusDeleteModal.style.display = 'flex';
+            modalOverlay.classList.add('active');
         }
     } catch (error) {
         console.error('Xəta baş verdi:', error);
@@ -189,11 +184,20 @@ async function chooseContactus(id, method) {
 
 
 // EVENTS
+
+// Close modal when clicking on overlay
+modalOverlay.addEventListener('click', () => {
+    contactusViewModal.style.display = 'none';
+    contactusDeleteModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
+});
+
 deleteContactusBtn.addEventListener('click', async () => {
     const localId = JSON.parse(localStorage.getItem('contactusId'));
     await deleteContactus(localId);
     await renderContactus();
     contactusDeleteModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
 
     Toastify({
         text: "Contact uğurla silindi ✅",
@@ -213,14 +217,17 @@ deleteContactusBtn.addEventListener('click', async () => {
 
 cancelDeleteBtn.addEventListener('click', () => {
     contactusDeleteModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
 });
 
 window.addEventListener('click', (e) => {
     if (contactusViewModal.style.display === 'flex' && !contactusViewModal.contains(e.target)) {
         contactusViewModal.style.display = 'none';
+        modalOverlay.classList.remove('active');
     }
     if (contactusDeleteModal.style.display === 'flex' && !contactusDeleteModal.contains(e.target)) {
         contactusDeleteModal.style.display = 'none';
+        modalOverlay.classList.remove('active');
     }
 });
 

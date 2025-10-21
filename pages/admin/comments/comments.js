@@ -5,6 +5,7 @@ const commentsDeleteModal = document.querySelector('.comments-delete-modal');
 const deleteCommentBtn = document.getElementById('delete-comment-btn');
 const cancelDeleteBtn = document.getElementById('cancel-comment-btn');
 const logoutBtn = document.querySelector('.logout');
+const modalOverlay = document.querySelector('.modal-overlay');
 
 let currentPage = 1;
 const itemsPerPage = 8;
@@ -161,8 +162,10 @@ async function chooseComments(id, method) {
         if (method === 'search') {
             commentView.textContent = comment.comment;
             commentsViewModal.style.display = 'flex';
+            modalOverlay.classList.add('active');
         } else if (method === 'remove') {
             commentsDeleteModal.style.display = 'flex';
+            modalOverlay.classList.add('active');
         }
     } catch (error) {
         console.error('Xəta baş verdi:', error);
@@ -189,12 +192,21 @@ async function chooseComments(id, method) {
 
 // EVENTS
 
+// Close modal when clicking on overlay
+modalOverlay.addEventListener('click', () => {
+    commentsViewModal.style.display = 'none';
+    commentsDeleteModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
+});
+
 window.addEventListener('click', (e) => {
     if (commentsViewModal.style.display === 'flex' && !commentsViewModal.contains(e.target)) {
         commentsViewModal.style.display = 'none';
+        modalOverlay.classList.remove('active');
     }
     if (commentsDeleteModal.style.display === 'flex' && !commentsDeleteModal.contains(e.target)) {
         commentsDeleteModal.style.display = 'none';
+        modalOverlay.classList.remove('active');
     }
 });
 
@@ -208,6 +220,7 @@ deleteCommentBtn.addEventListener('click', async () => {
         await deleteCommentById(movieId, commentId);
         await renderComments();
         commentsDeleteModal.style.display = 'none';
+        modalOverlay.classList.remove('active');
 
         Toastify({
             text: "Comment uğurla silindi ✅",
@@ -244,6 +257,7 @@ deleteCommentBtn.addEventListener('click', async () => {
 
 cancelDeleteBtn.addEventListener('click', () => {
     commentsDeleteModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
 });
 
 logoutBtn.addEventListener('click', () => {

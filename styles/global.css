@@ -241,6 +241,43 @@ li{
     transform: translateX(-50%) translateY(-100%);
 }
 
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 998;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Modal z-index management */
+.movies-modal,
+.movies-edit-modal,
+.movies-delete-modal,
+.actors-modal,
+.actors-edit-modal,
+.actors-delete-modal,
+.categories-modal,
+.categories-edit-modal,
+.categories-delete-modal,
+.comments-view-modal,
+.comments-delete-modal,
+.contactus-view-modal,
+.contactus-delete-modal {
+    z-index: 999 !important;
+}
+
 /* Responsive Error Handling */
 @media (max-width: 768px) {
     .toast {
