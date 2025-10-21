@@ -41,27 +41,29 @@
 
 .login-input {
   position: relative;
-
+  margin-bottom: 16px;
 }
 
 .login-input img {
   position: absolute;
-  left: 10px;
-  top: 22px;
+  width: 20px;
+  height: 20px;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 #login-username,
 #login-password {
   width: 547px;
   height: 64px;
-  margin-bottom: 16px;
   border: 1px solid #323B54;
   background-color: transparent;
   outline: none;
   border-radius: 12px;
   transition: outline 0.5s ease;
   color:#ffff;
-  padding:0px 0px 0px 40px;
+  padding: 0px 45px 0px 45px;
 }
 
 #login-username::placeholder,
