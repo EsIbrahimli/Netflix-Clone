@@ -10,6 +10,7 @@ const categoriesDeleteModal = document.querySelector('.categories-delete-modal')
 const deleteCategoriesBtn = document.getElementById('delete-categories-btn');
 const cancelDeleteBtn = document.getElementById('cancel-categories-btn');
 const logoutBtn = document.querySelector('.logout');
+const modalOverlay = document.querySelector('.modal-overlay');
 
 let currentPage = 1;
 const itemsPerPage = 8;
@@ -203,12 +204,14 @@ async function chooseCategories(id, method) {
         if (method === 'remove') {
             localStorage.setItem('categoryId', JSON.stringify(id));
             categoriesDeleteModal.style.display = 'flex';
+            modalOverlay.classList.add('active');
         } else if (method === 'edit') {
             const category = categoriesData.find(cat => cat.id === id);
             if (category) {
                 editNameInput.value = category.name;
                 localStorage.setItem('categoryId', JSON.stringify(id));
                 categoriesEditModal.style.display = 'flex';
+                modalOverlay.classList.add('active');
             }
         }
     } catch (error) {
@@ -237,17 +240,29 @@ async function chooseCategories(id, method) {
 createCategoryBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     categoriesModal.style.display = 'flex';
+    modalOverlay.classList.add('active');
+});
+
+// Close modal when clicking on overlay
+modalOverlay.addEventListener('click', () => {
+    categoriesModal.style.display = 'none';
+    categoriesEditModal.style.display = 'none';
+    categoriesDeleteModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
 });
 
 window.addEventListener('click', (e) => {
-    if (categoriesModal.style.display === 'flex' && !categoriesModal.contains(e.target)) {
+    if (categoriesModal.style.display === 'flex' && !categoriesModal.contains(e.target) && !e.target.closest('#create-category-btn')) {
         categoriesModal.style.display = 'none';
+        modalOverlay.classList.remove('active');
     }
     if (categoriesEditModal.style.display === 'flex' && !categoriesEditModal.contains(e.target)) {
         categoriesEditModal.style.display = 'none';
+        modalOverlay.classList.remove('active');
     }
     if (categoriesDeleteModal.style.display === 'flex' && !categoriesDeleteModal.contains(e.target)) {
         categoriesDeleteModal.style.display = 'none';
+        modalOverlay.classList.remove('active');
     }
 });
 
@@ -285,6 +300,7 @@ addCategoriesBtn.addEventListener('click', async () => {
     await createCategory(newCategory);
     await renderCategories();
     categoriesModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
     addNameInput.value = '';
 
 
@@ -317,6 +333,7 @@ editCategoriesBtn.addEventListener('click', async () => {
     await renderCategories();
 
     categoriesEditModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
     editNameInput.value = '';
 
       Toastify({
@@ -341,6 +358,7 @@ deleteCategoriesBtn.addEventListener('click', async () => {
     await deleteCategoryById(localId);
     await renderCategories();
     categoriesDeleteModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
 
       Toastify({
         text: "Kateqoriya uğurla silindi ✅",
@@ -361,6 +379,7 @@ deleteCategoriesBtn.addEventListener('click', async () => {
 
 cancelDeleteBtn.addEventListener('click', () => {
     categoriesDeleteModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
 });
 
 logoutBtn.addEventListener('click', () => {

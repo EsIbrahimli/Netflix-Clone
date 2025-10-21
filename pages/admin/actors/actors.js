@@ -17,6 +17,7 @@ const deleteActorBtn = document.getElementById('delete-actors-btn');
 const cancelDeleteActorBtn = document.getElementById('cancel-actors-btn');
 const actorEditImg = document.querySelector('.actor-edit-img');
 const actorCreateImg = document.querySelector('.actor-create-img');
+const modalOverlay = document.querySelector('.modal-overlay');
 const token = localStorage.getItem('token');
 
 
@@ -196,6 +197,7 @@ async function chooseActors(id, method) {
         if (method === 'remove') {
             localStorage.setItem('actorId', JSON.stringify(id));
             actorsDeleteModal.style.display = 'flex';
+            modalOverlay.classList.add('active');
         } else if (method === 'edit') {
             const actor = allActors.find(cat => cat.id === id);
             if (actor) {
@@ -205,6 +207,7 @@ async function chooseActors(id, method) {
                 actorEditImg.src = actor.img_url;
                 localStorage.setItem('actorId', JSON.stringify(id));
                 actorsEditModal.style.display = 'flex';
+                modalOverlay.classList.add('active');
             }
         }
     } catch (error) {
@@ -234,7 +237,17 @@ async function chooseActors(id, method) {
 createBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     actorsModal.style.display = 'flex';
+    modalOverlay.classList.add('active');
 })
+
+// Close modal when clicking on overlay
+modalOverlay.addEventListener('click', () => {
+    actorsModal.style.display = 'none';
+    actorsEditModal.style.display = 'none';
+    actorsDeleteModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
+    actorCreateImg.src = '/assets/images/default.jpg';
+});
 
 // Image URL Preview for Create Modal
 actorImgInput.addEventListener('input', (e) => {
@@ -283,15 +296,18 @@ editImgInput.addEventListener('input', (e) => {
 })
 
 window.addEventListener('click', (e) => {
-    if (actorsModal.style.display === 'flex' && !actorsModal.contains(e.target)) {
+    if (actorsModal.style.display === 'flex' && !actorsModal.contains(e.target) && !e.target.closest('#create-btn')) {
         actorsModal.style.display = 'none';
+        modalOverlay.classList.remove('active');
         actorCreateImg.src = '/assets/images/default.jpg';
     }
     if (actorsEditModal.style.display === 'flex' && !actorsEditModal.contains(e.target)) {
         actorsEditModal.style.display = 'none';
+        modalOverlay.classList.remove('active');
     }
     if (actorsDeleteModal.style.display === 'flex' && !actorsDeleteModal.contains(e.target)) {
         actorsDeleteModal.style.display = 'none';
+        modalOverlay.classList.remove('active');
     }
 });
 
@@ -332,6 +348,7 @@ addActorBtn.addEventListener('click', async () => {
     await renderActors();
     console.log('Actor added successfully');
     actorsModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
     actorNameInput.value = '';
     actorSurnameInput.value = '';
     actorImgInput.value = '';
@@ -367,6 +384,7 @@ editActorBtn.addEventListener('click', async () => {
     await renderActors();
 
     actorsEditModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
     editNameInput.value = '';
     editSurnameInput.value = '';
     editImgInput.value = '';
@@ -392,6 +410,7 @@ deleteActorBtn.addEventListener('click', async () => {
     await deleteActorById(localId);
     await renderActors();
     actorsDeleteModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
 
        Toastify({
         text: "Aktyor uğurla silindi ✅",
@@ -411,6 +430,7 @@ deleteActorBtn.addEventListener('click', async () => {
 
 cancelDeleteActorBtn.addEventListener('click', () => {
     actorsDeleteModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
 });
 
 
