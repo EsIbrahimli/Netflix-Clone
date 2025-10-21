@@ -237,7 +237,7 @@
 }
 
 
-/*Movie2 Modal Styles*/
+/*Create Modal Styles*/
 
 .movies-modal {
     background-color: #171616;
@@ -307,6 +307,8 @@
     bottom: 100%;
     left: 0;
     width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
     background-color: #171616;
     border: 1px solid #323B54;
     border-top: none;
@@ -446,6 +448,8 @@
     bottom: 100%;
     left: 0;
     width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
     background-color: #171616;
     border: 1px solid #323B54;
     border-top: none;
@@ -455,6 +459,36 @@
 .edit-category-dropdown.active .options,
 .edit-actors-dropdown.active .options {
     display: block;
+}
+
+/* Scrollbar stilləri */
+.category-dropdown .options::-webkit-scrollbar,
+.actors-dropdown .options::-webkit-scrollbar,
+.edit-category-dropdown .options::-webkit-scrollbar,
+.edit-actors-dropdown .options::-webkit-scrollbar {
+    width: 6px;
+}
+
+.category-dropdown .options::-webkit-scrollbar-track,
+.actors-dropdown .options::-webkit-scrollbar-track,
+.edit-category-dropdown .options::-webkit-scrollbar-track,
+.edit-actors-dropdown .options::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+.category-dropdown .options::-webkit-scrollbar-thumb,
+.actors-dropdown .options::-webkit-scrollbar-thumb,
+.edit-category-dropdown .options::-webkit-scrollbar-thumb,
+.edit-actors-dropdown .options::-webkit-scrollbar-thumb {
+    background: #323B54;
+    border-radius: 3px;
+}
+
+.category-dropdown .options::-webkit-scrollbar-thumb:hover,
+.actors-dropdown .options::-webkit-scrollbar-thumb:hover,
+.edit-category-dropdown .options::-webkit-scrollbar-thumb:hover,
+.edit-actors-dropdown .options::-webkit-scrollbar-thumb:hover {
+    background: #3d4761;
 }
 
 .edit-category-dropdown .option,
