@@ -36,39 +36,42 @@
             <img src="/assets/images/movie-info-img.png" alt="">
          </div>
          <div class="movie-info-content">
-             <h1>have you ever seen our robot? <span>Watch Link</span></h1>
-             <p>The mission to save Scarecrow takes an unexpected turn, throwing the Resolute into chaos. Judy hatches a plan to get a ship to Alpha Centauri.</p>
-             <span><img src="/assets/icons/movie-info-star.svg" alt="">8.1</span>
-             <div>
-                <p>Type</p>
-                <h1>Tv Show</h1>
+             <h1 class="movie-info-title">have you ever seen our robot? <span class="watch-link">Watch Link</span></h1>
+             <span class="add-fav-icon"><img src="/assets/icons/add-fav-icon.svg" alt=""></span>
+             <p class="movie-info-description">The mission to save Scarecrow takes an unexpected turn, throwing the Resolute into chaos. Judy hatches a plan to get a ship to Alpha Centauri.</p>
+             <span class="movie-info-rating"><img src="/assets/icons/movie-info-star.svg" alt="">8.1</span>
+            <div class="movie-info-items-container">
+             <div class="movie-info-item movie-info-type-container">
+                <p class="movie-info-type">Type</p>
+                <h1 class="movie-info-type-value">Tv Show</h1>
              </div>
-             <div>
-                <p>Status</p>
-                <h1>Returning Series</h1>
+             <div class="movie-info-item movie-info-status-container">
+                <p class="movie-info-status">Status</p>
+                <h1 class="movie-info-status-value">Returning Series</h1>
              </div>
-             <div>
-                <p>No. of episodes</p>
-                <h1>20</h1>
+             <div class="movie-info-item movie-info-no-of-episodes-container">
+                <p class="movie-info-no-of-episodes">No. of episodes</p>
+                <h1 class="movie-info-no-of-episodes-value">20</h1>
              </div>
-             <div>
-                <p>First air date</p>
-                <h1>2018-04-13</h1>
+             <div class="movie-info-item movie-info-first-air-date-container">
+                <p class="movie-info-first-air-date">First air date</p>
+                <h1 class="movie-info-first-air-date-value">2018-04-13</h1>
              </div>
-             <div>
-                <p>Last air date</p>
-                <h1>2019-04-24</h1>
+             <div class="movie-info-item movie-info-last-air-date-container">
+                <p class="movie-info-last-air-date">Last air date</p>
+                <h1 class="movie-info-last-air-date-value">2019-04-24</h1>
              </div>
-             <div>
-                <p>Episode run time</p>
-                <h1>56 min</h1>
+             <div class="movie-info-item movie-info-episode-run-time-container">
+                <p class="movie-info-episode-run-time">Episode run time</p>
+                <h1 class="movie-info-episode-run-time-value">56 min</h1>
              </div>
-             <div>
-                <p>Genres</p>
-                <h1>Action & Adventure, Sci-Fi & Fantasy, Drama</h1>
+             <div class="movie-info-item movie-info-genres-container">
+                <p class="movie-info-genres">Genres</p>
+                <h1 class="movie-info-genres-value">Action & Adventure, Sci-Fi & Fantasy, Drama</h1>
              </div>
-             <h1>Top cost</h1>
-             <div>
+            </div>
+             <h1 class="movie-info-top-cost">Top cost</h1>
+             <div class="movie-info-top-cost-icons">
                 <img src="/assets/icons/top-movie-icon.svg" alt="">
                 <img src="/assets/icons/top-movie-icon.svg" alt="">
                 <img src="/assets/icons/top-movie-icon.svg" alt="">
@@ -80,37 +83,39 @@
 
        <section class="movie-comment-section">
         <form class="comment-form">
-            <img src="/assets/icons/profile-img.svg" alt="">
+            <img class="profile-img" src="/assets/icons/profile-img.svg" alt="">
             <input id="comment-input" type="text" placeholder="your comment...">
-            <button id="comment-btn">Comment</button>
+            <button id="comment-btn"><img src="/assets/icons/comment-btn.svg" alt=""></button>
         </form>
         <div class="comments-container">
             <div class="comment-item">
                 <div class="comment-content">
-                    <p class="comment-text">Comment</p>
-                    <span>1 hour ago</span>
-                    <img src="/assets/icons/profile-img.svg" alt="">
-                    <span>John Doe</span>
+                    <div class="comment-profile-info">
+                       <img class="profile-img" src="/assets/icons/profile-img.svg" alt="">
+                       <h1 class="comment-profile-name">John Doe</h1>
+                    </div>
+                     <div class="comment-profile-time-container">
+                           <span class="comment-profile-time">16:30 today</span>
+                    </div>
+                </div>
+                <div class="comment-text-container">
+                    <p class="comment-text">Woah, your project looks awesome! How long have you been coding for? I’m still new, but think I want to dive into React as well soon. Perhaps you can give me an insight on where I can learn React? Thanks!</p>
+                    </div>
                 </div>
             </div>
-        </div>
-       </section>
+        </section>
         
        <section class="similar-movies-section">
-         <h1>Similar Movies<span></span></h1>
+         <h1 class="similar-movies-title">Similar Movies<span><img src="/assets/icons/similar-arrow-icon.svg" alt=""></span></h1>
          <div class="similar-movies-cards">
             <div class="similar-movie-card1"><img src="/assets/images/movie-card1.png" alt="">
-            <h3 class="movie-category-name">Sci-Fi & Fantasy</h3>
-            <h1 class="movie-title">The Dark Knight</h1>
+               <h3 class="movie-category-name">Sci-Fi & Fantasy</h3>
+                <h1 class="movie-title">The Dark Knight</h1>
             </div>
             <div class="similar-movie-card2"><img src="/assets/images/movie-card2.png" alt="">
-            <h3 class="movie-category-name">Sci-Fi & Fantasy</h3>
-            <h1 class="movie-title">The Dark Knight</h1>
+                <h3 class="movie-category-name">Sci-Fi & Fantasy</h3>
+                <h1 class="movie-title">The Falcon and the Winter Soldier</h1>
             </div>  
-            <div class="similar-movie-card3"><img src="/assets/images/movie-card3.png" alt="">
-            <h3 class="movie-category-name">Sci-Fi & Fantasy</h3>
-            <h1 class="movie-title">The Dark Knight</h1>
-            </div>
          </div>
        </section>
     </div>
