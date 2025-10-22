@@ -1,0 +1,134 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #181818;
+    color: #fff;
+    font-family: "Nunito Sans", "Raleway", Arial, sans-serif;
+  }
+  
+  .main-container {
+    display: flex;
+    min-height: 100vh;
+    background: #181818;
+  }
+  
+  .sidebar {
+    width: 80px;
+    background: #111;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 24px;
+    box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.5);
+  }
+  
+  .sidebar-logo {
+    margin-bottom: 32px;
+  }
+  
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  .sidebar-nav a img {
+    width: 32px;
+    height: 32px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .sidebar-nav a img:hover {
+    opacity: 1;
+  }
+  
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  
+  .illustration {
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: center;
+  }
+  .illustration img {
+    max-width: 320px;
+    width: 100%;
+  }
+  
+  .title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  
+  .subtitle {
+    font-size: 1.1rem;
+    color: #b3b3b3;
+    margin-bottom: 32px;
+    text-align: center;
+    max-width: 400px;
+  }
+  
+  .go-home-btn {
+    display: inline-block;
+    background: #a259e4;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 14px 38px;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 4px 24px 0 rgba(162, 89, 228, 0.15);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .go-home-btn:hover {
+    background: #7c3aed;
+    transform: translateY(-2px) scale(1.04);
+  }
+  
+  @media (max-width: 900px) {
+    .main-container {
+      flex-direction: column;
+    }
+    .sidebar {
+      flex-direction: row;
+      width: 100%;
+      height: 70px;
+      padding-top: 0;
+      justify-content: center;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+    }
+    .sidebar-logo {
+      margin-bottom: 0;
+      margin-right: 32px;
+    }
+    .sidebar-nav {
+      flex-direction: row;
+      gap: 32px;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .title {
+      font-size: 2rem;
+    }
+    .subtitle {
+      font-size: 1rem;
+      max-width: 90vw;
+    }
+    .go-home-btn {
+      padding: 12px 24px;
+      font-size: 1rem;
+    }
+    .illustration img {
+      max-width: 200px;
+    }
+  }
