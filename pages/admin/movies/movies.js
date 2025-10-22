@@ -7,6 +7,40 @@ const moviesDeleteModal = document.querySelector('.movies-delete-modal');
 const modalOverlay = document.querySelector('.modal-overlay');
 const deleteMovieBtn = document.getElementById('delete-movie-btn');
 const cancelMovieBtn = document.getElementById('cancel-movie-btn');
+const inputTitle = document.getElementById('input-title');
+const inputOverview = document.getElementById('input-overview');
+const inputCover = document.getElementById('input-cover');
+const inputFragman = document.getElementById('input-fragman');
+const inputWatch = document.getElementById('input-watch');
+const inputImdb = document.getElementById('input-imdb');
+const inputRunTimeMin = document.getElementById('input-runTimeMin');
+const categoryDropdown = document.querySelector('.category-dropdown');
+const actorsDropdown = document.querySelector('.actors-dropdown');
+const categoryOptions = document.querySelector('.category-options');
+const actorsOptions = document.querySelector('.actors-options');
+const modalCheckbox = document.querySelector('.modal-checkbox');
+const editCategoryOptions = document.querySelector('.edit-category-options');
+const editActorsOptions = document.querySelector('.edit-actors-options');
+const btnSubmit = document.getElementById('btn-submit');
+const btnEditSubmit = document.getElementById('btn-edit-submit');
+const modalImage = document.querySelector('.modal-image');
+const modalRight = document.querySelector('.modal-right');
+const modalLeft = document.querySelector('.modal-left');
+const sexCheckbox = document.getElementById('sex');
+
+// Edit Modal Elements
+const editInputTitle = document.getElementById('edit-input-title');
+const editInputOverview = document.getElementById('edit-input-overview');
+const editInputCover = document.getElementById('edit-input-cover');
+const editInputFragman = document.getElementById('edit-input-fragman');
+const editInputWatch = document.getElementById('edit-input-watch');
+const editInputImdb = document.getElementById('edit-input-imdb');
+const editInputRunTimeMin = document.getElementById('edit-input-runTimeMin');
+const editCategoryDropdown = document.querySelector('.edit-category-dropdown');
+const editActorsDropdown = document.querySelector('.edit-actors-dropdown');
+const editSexCheckbox = document.getElementById('edit-sex');
+const modalEditImage = document.querySelector('.modal-edit-image');
+
 //Token
 const token = localStorage.getItem('token');
 
@@ -15,10 +49,7 @@ const itemsPerPage = 8;
 let allMovies = [];
 let allCategories = [];
 let allActors = [];
-let selectedActors = [];
-let selectedCategory = null;
-let editSelectedActors = [];
-let editSelectedCategory = null;
+
 
 // API Functions
 async function getCategories() {
@@ -174,143 +205,8 @@ async function updateMovieById(id, updatedMovie) {
         throw error;
     }
 }
+//--------------------------------------------------------------
 
-// Setup Dropdowns
-function setupCategoryDropdown(isEdit = false) {
-    const prefix = isEdit ? 'edit-' : '';
-    const dropdownContainer = document.querySelector(`.${prefix}category-dropdown`);
-    const selectedOption = dropdownContainer.querySelector('.selected-option');
-    const optionsContainer = dropdownContainer.querySelector('.options');
-
-    // Clear previous content
-    optionsContainer.innerHTML = '';
-
-    // Add categories
-    allCategories.forEach(category => {
-        const option = document.createElement('div');
-        option.className = 'option';
-        option.textContent = category.name;
-        option.dataset.id = category.id;
-        
-        option.addEventListener('click', () => {
-            if (isEdit) {
-                editSelectedCategory = category.id;
-            } else {
-                selectedCategory = category.id;
-            }
-            selectedOption.innerHTML = `${category.name} <i class="fa-solid fa-chevron-down"></i>`;
-            dropdownContainer.classList.remove('active');
-        });
-        
-        optionsContainer.appendChild(option);
-    });
-
-    // Toggle dropdown
-    selectedOption.onclick = (e) => {
-        e.stopPropagation();
-        dropdownContainer.classList.toggle('active');
-        // Close other dropdowns
-        document.querySelectorAll(`.${prefix}actors-dropdown`).forEach(d => d.classList.remove('active'));
-    };
-}
-
-function setupActorsDropdown(isEdit = false) {
-    const prefix = isEdit ? 'edit-' : '';
-    const dropdownContainer = document.querySelector(`.${prefix}actors-dropdown`);
-    const selectedOption = dropdownContainer.querySelector('.selected-option');
-    const optionsContainer = dropdownContainer.querySelector('.options');
-
-    // Clear previous content
-    optionsContainer.innerHTML = '';
-
-    // Add actors
-    allActors.forEach(actor => {
-        const option = document.createElement('div');
-        option.className = 'option';
-        
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.id = `${prefix}actor-${actor.id}`;
-        checkbox.value = actor.id;
-        
-        const label = document.createElement('label');
-        label.htmlFor = `${prefix}actor-${actor.id}`;
-        label.textContent = `${actor.name} ${actor.surname}`;
-        
-        checkbox.addEventListener('change', (e) => {
-            e.stopPropagation();
-            const actorId = parseInt(checkbox.value);
-            
-            if (isEdit) {
-                if (checkbox.checked) {
-                    if (!editSelectedActors.includes(actorId)) {
-                        editSelectedActors.push(actorId);
-                    }
-                } else {
-                    editSelectedActors = editSelectedActors.filter(id => id !== actorId);
-                }
-                updateSelectedActorsDisplay(true);
-            } else {
-                if (checkbox.checked) {
-                    if (!selectedActors.includes(actorId)) {
-                        selectedActors.push(actorId);
-                    }
-                } else {
-                    selectedActors = selectedActors.filter(id => id !== actorId);
-                }
-                updateSelectedActorsDisplay(false);
-            }
-        });
-        
-        option.appendChild(checkbox);
-        option.appendChild(label);
-        optionsContainer.appendChild(option);
-    });
-
-    // Toggle dropdown
-    selectedOption.onclick = (e) => {
-        e.stopPropagation();
-        dropdownContainer.classList.toggle('active');
-        // Close other dropdowns
-        document.querySelectorAll(`.${prefix}category-dropdown`).forEach(d => d.classList.remove('active'));
-    };
-}
-
-function updateSelectedActorsDisplay(isEdit = false) {
-    const prefix = isEdit ? 'edit-' : '';
-    const selectedOption = document.querySelector(`.${prefix}actors-dropdown .selected-option`);
-    const actors = isEdit ? editSelectedActors : selectedActors;
-    
-    if (actors.length > 0) {
-        const actorNames = actors.map(id => {
-            const actor = allActors.find(a => a.id === id);
-            return actor ? `${actor.name} ${actor.surname}` : '';
-        }).filter(name => name !== '');
-        
-        selectedOption.innerHTML = `${actorNames.join(', ')} <i class="fa-solid fa-chevron-down"></i>`;
-    } else {
-        selectedOption.innerHTML = `actors <i class="fa-solid fa-chevron-down"></i>`;
-    }
-}
-
-async function loadDropdownData() {
-    const categoriesData = await getCategories();
-    const actorsData = await getActors();
-    
-    if (categoriesData && categoriesData.data) {
-        allCategories = categoriesData.data;
-    }
-    
-    if (actorsData && actorsData.data) {
-        allActors = actorsData.data;
-    }
-
-    // Setup dropdowns for both modals
-    setupCategoryDropdown(false); // Create modal
-    setupActorsDropdown(false);   // Create modal
-    setupCategoryDropdown(true);  // Edit modal
-    setupActorsDropdown(true);    // Edit modal
-}
 
 // Render Functions
 async function renderMovies() {
@@ -334,10 +230,10 @@ function showPage(page) {
             <td>${movie.category?.name || 'No category'}</td>
             <td>${movie.imdb}</td>
            <td>
-               <button class="edit-btn" onclick="window.openEditModal(${movie.id})"><i class="fa-solid fa-pen"></i></button>
+               <button class="edit-btn" onclick="chooseMovie(${movie.id}, 'edit')"><i class="fa-solid fa-pen"></i></button>
             </td>
            <td>
-              <button class="delete-btn" onclick="window.openDeleteModal(${movie.id})"><i class="fa-solid fa-trash"></i></button>
+              <button class="delete-btn" onclick="chooseMovie(${movie.id}, 'delete')"><i class="fa-solid fa-trash"></i></button>
           </td>
         </tr>
     `).join('');
@@ -392,135 +288,145 @@ function renderPagination() {
   });
 }
 
-// Modal Functions - Make them global so onclick can access them
-window.openEditModal = async function(movieId) {
-    console.log('Opening edit modal for movie:', movieId);
+renderMovies();
+
+// Dropdown-ları dinamik et
+async function loadDropdowns() {
+    const categoriesData = await getCategories();
+    const actorsData = await getActors();
+    allCategories = categoriesData.data;
+    allActors = actorsData.data;
+    
+    // Category options
+    categoryOptions.innerHTML = allCategories.map(c => 
+        `<div class="option" data-id="${c.id}">${c.name}</div>`).join('');
+    editCategoryOptions.innerHTML = allCategories.map(c => 
+        `<div class="option" data-id="${c.id}">${c.name}</div>`).join('');
+    
+    // Actors options
+    actorsOptions.innerHTML = allActors.map(a => 
+        `<div class="option" data-id="${a.id}">${a.name}</div>`).join('');
+    editActorsOptions.innerHTML = allActors.map(a => 
+        `<div class="option" data-id="${a.id}">${a.name}</div>`).join('');
+    
+    // Dropdown açma/bağlama
+    categoryDropdown.querySelector('.selected-option').onclick = () => {
+        categoryOptions.style.display = categoryOptions.style.display === 'block' ? 'none' : 'block';
+    };
+    actorsDropdown.querySelector('.selected-option').onclick = () => {
+        actorsOptions.style.display = actorsOptions.style.display === 'block' ? 'none' : 'block';
+    };
+    editCategoryDropdown.querySelector('.selected-option').onclick = () => {
+        editCategoryOptions.style.display = editCategoryOptions.style.display === 'block' ? 'none' : 'block';
+    };
+    editActorsDropdown.querySelector('.selected-option').onclick = () => {
+        editActorsOptions.style.display = editActorsOptions.style.display === 'block' ? 'none' : 'block';
+    };
+    
+    // Seçim etmə
+    categoryOptions.querySelectorAll('.option').forEach(opt => {
+        opt.onclick = () => {
+            categoryDropdown.querySelector('.selected-option').innerHTML = opt.textContent + ' <i class="fa-solid fa-chevron-down"></i>';
+            categoryDropdown.dataset.selectedId = opt.dataset.id;
+            categoryOptions.style.display = 'none';
+        };
+    });
+    actorsOptions.querySelectorAll('.option').forEach(opt => {
+        opt.onclick = () => {
+            actorsDropdown.querySelector('.selected-option').innerHTML = opt.textContent + ' <i class="fa-solid fa-chevron-down"></i>';
+            actorsDropdown.dataset.selectedId = opt.dataset.id;
+            actorsOptions.style.display = 'none';
+        };
+    });
+    editCategoryOptions.querySelectorAll('.option').forEach(opt => {
+        opt.onclick = () => {
+            editCategoryDropdown.querySelector('.selected-option').innerHTML = opt.textContent + ' <i class="fa-solid fa-chevron-down"></i>';
+            editCategoryDropdown.dataset.selectedId = opt.dataset.id;
+            editCategoryOptions.style.display = 'none';
+        };
+    });
+    editActorsOptions.querySelectorAll('.option').forEach(opt => {
+        opt.onclick = () => {
+            editActorsDropdown.querySelector('.selected-option').innerHTML = opt.textContent + ' <i class="fa-solid fa-chevron-down"></i>';
+            editActorsDropdown.dataset.selectedId = opt.dataset.id;
+            editActorsOptions.style.display = 'none';
+        };
+    });
+}
+loadDropdowns();
+
+async function chooseMovie(id, action) {
     try {
-        const movieData = await getMovieById(movieId);
-        console.log('Movie data received:', movieData);
-        const movie = movieData.data;
-
-        // Fill form fields
-        document.getElementById('edit-input-title').value = movie.title || '';
-        document.getElementById('edit-input-overview').value = movie.overview || '';
-        document.getElementById('edit-input-cover').value = movie.cover_url || '';
-        document.getElementById('edit-input-fragman').value = movie.fragman_url || '';
-        document.getElementById('edit-input-watch').value = movie.watch_url || '';
-        document.getElementById('edit-input-imdb').value = movie.imdb || '';
-        document.getElementById('edit-input-runTimeMin').value = movie.run_time_min || '';
-        document.getElementById('edit-sex').checked = movie.is_adult || false;
-        
-        console.log('Form fields filled successfully');
-
-        // Update the image preview
-        const editImage = document.querySelector('.modal-edit-image');
-        if (movie.cover_url) {
-            editImage.src = movie.cover_url;
-        } else {
-            editImage.src = '/assets/icons/modal-img.svg';
+        const moviesData = await getMovies();
+        allMovies = moviesData.data;
+        localStorage.setItem('movieId', id);
+    if (action === 'edit') {
+        const movie = allMovies.find(movie => movie.id === id);
+        if (movie) {
+            // Edit modal elementlərinə data yazırıq
+            editInputTitle.value = movie.title;
+            editInputOverview.value = movie.overview;
+            editInputCover.value = movie.cover_url;
+            editInputFragman.value = movie.fragman;
+            editInputWatch.value = movie.watch_url;
+            editInputImdb.value = movie.imdb;
+            editInputRunTimeMin.value = movie.run_time_min;
+            editSexCheckbox.checked = movie.adult;
+            modalEditImage.src = movie.cover_url;
+            
+            // Seçilmiş category göstər
+            const selectedCat = allCategories.find(c => c.id === movie.category_id);
+            if (selectedCat) {
+                editCategoryDropdown.querySelector('.selected-option').innerHTML = selectedCat.name + ' <i class="fa-solid fa-chevron-down"></i>';
+                editCategoryDropdown.dataset.selectedId = selectedCat.id;
+            }
+            
+            // Seçilmiş actor göstər
+            const actorId = Array.isArray(movie.actor_ids) ? movie.actor_ids[0] : movie.actor_ids;
+            const selectedActor = allActors.find(a => a.id === actorId);
+            if (selectedActor) {
+                editActorsDropdown.querySelector('.selected-option').innerHTML = selectedActor.name + ' <i class="fa-solid fa-chevron-down"></i>';
+                editActorsDropdown.dataset.selectedId = selectedActor.id;
+            }
+            
+            moviesEditModal.style.display = 'flex';
+            modalOverlay.classList.add('active');
         }
-
-        // Reset and set selected actors first
-        editSelectedActors = movie.actors ? movie.actors.map(actor => actor.id) : [];
-        
-        // Reset and set selected category
-        if (movie.category) {
-            editSelectedCategory = movie.category.id;
-        } else {
-            editSelectedCategory = null;
+        else {
+            Toastify({
+                text: "Film tapılmadı!",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#a72a28ff",
+            }).showToast();
         }
-
-        // Re-setup dropdowns to ensure they're fresh
-        setupCategoryDropdown(true);
-        setupActorsDropdown(true);
-
-        // Now set the display values and check checkboxes
-        if (movie.category) {
-            document.querySelector('.edit-category-dropdown .selected-option').innerHTML = 
-                `${movie.category.name} <i class="fa-solid fa-chevron-down"></i>`;
-        } else {
-            document.querySelector('.edit-category-dropdown .selected-option').innerHTML = 
-                `category <i class="fa-solid fa-chevron-down"></i>`;
-        }
-        
-        // Check the selected actors in checkboxes
-        if (movie.actors && movie.actors.length > 0) {
-            // Small delay to ensure checkboxes are rendered
-            setTimeout(() => {
-                movie.actors.forEach(actor => {
-                    const checkbox = document.getElementById(`edit-actor-${actor.id}`);
-                    if (checkbox) {
-                        checkbox.checked = true;
-                    }
-                });
-                updateSelectedActorsDisplay(true);
-            }, 10);
-        } else {
-            document.querySelector('.edit-actors-dropdown .selected-option').innerHTML = 
-                `actors <i class="fa-solid fa-chevron-down"></i>`;
-        }
-
-        localStorage.setItem('movieId', JSON.stringify(movieId));
-        moviesEditModal.style.display = 'flex';
+        return;
+    }
+    else if (action === 'delete') {
+        moviesDeleteModal.style.display = 'flex';
         modalOverlay.classList.add('active');
+        return;
+    }
+    Toastify({
+        text: "Xəta baş verdi!",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#a72a28ff",
+    }).showToast();
     } catch (error) {
-        console.error('Error opening edit modal:', error);
+        console.error('Error:', error);
+        return null;
         Toastify({
-            text: "Film məlumatları yüklənərkən xəta baş verdi!",
+            text: "Xəta baş verdi!",
             duration: 3000,
             gravity: "top",
             position: "right",
             backgroundColor: "#a72a28ff",
-            style: {
-                borderRadius: "10px",
-                boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-                fontSize: "15px",
-                fontWeight: "500",
-                padding: "12px 18px"
-            },
         }).showToast();
     }
 }
-
-window.openDeleteModal = function(movieId) {
-    localStorage.setItem('movieId', JSON.stringify(movieId));
-    moviesDeleteModal.style.display = 'flex';
-    modalOverlay.classList.add('active');
-}
-
-// Event Listeners
-createBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    
-    // Reset form
-    document.getElementById('input-title').value = '';
-    document.getElementById('input-overview').value = '';
-    document.getElementById('input-cover').value = '';
-    document.getElementById('input-fragman').value = '';
-    document.getElementById('input-watch').value = '';
-    document.getElementById('input-imdb').value = '';
-    document.getElementById('input-runTimeMin').value = '';
-    document.getElementById('sex').checked = false;
-    document.querySelector('.modal-image').src = '/assets/icons/modal-img.svg';
-    
-    // Reset selections
-    selectedActors = [];
-    selectedCategory = null;
-    
-    // Reset displays
-    document.querySelector('.category-dropdown .selected-option').innerHTML = 
-        `category <i class="fa-solid fa-chevron-down"></i>`;
-    document.querySelector('.actors-dropdown .selected-option').innerHTML = 
-        `actors <i class="fa-solid fa-chevron-down"></i>`;
-    
-    // Uncheck all actor checkboxes
-    document.querySelectorAll('.actors-dropdown input[type="checkbox"]').forEach(cb => {
-        cb.checked = false;
-    });
-    
-    moviesModal.style.display = 'flex';
-    modalOverlay.classList.add('active');
-});
 
 // Close modal when clicking on overlay
 modalOverlay.addEventListener('click', () => {
@@ -528,220 +434,174 @@ modalOverlay.addEventListener('click', () => {
     moviesEditModal.style.display = 'none';
     moviesDeleteModal.style.display = 'none';
     modalOverlay.classList.remove('active');
-    
-    // Close all dropdowns
-    document.querySelectorAll('.category-dropdown, .actors-dropdown, .edit-category-dropdown, .edit-actors-dropdown').forEach(dropdown => {
-        dropdown.classList.remove('active');
-    });
-});
-
-// Close dropdowns when clicking outside
-document.addEventListener('click', (e) => {
-    const dropdowns = document.querySelectorAll('.category-dropdown, .actors-dropdown, .edit-category-dropdown, .edit-actors-dropdown');
-    dropdowns.forEach(dropdown => {
-        if (!dropdown.contains(e.target)) {
-            dropdown.classList.remove('active');
-        }
-    });
+    // Dropdown-ları bağla
+    categoryOptions.style.display = 'none';
+    actorsOptions.style.display = 'none';
+    editCategoryOptions.style.display = 'none';
+    editActorsOptions.style.display = 'none';
 });
 
 moviesModal.addEventListener('click', (e) => {
     e.stopPropagation();
+    // Dropdown xaricində klik edərsə bağla
+    if (!e.target.closest('.category-dropdown') && !e.target.closest('.actors-dropdown')) {
+        categoryOptions.style.display = 'none';
+        actorsOptions.style.display = 'none';
+    }
 });
 
 moviesEditModal.addEventListener('click', (e) => {
     e.stopPropagation();
+    // Dropdown xaricində klik edərsə bağla
+    if (!e.target.closest('.edit-category-dropdown') && !e.target.closest('.edit-actors-dropdown')) {
+        editCategoryOptions.style.display = 'none';
+        editActorsOptions.style.display = 'none';
+    }
 });
 
-// Image URL Preview for Create Modal
-const coverInput = document.getElementById('input-cover');
-const modalImage = document.querySelector('.modal-image');
 
-coverInput.addEventListener('input', (e) => {
+
+// EVENTS
+createBtn.addEventListener('click', async () => {
+      moviesModal.style.display = 'flex';
+      modalOverlay.classList.add('active');
+});
+
+inputCover.addEventListener('input', (e) => {
     const imageUrl = e.target.value.trim();
-    
     if (imageUrl && imageUrl.startsWith('http')) {
         modalImage.src = imageUrl;
-        modalImage.onerror = () => {
-            modalImage.src = '/assets/icons/modal-img.svg';
-        };
-    } else if (imageUrl === '') {
-        modalImage.src = '/assets/icons/modal-img.svg';
+    }
+    else {
+        modalImage.src = '/assets/images/default.jpg';
     }
 });
 
-// Image URL Preview for Edit Modal
-const editCoverInput = document.getElementById('edit-input-cover');
-const editModalImage = document.querySelector('.modal-edit-image');
-
-editCoverInput.addEventListener('input', (e) => {
+editInputCover.addEventListener('input', (e) => {
     const imageUrl = e.target.value.trim();
-    
     if (imageUrl && imageUrl.startsWith('http')) {
-        editModalImage.src = imageUrl;
-        editModalImage.onerror = () => {
-            editModalImage.src = '/assets/icons/modal-img.svg';
-        };
-    } else if (imageUrl === '') {
-        editModalImage.src = '/assets/icons/modal-img.svg';
+        modalEditImage.src = imageUrl;
+    }
+    else {
+        modalEditImage.src = '/assets/images/default.jpg';
     }
 });
 
-// Create button handler
-const btnSubmit = document.getElementById('btn-submit');
+
 btnSubmit.addEventListener('click', async () => {
-    try {
         const newMovie = {
-            title: document.getElementById('input-title').value.trim(),
-            overview: document.getElementById('input-overview').value.trim(),
-            cover_url: document.getElementById('input-cover').value.trim(),
-            fragman_url: document.getElementById('input-fragman').value.trim(),
-            watch_url: document.getElementById('input-watch').value.trim(),
-            imdb: document.getElementById('input-imdb').value.trim(),
-            run_time_min: document.getElementById('input-runTimeMin').value.trim(),
-            is_adult: document.getElementById('sex').checked,
-            category_id: selectedCategory,
-            actor_ids: selectedActors
-        };
-
-        if (!newMovie.title || !newMovie.overview) {
-            Toastify({
-                text: "Zəhmət olmasa başlıq və açıqlama daxil edin!",
-                duration: 3000,
-                close: true,
-                gravity: "top",
-                position: "right",
-                backgroundColor: "#a72a28ff",
-                stopOnFocus: true,
-                style: {
-                    borderRadius: "10px",
-                    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-                    fontSize: "15px",
-                    fontWeight: "500",
-                    padding: "12px 18px"
-                },
-            }).showToast();
-            return;
+            title: inputTitle.value,
+            cover_url: inputCover.value,
+            fragman: inputFragman.value,
+            watch_url: inputWatch.value,
+            imdb: inputImdb.value,
+            overview: inputOverview.value,
+            run_time_min: parseInt(inputRunTimeMin.value),
+            category: parseInt(categoryDropdown.dataset.selectedId),
+            actors: [parseInt(actorsDropdown.dataset.selectedId)],
+            adult: sexCheckbox.checked,
         }
-
-        await createMovie(newMovie);
-        await renderMovies();
-        
-        moviesModal.style.display = 'none';
-        modalOverlay.classList.remove('active');
-
-        Toastify({
-            text: "Film uğurla əlavə edildi ✅",
-            duration: 3000,
-            gravity: "top",
-            position: "right",
-            backgroundColor: "#28a745",
-            style: {
-                borderRadius: "10px",
-                boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-                fontSize: "15px",
-                fontWeight: "500",
-                padding: "12px 18px"
-            },
-        }).showToast();
-    } catch (error) {
-        console.error('Error creating movie:', error);
-        Toastify({
-            text: "Film əlavə edilərkən xəta baş verdi!",
-            duration: 3000,
-            gravity: "top",
-            position: "right",
-            backgroundColor: "#a72a28ff",
-            style: {
-                borderRadius: "10px",
-                boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-                fontSize: "15px",
-                fontWeight: "500",
-                padding: "12px 18px"
-            },
-        }).showToast();
-    }
+    await createMovie(newMovie);
+    await renderMovies();
+    moviesModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
+    inputTitle.value = '';
+    inputOverview.value = '';
+    inputCover.value = '';
+    inputFragman.value = '';
+    inputWatch.value = '';
+    inputImdb.value = '';
+    inputRunTimeMin.value = '';
+    categoryDropdown.dataset.selectedId = '';
+    actorsDropdown.dataset.selectedId = '';
+    categoryDropdown.querySelector('.selected-option').innerHTML = 'category <i class="fa-solid fa-chevron-down"></i>';
+    actorsDropdown.querySelector('.selected-option').innerHTML = 'actors <i class="fa-solid fa-chevron-down"></i>';
+    sexCheckbox.checked = false;
+    Toastify({
+        text: "Film uğurla əlavə edildi ✅",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#28a745",
+    }).showToast();
 });
 
-// Edit button handler
-const btnEditSubmit = document.getElementById('btn-edit-submit');
 btnEditSubmit.addEventListener('click', async () => {
     try {
         const movieId = JSON.parse(localStorage.getItem('movieId'));
-        
-        const updatedMovie = {
-            title: document.getElementById('edit-input-title').value.trim(),
-            overview: document.getElementById('edit-input-overview').value.trim(),
-            cover_url: document.getElementById('edit-input-cover').value.trim(),
-            fragman_url: document.getElementById('edit-input-fragman').value.trim(),
-            watch_url: document.getElementById('edit-input-watch').value.trim(),
-            imdb: document.getElementById('edit-input-imdb').value.trim(),
-            run_time_min: document.getElementById('edit-input-runTimeMin').value.trim(),
-            is_adult: document.getElementById('edit-sex').checked,
-            category_id: editSelectedCategory,
-            actor_ids: editSelectedActors
-        };
-
-        if (!updatedMovie.title || !updatedMovie.overview) {
+        // Validation for edit
+        if (!editCategoryDropdown.dataset.selectedId) {
             Toastify({
-                text: "Zəhmət olmasa başlıq və açıqlama daxil edin!",
+                text: "Kateqoriya seçin!",
                 duration: 3000,
-                close: true,
                 gravity: "top",
                 position: "right",
                 backgroundColor: "#a72a28ff",
-                stopOnFocus: true,
-                style: {
-                    borderRadius: "10px",
-                    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-                    fontSize: "15px",
-                    fontWeight: "500",
-                    padding: "12px 18px"
-                },
+            }).showToast();
+            return;
+        }
+        
+        if (!editActorsDropdown.dataset.selectedId) {
+            Toastify({
+                text: "Aktyor seçin!",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#a72a28ff",
             }).showToast();
             return;
         }
 
+        const updatedMovie = {
+            title: editInputTitle.value,
+            overview: editInputOverview.value,
+            cover_url: editInputCover.value,
+            fragman: editInputFragman.value,
+            category: parseInt(editCategoryDropdown.dataset.selectedId),
+            adult: editSexCheckbox.checked,
+            imdb: editInputImdb.value,
+            run_time_min: parseInt(editInputRunTimeMin.value),
+            watch_url: editInputWatch.value,
+            actors: [parseInt(editActorsDropdown.dataset.selectedId)],
+        }
         await updateMovieById(movieId, updatedMovie);
         await renderMovies();
-        
         moviesEditModal.style.display = 'none';
         modalOverlay.classList.remove('active');
-
+        editInputTitle.value = '';
+        editInputOverview.value = '';
+        editInputCover.value = '';
+        editInputFragman.value = '';
+        editInputWatch.value = '';
+        editInputImdb.value = '';
+        editInputRunTimeMin.value = '';
+        editCategoryDropdown.dataset.selectedId = '';
+        editActorsDropdown.dataset.selectedId = '';
+        editCategoryDropdown.querySelector('.selected-option').innerHTML = 'category <i class="fa-solid fa-chevron-down"></i>';
+        editActorsDropdown.querySelector('.selected-option').innerHTML = 'actors <i class="fa-solid fa-chevron-down"></i>';
+        editSexCheckbox.checked = false;
         Toastify({
-            text: "Film uğurla yeniləndi ✅",
+            text: "Film uğurla edit olundu ✅",
             duration: 3000,
             gravity: "top",
             position: "right",
             backgroundColor: "#28a745",
-            style: {
-                borderRadius: "10px",
-                boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-                fontSize: "15px",
-                fontWeight: "500",
-                padding: "12px 18px"
-            },
         }).showToast();
-    } catch (error) {
+        return;
+    }
+    catch (error) {
         console.error('Error updating movie:', error);
         Toastify({
-            text: "Film yenilənərkən xəta baş verdi!",
+            text: "Film edit edilərkən xəta baş verdi!",
             duration: 3000,
             gravity: "top",
             position: "right",
             backgroundColor: "#a72a28ff",
-            style: {
-                borderRadius: "10px",
-                boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-                fontSize: "15px",
-                fontWeight: "500",
-                padding: "12px 18px"
-            },
         }).showToast();
     }
+
 });
 
-// Delete button handlers
 deleteMovieBtn.addEventListener('click', async () => {
     try {
         const movieId = JSON.parse(localStorage.getItem('movieId'));
@@ -792,12 +652,4 @@ cancelMovieBtn.addEventListener('click', () => {
 logoutBtn.addEventListener('click', () => {
     localStorage.removeItem('token');
     window.location.href = '/pages/admin/login/login.html';
-});// Initialize
-async function init() {
-    await loadDropdownData();
-    await renderMovies();
-}
-
-init();
-
-
+});
