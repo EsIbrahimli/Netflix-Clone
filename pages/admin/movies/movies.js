@@ -371,7 +371,7 @@ async function chooseMovie(id, action) {
             editInputWatch.value = movie.watch_url;
             editInputImdb.value = movie.imdb;
             editInputRunTimeMin.value = movie.run_time_min;
-            editSexCheckbox.checked = movie.is_adult;
+            editSexCheckbox.checked = movie.adult;
             modalEditImage.src = movie.cover_url;
             
             // Seçilmiş category göstər
@@ -462,7 +462,6 @@ moviesEditModal.addEventListener('click', (e) => {
 
 
 // EVENTS
-
 createBtn.addEventListener('click', async () => {
       moviesModal.style.display = 'flex';
       modalOverlay.classList.add('active');
@@ -490,21 +489,19 @@ editInputCover.addEventListener('input', (e) => {
 
 
 btnSubmit.addEventListener('click', async () => {
-    const newMovie = {
-        title: inputTitle.value,
-        cover_url: inputCover.value,
-        fragman: inputFragman.value,
-        watch_url: inputWatch.value,
-        imdb: inputImdb.value,
-        overview: inputOverview.value,
-        run_time_min: inputRunTimeMin.value,
-        category_id: categoryDropdown.dataset.selectedId,
-        actor_ids: actorsDropdown.dataset.selectedId,
-        is_adult: sexCheckbox.checked,
-    }
-    console.log('Creating movie:', newMovie);
-  const response = await createMovie(newMovie);
-  console.log('Response:', response);
+        const newMovie = {
+            title: inputTitle.value,
+            cover_url: inputCover.value,
+            fragman: inputFragman.value,
+            watch_url: inputWatch.value,
+            imdb: inputImdb.value,
+            overview: inputOverview.value,
+            run_time_min: parseInt(inputRunTimeMin.value),
+            category: parseInt(categoryDropdown.dataset.selectedId),
+            actors: [parseInt(actorsDropdown.dataset.selectedId)],
+            adult: sexCheckbox.checked,
+        }
+    await createMovie(newMovie);
     await renderMovies();
     moviesModal.style.display = 'none';
     modalOverlay.classList.remove('active');
@@ -532,19 +529,41 @@ btnSubmit.addEventListener('click', async () => {
 btnEditSubmit.addEventListener('click', async () => {
     try {
         const movieId = JSON.parse(localStorage.getItem('movieId'));
+        // Validation for edit
+        if (!editCategoryDropdown.dataset.selectedId) {
+            Toastify({
+                text: "Kateqoriya seçin!",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#a72a28ff",
+            }).showToast();
+            return;
+        }
+        
+        if (!editActorsDropdown.dataset.selectedId) {
+            Toastify({
+                text: "Aktyor seçin!",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#a72a28ff",
+            }).showToast();
+            return;
+        }
+
         const updatedMovie = {
             title: editInputTitle.value,
             overview: editInputOverview.value,
             cover_url: editInputCover.value,
             fragman: editInputFragman.value,
-            category_id: editCategoryDropdown.dataset.selectedId,
-            is_adult: editSexCheckbox.checked,
+            category: parseInt(editCategoryDropdown.dataset.selectedId),
+            adult: editSexCheckbox.checked,
             imdb: editInputImdb.value,
-            run_time_min: editInputRunTimeMin.value,
+            run_time_min: parseInt(editInputRunTimeMin.value),
             watch_url: editInputWatch.value,
-            actor_ids: editActorsDropdown.dataset.selectedId,
+            actors: [parseInt(editActorsDropdown.dataset.selectedId)],
         }
-        console.log('Updating movie:', updatedMovie);
         await updateMovieById(movieId, updatedMovie);
         await renderMovies();
         moviesEditModal.style.display = 'none';
