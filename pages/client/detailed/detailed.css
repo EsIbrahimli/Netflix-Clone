@@ -1,0 +1,107 @@
+.detailed-container {
+    background-color: #1D1D1D;
+    width:100%;
+    height: auto;
+}
+
+.hero-cover-img{
+    width: 100%;
+    height: 650px;
+    object-fit: cover;
+}
+
+.hero-cover{
+    position: relative;
+}
+
+.movie-header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    padding:0px 10px 0px 10px;
+    backdrop-filter: blur(7px) brightness(70%);
+    height: 650px;
+}
+
+.movie-header .logo-img{
+    padding: 60px 0px 64px 0px;
+}
+
+.movie-header-list{
+    display: flex;
+    flex-direction: column;
+    gap:80px;
+}
+
+.movie-header-list img{
+    width:32px;
+    height: 32px;
+}
+
+.movie-hero-info{
+    height: 139px;
+    width:715px;
+    padding:35px 0px 35px 40px;
+    backdrop-filter: blur(40px) brightness(80%);
+    position: absolute;
+    bottom: 250px;
+    left:120px;
+    z-index: 100;
+    border-radius: 24px;
+}
+
+.movie-hero-info h3{
+  font-size: 12px;
+  font-weight: 400;
+  color:#BEB7FB;
+}
+
+.movie-hero-info h1{
+   font-size:32px;
+   font-weight: 600;
+   color:#EBEEF5;
+}
+
+
+.movie-info-section{
+    display: flex;
+ margin: 120px 0px;
+}
+
+.movie-info-cover{
+    flex:1;
+}
+
+.movie-info-content{
+    flex:1;
+}
+
+.movie-info-cover img{
+    width:573px;
+    height: 786px;
+}
+
+.movie-info-title{
+    font-size: 30px;
+    font-weight: 700;
+    color:#EBEEF5;
+}
+
+.movie-info-title span{
+    font-size: 16px;
+    font-weight: 400;
+    color: #FFAD49;
+    background-color: #000000A6;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    &:hover{
+        background-color: #000000A6;
+    }
+}
+
+
+
