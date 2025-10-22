@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/pages/admin/movies/movies.css">
     <link rel="stylesheet" href="/styles/global.css">
@@ -93,7 +94,7 @@
             </table>
 
 
-            <!-- Modal -->
+            <!-- Create Modal -->
             <div class="movies-modal">
                 <div class="modal-left">
                     <input id="input-title" class="input" type="text" placeholder="title">
@@ -103,28 +104,13 @@
                     <input id="input-watch" class="input" type="text" placeholder="watch url">
                     <input id="input-imdb" class="input" type="text" placeholder="imdb">
                     <input id="input-runTimeMin" class="input" type="text" placeholder="run time minute">
-                    <div class="actors-dropdown">
-                        <div class="selected-option">actors <i class="fa-solid fa-chevron-down"></i></div>
-                        <div class="options">
-                            <div class="option"></div>
-                            <div class="option"></div>
-                            <div class="option"></div>
-                            <div class="option"></div>
-                            <div class="option"></div>
-                            <div class="option"></div>
-                        </div>
-                    </div>
                     <div class="category-dropdown">
                         <div class="selected-option">category <i class="fa-solid fa-chevron-down"></i></div>
-                        <div class="options">
-                            <div class="option">Action</div>
-                            <div class="option">Comedy</div>
-                            <div class="option">Drama</div>
-                            <div class="option">Horror</div>
-                            <div class="option">Romance</div>
-                            <div class="option">Epic</div>
-                            <div class="option">Crime</div>
-                        </div>
+                        <div class="options category-options"></div>
+                    </div>
+                    <div class="actors-dropdown">
+                        <div class="selected-option">actors <i class="fa-solid fa-chevron-down"></i></div>
+                        <div class="options actors-options"></div>
                     </div>
                     <div class="modal-checkbox-submit">
                         <div class="modal-checkbox">
@@ -135,10 +121,49 @@
                     </div>
                 </div>
                 <div class="modal-right">
-                    <img class="modal-image" src="/assets/icons/modal-img.svg" alt="">
+                    <img class="modal-image" src="/assets/images/default.jpg" alt="">
                 </div>
             </div>
 
+            <!-- Edit Modal -->
+            <div class="movies-edit-modal">
+                <div class="modal-left">
+                    <input id="edit-input-title" class="input" type="text" placeholder="title">
+                    <textarea id="edit-input-overview" class="input" placeholder="overview"></textarea>
+                    <input id="edit-input-cover" class="input" type="text" placeholder="cover url">
+                    <input id="edit-input-fragman" class="input" type="text" placeholder="fragman(youtube embed url)">
+                    <input id="edit-input-watch" class="input" type="text" placeholder="watch url">
+                    <input id="edit-input-imdb" class="input" type="text" placeholder="imdb">
+                    <input id="edit-input-runTimeMin" class="input" type="text" placeholder="run time minute">
+                    <div class="edit-category-dropdown">
+                        <div class="selected-option">category <i class="fa-solid fa-chevron-down"></i></div>
+                        <div class="options edit-category-options"></div>
+                    </div>
+                    <div class="edit-actors-dropdown">
+                        <div class="selected-option">actors <i class="fa-solid fa-chevron-down"></i></div>
+                        <div class="options edit-actors-options"></div>
+                    </div>
+                    <div class="modal-checkbox-submit">
+                        <div class="modal-checkbox">
+                            <label class="checkbox-label" for="edit-sex">Adult</label>
+                            <input type="checkbox" id="edit-sex">
+                        </div>
+                        <button id="btn-edit-submit">Update</button>
+                    </div>
+                </div>
+                <div class="modal-right">
+                    <img class="modal-edit-image" src="/assets/images/default.jpg" alt="">
+                </div>
+            </div>
+
+            <!-- Delete Modal -->
+            <div class="movies-delete-modal">
+                <h3>Are you sure you want to delete this movie?</h3>
+                <div class="delete-modal-buttons">
+                    <button id="delete-movie-btn" class="delete-btn">Yes</button>
+                    <button id="cancel-movie-btn" class="cancel-btn">No</button>
+                </div>
+            </div>
 
             <!-- Pagination.... -->
             <nav aria-label="Movies pagination-nav">
@@ -147,6 +172,11 @@
             
         </div>
     </div>
+    
+    <!-- Modal Overlay -->
+    <div class="modal-overlay"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="movies.js"></script>
 </body>

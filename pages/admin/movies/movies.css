@@ -237,7 +237,7 @@
 }
 
 
-/*Movie2 Modal Styles*/
+/*Create Modal Styles*/
 
 .movies-modal {
     background-color: #171616;
@@ -307,14 +307,16 @@
     bottom: 100%;
     left: 0;
     width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
     background-color: #171616;
     border: 1px solid #323B54;
     border-top: none;
     z-index: 1;
 }
 
-.category-dropdown:hover .options,
-.actors-dropdown:hover .options {
+.category-dropdown.active .options,
+.actors-dropdown.active .options {
     display: block;
 }
 
@@ -324,10 +326,27 @@
     font-size: 14px;
     color: #FFFFFF;
     transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
 }
 
-.category-dropdown .option:hover {
+.category-dropdown .option:hover,
+.actors-dropdown .option:hover {
     background-color: #2f3032;
+}
+
+.actors-dropdown .option input[type="checkbox"] {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+.actors-dropdown .option label {
+    cursor: pointer;
+    margin: 0;
+    flex: 1;
 }
 
 .modal-right .modal-image {
@@ -372,6 +391,218 @@
     cursor: pointer;
 }
 
+/* Edit Modal Styles */
+.movies-edit-modal {
+    background-color: #171616;
+    color: #FFFFFF;
+    display: flex;
+    gap: 82px;
+    padding: 50px 30px 80px 30px;
+    width: 50%;
+    margin: auto;
+    border-radius: 8px;
+    position: absolute;
+    top: 55%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+.movies-edit-modal .input {
+    border: 1px solid #323B54;
+    background-color: transparent;
+    padding: 14px 10px;
+    font-size: 14px;
+    width: 100%;
+    color: #FFFFFF;
+    outline: none;
+}
+
+.movies-edit-modal .input::placeholder {
+    color: #4d515f;
+}
+
+.edit-category-dropdown,
+.edit-actors-dropdown {
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+}
+
+.edit-category-dropdown .selected-option,
+.edit-actors-dropdown .selected-option {
+    border: 1px solid #323B54;
+    background-color: transparent;
+    padding: 16px 10px;
+    font-size: 14px;
+    color: #4d515f;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edit-category-dropdown .options,
+.edit-actors-dropdown .options {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #171616;
+    border: 1px solid #323B54;
+    border-top: none;
+    z-index: 1;
+}
+
+.edit-category-dropdown.active .options,
+.edit-actors-dropdown.active .options {
+    display: block;
+}
+
+/* Scrollbar stilləri */
+.category-dropdown .options::-webkit-scrollbar,
+.actors-dropdown .options::-webkit-scrollbar,
+.edit-category-dropdown .options::-webkit-scrollbar,
+.edit-actors-dropdown .options::-webkit-scrollbar {
+    width: 6px;
+}
+
+.category-dropdown .options::-webkit-scrollbar-track,
+.actors-dropdown .options::-webkit-scrollbar-track,
+.edit-category-dropdown .options::-webkit-scrollbar-track,
+.edit-actors-dropdown .options::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+.category-dropdown .options::-webkit-scrollbar-thumb,
+.actors-dropdown .options::-webkit-scrollbar-thumb,
+.edit-category-dropdown .options::-webkit-scrollbar-thumb,
+.edit-actors-dropdown .options::-webkit-scrollbar-thumb {
+    background: #323B54;
+    border-radius: 3px;
+}
+
+.category-dropdown .options::-webkit-scrollbar-thumb:hover,
+.actors-dropdown .options::-webkit-scrollbar-thumb:hover,
+.edit-category-dropdown .options::-webkit-scrollbar-thumb:hover,
+.edit-actors-dropdown .options::-webkit-scrollbar-thumb:hover {
+    background: #3d4761;
+}
+
+.edit-category-dropdown .option,
+.edit-actors-dropdown .option {
+    padding: 10px;
+    font-size: 14px;
+    color: #FFFFFF;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.edit-category-dropdown .option:hover,
+.edit-actors-dropdown .option:hover {
+    background-color: #2f3032;
+}
+
+.edit-actors-dropdown .option input[type="checkbox"] {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+.edit-actors-dropdown .option label {
+    cursor: pointer;
+    margin: 0;
+    flex: 1;
+}
+
+.modal-edit-image {
+    width: 203px;
+    height: 283px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+#btn-edit-submit {
+    background-color: #9B51DE;
+    padding: 5px 20.5px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#btn-edit-submit:hover {
+    background-color: #7a39b3;
+}
+
+/* Delete Modal Styles */
+.movies-delete-modal {
+    background-color: #171616;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 40px 30px 40px 30px;
+    width: 400px;
+    margin: auto;
+    border-radius: 24px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+.movies-delete-modal h3 {
+    text-align: center;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.delete-modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.movies-delete-modal .delete-btn {
+    background-color: #9B51E0;
+    font-size: 16px;
+    font-weight: 400;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.movies-delete-modal .delete-btn:hover {
+    background-color: #7a39b3;
+}
+
+.movies-delete-modal .cancel-btn {
+    background-color: #BBBBBB;
+    font-size: 16px;
+    font-weight: 400;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.movies-delete-modal .cancel-btn:hover {
+    background-color: #888888;
+}
 
 /* Pagination Styles */
 .pagination-nav {

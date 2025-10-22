@@ -7,6 +7,17 @@ const actorImgInput = document.getElementById('actor-img-input');
 const addActorBtn = document.getElementById('add-actor-btn');
 const actorsModal = document.querySelector('.actors-modal');
 const movieContainer = document.querySelector('.movie-container');
+const actorsEditModal = document.querySelector('.actors-edit-modal');
+const editNameInput = document.getElementById('actor-name-input-upt');
+const editSurnameInput = document.getElementById('actor-surname-input-upt');
+const editImgInput = document.getElementById('actor-img-input-upt');
+const editActorBtn = document.getElementById('edit-actor-btn');
+const actorsDeleteModal = document.querySelector('.actors-delete-modal');
+const deleteActorBtn = document.getElementById('delete-actors-btn');
+const cancelDeleteActorBtn = document.getElementById('cancel-actors-btn');
+const actorEditImg = document.querySelector('.actor-edit-img');
+const actorCreateImg = document.querySelector('.actor-create-img');
+const modalOverlay = document.querySelector('.modal-overlay');
 const token = localStorage.getItem('token');
 
 
@@ -35,7 +46,7 @@ async function getActors() {
 }
 
 async function addNewActor(newActor) {
-    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/admin/actors`;
+    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/admin/actor`;
     const options = {
         method: 'POST',
         headers: {
@@ -52,6 +63,44 @@ async function addNewActor(newActor) {
         console.log('Error:', error);
     }
 }
+
+async function deleteActorById(id) {
+    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/admin/actor/${id}`;
+    const options = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    }
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+async function updateActorById(id, updatedActor) {
+    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/admin/actor/${id}`;
+    const options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(updatedActor)
+    }
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+/*- ------------------------------------------------*/
 
 async function renderActors() {
     const dataActors = await getActors();
@@ -73,10 +122,10 @@ function showPage(page) {
                         <td>${actor.name}</td>
                         <td>${actor.surname}</td>
                         <td>
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="edit-btn" onclick="chooseActors(${actor.id}, 'edit')"><i class="fa-solid fa-pen"></i></button>
                         </td>
                         <td>
-                              <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                              <button class="delete-btn" onclick="chooseActors(${actor.id}, 'remove')"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
         `).join('');
@@ -137,19 +186,129 @@ function renderPagination() {
     });
 }
 
-
-
 renderActors();
+
+async function chooseActors(id, method) {
+    console.log(id, method);
+    try {
+        const dataActors = await getActors();
+        allActors = dataActors.data;
+        // console.log(categoriesData);
+        if (method === 'remove') {
+            localStorage.setItem('actorId', JSON.stringify(id));
+            actorsDeleteModal.style.display = 'flex';
+            modalOverlay.classList.add('active');
+        } else if (method === 'edit') {
+            const actor = allActors.find(cat => cat.id === id);
+            if (actor) {
+                editNameInput.value = actor.name;
+                editSurnameInput.value = actor.surname;
+                editImgInput.value = actor.img_url;
+                actorEditImg.src = actor.img_url;
+                localStorage.setItem('actorId', JSON.stringify(id));
+                actorsEditModal.style.display = 'flex';
+                modalOverlay.classList.add('active');
+            }
+        }
+    } catch (error) {
+        console.error('Xəta baş verdi:', error);
+        Toastify({
+            text: "Xeta bas verdi, zehmet olmasa yeniden cehd et!",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#a72a28ff", 
+            stopOnFocus: true,
+            style: {
+                borderRadius: "10px",
+                boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+                fontSize: "15px",
+                fontWeight: "500",
+                padding: "12px 18px"
+            },
+        }).showToast();
+        return;
+    }
+}
 
 //EVENTS 
 
 createBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     actorsModal.style.display = 'flex';
+    modalOverlay.classList.add('active');
+})
+
+// Close modal when clicking on overlay
+modalOverlay.addEventListener('click', () => {
+    actorsModal.style.display = 'none';
+    actorsEditModal.style.display = 'none';
+    actorsDeleteModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
+    actorCreateImg.src = '/assets/images/default.jpg';
+});
+
+// Image URL Preview for Create Modal
+actorImgInput.addEventListener('input', (e) => {
+    const imageUrl = e.target.value.trim();
+    
+    if (imageUrl && imageUrl.startsWith('http')) {
+        // URL düzgün formatda olduqda şəkili yüklə
+        actorCreateImg.src = imageUrl;
+        
+        // Şəkil yüklənməsə error handler
+        actorCreateImg.onerror = () => {
+            actorCreateImg.src = '/assets/images/default.jpg';
+        };
+        
+        // Şəkil uğurla yükləndikdə
+        actorCreateImg.onload = () => {
+            console.log('Şəkil uğurla yükləndi');
+        };
+    } else if (imageUrl === '') {
+        // Input boşdursa default şəkil
+        actorCreateImg.src = '/assets/images/default.jpg';
+    }
+})
+
+// Image URL Preview for Edit Modal
+editImgInput.addEventListener('input', (e) => {
+    const imageUrl = e.target.value.trim();
+    
+    if (imageUrl && imageUrl.startsWith('http')) {
+        // URL düzgün formatda olduqda şəkili yüklə
+        actorEditImg.src = imageUrl;
+        
+        // Şəkil yüklənməsə error handler
+        actorEditImg.onerror = () => {
+            actorEditImg.src = '/assets/images/default.jpg';
+        };
+        
+        // Şəkil uğurla yükləndikdə
+        actorEditImg.onload = () => {
+            console.log('Şəkil uğurla yükləndi');
+        };
+    } else if (imageUrl === '') {
+        // Input boşdursa default şəkil
+        actorEditImg.src = '/assets/images/default.jpg';
+    }
 })
 
 window.addEventListener('click', (e) => {
-    actorsModal.style.display = 'none';
+    if (actorsModal.style.display === 'flex' && !actorsModal.contains(e.target) && !e.target.closest('#create-btn')) {
+        actorsModal.style.display = 'none';
+        modalOverlay.classList.remove('active');
+        actorCreateImg.src = '/assets/images/default.jpg';
+    }
+    if (actorsEditModal.style.display === 'flex' && !actorsEditModal.contains(e.target)) {
+        actorsEditModal.style.display = 'none';
+        modalOverlay.classList.remove('active');
+    }
+    if (actorsDeleteModal.style.display === 'flex' && !actorsDeleteModal.contains(e.target)) {
+        actorsDeleteModal.style.display = 'none';
+        modalOverlay.classList.remove('active');
+    }
 });
 
 actorsModal.addEventListener('click', (e) => {
@@ -164,11 +323,115 @@ addActorBtn.addEventListener('click', async () => {
         img_url: actorImgInput.value.trim()
     }
 
+    if(!newActor.name || !newActor.surname || !newActor.img_url){
+
+          Toastify({
+            text: "Zəhmət olmasa aktoyor adı daxil et!",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#a72a28ff",
+            stopOnFocus: true,
+            style: {
+                borderRadius: "10px",
+                boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+                fontSize: "15px",
+                fontWeight: "500",
+                padding: "12px 18px"
+            },
+        }).showToast();
+        return;
+    }
+
     await addNewActor(newActor);
     await renderActors();
     console.log('Actor added successfully');
     actorsModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
+    actorNameInput.value = '';
+    actorSurnameInput.value = '';
+    actorImgInput.value = '';
+    actorCreateImg.src = '/assets/images/default.jpg';
+
+        Toastify({
+        text: "Aktyor uğurla əlavə edildi ✅",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#28a745",
+        style: {
+            borderRadius: "10px",
+            boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+            fontSize: "15px",
+            fontWeight: "500",
+            padding: "12px 18px"
+        },
+    }).showToast();
 })
+
+editActorBtn.addEventListener('click', async () => {
+    const localId = JSON.parse(localStorage.getItem('actorId'));
+   console.log(localId);
+    const updatedCActor = {
+        name: editNameInput.value,
+        surname: editSurnameInput.value,
+        img_url: editImgInput.value
+
+    }
+
+    await updateActorById(localId, updatedCActor);
+    await renderActors();
+
+    actorsEditModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
+    editNameInput.value = '';
+    editSurnameInput.value = '';
+    editImgInput.value = '';
+
+       Toastify({
+        text: "Aktyor uğurla edit olundu ✅",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#28a745",
+        style: {
+            borderRadius: "10px",
+            boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+            fontSize: "15px",
+            fontWeight: "500",
+            padding: "12px 18px"
+        },
+    }).showToast();
+});
+
+deleteActorBtn.addEventListener('click', async () => {
+    const localId = JSON.parse(localStorage.getItem('actorId'));
+    await deleteActorById(localId);
+    await renderActors();
+    actorsDeleteModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
+
+       Toastify({
+        text: "Aktyor uğurla silindi ✅",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#28a745",
+        style: {
+            borderRadius: "10px",
+            boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+            fontSize: "15px",
+            fontWeight: "500",
+            padding: "12px 18px"
+        },
+    }).showToast();
+});
+
+cancelDeleteActorBtn.addEventListener('click', () => {
+    actorsDeleteModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
+});
 
 
 logoutBtn.addEventListener('click', () => {

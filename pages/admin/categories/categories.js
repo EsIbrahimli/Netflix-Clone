@@ -1,222 +1,388 @@
-const categoryTable = document.querySelector('.body-table');
-const logoutBtn = document.querySelector('.logout');
+const tableBody = document.querySelector('.body-table');
 const createCategoryBtn = document.getElementById('create-category-btn');
-const categoryModal = document.getElementById('category-modal');
-const modalClose = document.getElementById('modal-close');
-const cancelBtn = document.getElementById('cancel-btn');
-const categoryForm = document.getElementById('category-form');
-const categoryNameInput = document.getElementById('category-name');
-const categoryDescriptionInput = document.getElementById('category-description');
-const saveBtn = document.getElementById('save-btn');
-const modalTitle = document.getElementById('modal-title');
+const categoriesModal = document.querySelector('.categories-modal');
+const addCategoriesBtn = document.getElementById('add-categories-btn');
+const addNameInput = document.getElementById('categories-name-input');
+const categoriesEditModal = document.querySelector('.categories-edit-modal');
+const editCategoriesBtn = document.getElementById('edit-categories-btn');
+const editNameInput = document.getElementById('categories-edit-name-input');
+const categoriesDeleteModal = document.querySelector('.categories-delete-modal');
+const deleteCategoriesBtn = document.getElementById('delete-categories-btn');
+const cancelDeleteBtn = document.getElementById('cancel-categories-btn');
+const logoutBtn = document.querySelector('.logout');
+const modalOverlay = document.querySelector('.modal-overlay');
+
+let currentPage = 1;
+const itemsPerPage = 8;
+let categoriesData = [];
 
 const token = localStorage.getItem('token');
-const API_BASE = 'https://api.sarkhanrahimli.dev/api/filmalisa';
-let currentCategoryId = null;
-let isEditMode = false;
 
-// Check auth
-if (!token) {
-    window.location.href = '/pages/admin/login/login.html';
-}
-
-// Load categories on page load
-window.addEventListener('DOMContentLoaded', () => {
-    loadCategories();
-    setupEventListeners();
-});
-
-// Setup event listeners
-function setupEventListeners() {
-    // Create category button
-    createCategoryBtn.addEventListener('click', openCreateModal);
-    
-    // Modal controls
-    modalClose.addEventListener('click', closeModal);
-    cancelBtn.addEventListener('click', closeModal);
-    
-    // Form submission
-    categoryForm.addEventListener('submit', handleFormSubmit);
-    
-    // Close modal on outside click
-    categoryModal.addEventListener('click', (e) => {
-        if (e.target === categoryModal) {
-            closeModal();
+//Api Calls
+async function getCategories() {
+    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/admin/categories`;
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         }
-    });
-}
-
-// Open create modal
-function openCreateModal() {
-    isEditMode = false;
-    currentCategoryId = null;
-    modalTitle.textContent = 'Create Category';
-    saveBtn.textContent = 'Save Category';
-    categoryForm.reset();
-    categoryModal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-}
-
-// Close modal
-function closeModal() {
-    categoryModal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-    categoryForm.reset();
-}
-
-// Handle form submission
-async function handleFormSubmit(e) {
-    e.preventDefault();
-    
-    const categoryData = {
-        name: categoryNameInput.value.trim(),
-        description: categoryDescriptionInput.value.trim()
-    };
-    
-    // Validation
-    if (!categoryData.name) {
-        alert('Please enter a category name');
-        return;
     }
-    
     try {
-        let response;
-        if (isEditMode && currentCategoryId) {
-            // Update category
-            response = await fetch(`${API_BASE}/admin/category/${currentCategoryId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(categoryData)
-            });
-        } else {
-            // Create category
-            response = await fetch(`${API_BASE}/admin/category`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(categoryData)
-            });
-        }
-        
+        const response = await fetch(url, options);
         const data = await response.json();
-        
-        if (response.ok) {
-            alert(isEditMode ? 'Category updated successfully!' : 'Category created successfully!');
-            closeModal();
-            loadCategories();
-        } else {
-            alert('Error: ' + (data.message || 'Something went wrong'));
-        }
+        return data;
     } catch (error) {
         console.error('Error:', error);
-        alert('Error saving category');
     }
 }
 
-// Load all categories
-async function loadCategories() {
-    try {
-        const response = await fetch(`${API_BASE}/category`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        
-        const data = await response.json();
-        console.log('Categories:', data);
-        
-        if (data.data && data.data.length > 0) {
-            renderCategories(data.data);
-        } else {
-            categoryTable.innerHTML = '<tr><td colspan="4" style="text-align:center">No categories found</td></tr>';
+
+async function getCategoryById(id) {
+    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/admin/categories/${id}`;
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         }
+    }
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        return data;
     } catch (error) {
-        console.error('Error loading categories:', error);
-        categoryTable.innerHTML = '<tr><td colspan="4" style="text-align:center">Error loading categories</td></tr>';
+        console.error('Error:', error);
     }
 }
 
-// Render categories to table
-function renderCategories(categories) {
-    categoryTable.innerHTML = '';
-    categories.forEach((category, index) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${index + 1}</td>
+async function createCategory(newCategory) {
+    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/admin/category`;
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(newCategory)
+    }
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+async function deleteCategoryById(id) {
+    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/admin/category/${id}`;
+    const options = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    }
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+async function updateCategoryById(id, updatedCategory) {
+    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/admin/category/${id}`;
+    const options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(updatedCategory)
+    }
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+/*-------------------------------------------------*/
+async function renderCategories() {
+    const categories = await getCategories();
+     categoriesData = categories.data;
+    showPage(currentPage);
+    renderPagination();
+}
+
+function showPage(page) {
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const categoriesToShow = categoriesData.slice(start, end);
+
+    tableBody.innerHTML = categoriesToShow.reverse().map(category => `
+        <tr>
+            <td>${category.id}</td>
             <td>${category.name}</td>
             <td>
-                <button class="edit-btn" data-id="${category._id}" data-name="${category.name}"><i class="fa-solid fa-pen"></i></button>
-            </td>
-            <td>
-                <button class="delete-btn" data-id="${category._id}"><i class="fa-solid fa-trash"></i></button>
-            </td>
-        `;
-        categoryTable.appendChild(row);
-    });
-    
-    // Add event listeners to edit and delete buttons
-    document.querySelectorAll('.edit-btn').forEach(btn => {
-        btn.addEventListener('click', () => editCategory(btn.dataset.id, btn.dataset.name));
-    });
-    
-    document.querySelectorAll('.delete-btn').forEach(btn => {
-        btn.addEventListener('click', () => deleteCategory(btn.dataset.id));
-    });
+               <button class="edit-btn" onclick="chooseCategories(${category.id}, 'edit')"><i class="fa-solid fa-pen"></i></button>
+                 </td>
+                 <td>
+                <button class="delete-btn" onclick="chooseCategories(${category.id}, 'remove')"><i class="fa-solid fa-trash"></i></button>
+               </td>
+        </tr>
+    `).join('');
 }
 
-// Edit category
-async function editCategory(id, currentName) {
-    isEditMode = true;
-    currentCategoryId = id;
-    modalTitle.textContent = 'Edit Category';
-    saveBtn.textContent = 'Update Category';
-    
-    // Fill form with current data
-    categoryNameInput.value = currentName;
-    
-    categoryModal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-}
+function renderPagination() {
+    const totalPages = Math.ceil(categoriesData.length / itemsPerPage);
+    const pagination = document.querySelector('.pagination');
+    let html = '';
 
-// Delete category
-async function deleteCategory(id) {
-    if (!confirm('Are you sure you want to delete this category?')) {
-        return;
+    const visiblePages = 3; // eyni anda neçə səhifə görünsün
+    let startPage = Math.max(1, currentPage - Math.floor(visiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + visiblePages - 1);
+
+    // Əgər sonlara yaxınlaşırsa
+    if (endPage - startPage < visiblePages - 1) {
+        startPage = Math.max(1, endPage - visiblePages + 1);
     }
-    
-    try {
-        const response = await fetch(`${API_BASE}/admin/category/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+
+    // Prev düyməsi
+    html += `
+    <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+      <a class="page-link" href="#" data-page="${currentPage - 1}">&laquo;</a>
+    </li>
+  `;
+
+    // Səhifə nömrələri
+    for (let i = startPage; i <= endPage; i++) {
+        html += `
+      <li class="page-item ${i === currentPage ? 'active' : ''}">
+        <a class="page-link" href="#" data-page="${i}">${i}</a>
+      </li>
+    `;
+    }
+
+    // Next düyməsi
+    html += `
+    <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+      <a class="page-link" href="#" data-page="${currentPage + 1}">&raquo;</a>
+    </li>
+  `;
+
+    pagination.innerHTML = html;
+
+    // Klik hadisəsi
+    const links = pagination.querySelectorAll('.page-link');
+    links.forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            const page = Number(e.target.dataset.page);
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                showPage(currentPage);
+                renderPagination();
             }
         });
-        
-        const data = await response.json();
-        
-        if (response.ok) {
-            alert('Category deleted successfully!');
-            loadCategories();
-        } else {
-            alert('Error deleting category: ' + (data.message || 'Unknown error'));
+    });
+}
+
+renderCategories();
+
+
+async function chooseCategories(id, method) {
+    try {
+        const categories = await getCategories();
+        const categoriesData = categories.data;
+        // console.log(categoriesData);
+        if (method === 'remove') {
+            localStorage.setItem('categoryId', JSON.stringify(id));
+            categoriesDeleteModal.style.display = 'flex';
+            modalOverlay.classList.add('active');
+        } else if (method === 'edit') {
+            const category = categoriesData.find(cat => cat.id === id);
+            if (category) {
+                editNameInput.value = category.name;
+                localStorage.setItem('categoryId', JSON.stringify(id));
+                categoriesEditModal.style.display = 'flex';
+                modalOverlay.classList.add('active');
+            }
         }
     } catch (error) {
-        console.error('Error:', error);
-        alert('Error deleting category');
+        console.error('Xəta baş verdi:', error);
+        Toastify({
+            text: "Xeta bas verdi, zehmet olmasa yeniden cehd et!",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#a72a28ff", 
+            stopOnFocus: true,
+            style: {
+                borderRadius: "10px",
+                boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+                fontSize: "15px",
+                fontWeight: "500",
+                padding: "12px 18px"
+            },
+        }).showToast();
+        return;
     }
 }
 
-// Logout
+// EVENTS
+createCategoryBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    categoriesModal.style.display = 'flex';
+    modalOverlay.classList.add('active');
+});
+
+// Close modal when clicking on overlay
+modalOverlay.addEventListener('click', () => {
+    categoriesModal.style.display = 'none';
+    categoriesEditModal.style.display = 'none';
+    categoriesDeleteModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
+});
+
+window.addEventListener('click', (e) => {
+    if (categoriesModal.style.display === 'flex' && !categoriesModal.contains(e.target) && !e.target.closest('#create-category-btn')) {
+        categoriesModal.style.display = 'none';
+        modalOverlay.classList.remove('active');
+    }
+    if (categoriesEditModal.style.display === 'flex' && !categoriesEditModal.contains(e.target)) {
+        categoriesEditModal.style.display = 'none';
+        modalOverlay.classList.remove('active');
+    }
+    if (categoriesDeleteModal.style.display === 'flex' && !categoriesDeleteModal.contains(e.target)) {
+        categoriesDeleteModal.style.display = 'none';
+        modalOverlay.classList.remove('active');
+    }
+});
+
+categoriesModal.addEventListener('click', (e) => {
+    e.stopPropagation();
+});
+
+addCategoriesBtn.addEventListener('click', async () => {
+
+    const name = addNameInput.value.trim()
+
+    if (!name) {
+        Toastify({
+            text: "Zəhmət olmasa kateqoriya adı daxil et!",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#a72a28ff",
+            stopOnFocus: true,
+            style: {
+                borderRadius: "10px",
+                boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+                fontSize: "15px",
+                fontWeight: "500",
+                padding: "12px 18px"
+            },
+        }).showToast();
+        return;
+    }
+
+    const newCategory = {
+        name: name
+    }
+    await createCategory(newCategory);
+    await renderCategories();
+    categoriesModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
+    addNameInput.value = '';
+
+
+    Toastify({
+        text: "Kateqoriya uğurla əlavə edildi ✅",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#28a745",
+        style: {
+            borderRadius: "10px",
+            boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+            fontSize: "15px",
+            fontWeight: "500",
+            padding: "12px 18px"
+        },
+    }).showToast();
+
+});
+
+editCategoriesBtn.addEventListener('click', async () => {
+    const localId = JSON.parse(localStorage.getItem('categoryId'));
+
+
+    const updatedCategory = {
+        name: editNameInput.value,
+    }
+
+    await updateCategoryById(localId, updatedCategory);
+    await renderCategories();
+
+    categoriesEditModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
+    editNameInput.value = '';
+
+      Toastify({
+        text: "Kateqoriya uğurla edit edildi ✅",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#28a745",
+        style: {
+            borderRadius: "10px",
+            boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+            fontSize: "15px",
+            fontWeight: "500",
+            padding: "12px 18px"
+        },
+    }).showToast();
+
+});
+
+deleteCategoriesBtn.addEventListener('click', async () => {
+    const localId = JSON.parse(localStorage.getItem('categoryId'));
+    await deleteCategoryById(localId);
+    await renderCategories();
+    categoriesDeleteModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
+
+      Toastify({
+        text: "Kateqoriya uğurla silindi ✅",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#28a745",
+        style: {
+            borderRadius: "10px",
+            boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+            fontSize: "15px",
+            fontWeight: "500",
+            padding: "12px 18px"
+        },
+    }).showToast();
+
+});
+
+cancelDeleteBtn.addEventListener('click', () => {
+    categoriesDeleteModal.style.display = 'none';
+    modalOverlay.classList.remove('active');
+});
+
 logoutBtn.addEventListener('click', () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
     window.location.href = '/pages/admin/login/login.html';
-});
+})

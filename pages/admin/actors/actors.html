@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/pages/admin/actors/actors.css">
     <link rel="stylesheet" href="/styles/global.css">
@@ -84,17 +85,38 @@
                     </tr> -->
                 </tbody>
             </table>
-
+            <!--Actors Modallar-->
             <div class="actors-modal">
                 <div class="actors-form-wrapper">
-                <input id="actor-name-input" class="input" type="text" placeholder="name">
-                <input id="actor-surname-input" class="input" type="text" placeholder="surname">
-                <input id="actor-img-input" class="input" type="text" placeholder="image url">
-                <button id="add-actor-btn" class="submit-btn">Create</button>
+                    <input id="actor-name-input" class="input" type="text" placeholder="name">
+                    <input id="actor-surname-input" class="input" type="text" placeholder="surname">
+                    <input id="actor-img-input" class="input" type="text" placeholder="image url">
+                    <button id="add-actor-btn" class="submit-btn">Create</button>
+                </div>
+                <div class="actors-img-wrapper">
+                    <img class="actor-create-img" src="/assets/images/default.jpg" alt="">
+                </div>
             </div>
-            <div class="actors-img-wrapper">
-                <img src="/assets/images/default.jpg" alt="">
+
+            <!-- Actor Edit Modal-->
+            <div class="actors-edit-modal">
+                <div class="actors-form-wrapper">
+                    <input id="actor-name-input-upt" class="input" type="text" placeholder="name">
+                    <input id="actor-surname-input-upt" class="input" type="text" placeholder="surname">
+                    <input id="actor-img-input-upt" class="input" type="text" placeholder="image url">
+                    <button id="edit-actor-btn" class="submit-btn">Edit</button>
+                </div>
+                <div class="actors-img-wrapper">
+                    <img class="actor-edit-img" src="/assets/images/default.jpg" alt="">
+                </div>
             </div>
+            <!--Actor Delete Modal-->
+            <div class="actors-delete-modal">
+                <h3>Are you sure you want to delete this category?</h3>
+                <div class="delete-modal-buttons">
+                    <button id="delete-actors-btn" class="delete-btn">Yes</button>
+                    <button id="cancel-actors-btn" class="cancel-btn">No</button>
+                </div>
             </div>
 
             <!-- Pagination.... -->
@@ -103,6 +125,11 @@
             </nav>
         </div>
     </div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay"></div>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="actors.js"></script>
 </body>

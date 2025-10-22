@@ -1,130 +1,133 @@
 body {
-    background-color: #000;
-    color: #fff;
-    font-family: 'Raleway', sans-serif;
-}
-
-.login-wrapper {
-    min-height: 100vh;
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23111" width="1200" height="800"/></svg>');
-    background-size: cover;
-    background-position: center;
-}
-
-.login-header {
-    padding: 20px 50px;
-}
-
-.login-header .logo {
-    height: 40px;
-}
-
-.login-container {
+    background-color: #0f0f0f !important;
+    height: 100vh;
+  }
+  
+  .login-container {
+    background-color: radial-gradient(circle at center, #141414, #000);
+    margin-top:90px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 80px);
-    padding: 20px;
-}
-
-.login-box {
-    background-color: rgba(0, 0, 0, 0.75);
-    padding: 60px 68px 40px;
-    border-radius: 4px;
-    max-width: 450px;
-    width: 100%;
-}
-
-.login-box h1 {
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 28px;
-}
-
-.input-group {
-    margin-bottom: 16px;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 16px 20px;
-    background-color: #333;
-    border: none;
-    border-radius: 4px;
     color: #fff;
-    font-size: 16px;
+  }
+  
+  .logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 249px;
+    height: 214px;
+    height: auto;
+  }
+
+  .client-logo-title {
+    font-family: 'Numans';
+    font-size: 70px;
+    font-weight: 400;
+    color:#C3C8D4;
+  }
+
+  .client-logo-text {
+    font-family: 'Nunito Sans';
+    font-size: 40px;
+    font-weight: 500;
+    color:#C3C8D4;
+  }
+  
+  
+  /* ---- Input-lar ---- */
+  .client-login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+.login-input {
+  position: relative;
+  margin-bottom: 16px;
 }
 
-.input-group input::placeholder {
-    color: #8c8c8c;
+.login-input img {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.input-group input:focus {
+.login-input img:first-child {
+  left: 12px;
+}
+
+.login-input #password-eye {
+  right: 12px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.login-input #password-eye:hover {
+  opacity: 1;
+}
+  
+#login-email,
+#login-password {
+  width: 547px;
+  height: 64px;
+  border: 1px solid #323B54;
+  background-color: transparent;
+  outline: none;
+  border-radius: 12px;
+  transition: outline 0.5s ease;
+  color:#ffff;
+  padding: 0px 45px 0px 45px;
+}
+  
+  #login-email::placeholder,
+  #login-password::placeholder {
+    color: #475069;
+  }
+  
+  #login-email:hover,
+  #login-password:hover {
     outline: none;
-    background-color: #454545;
-}
+    outline: 1px solid #b264ff;
+  }
 
-.btn-login {
-    width: 100%;
-    padding: 16px;
-    background-color: #e50914;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 24px;
-    transition: background-color 0.3s;
-}
-
-.btn-login:hover {
-    background-color: #f40612;
-}
-
-.form-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 12px;
-    color: #b3b3b3;
-}
-
-.form-footer label {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-.form-footer input[type="checkbox"] {
-    margin-right: 8px;
-}
-
-.signup-link {
-    margin-top: 30px;
-    color: #737373;
-}
-
-.signup-link a {
-    color: #fff;
-    text-decoration: none;
-}
-
-.signup-link a:hover {
+  
+  .register-text {
+    font-family: 'Nunito Sans';
+    font-size: 14px;
+    font-weight: 400;
+    color:#99A3BE;
     text-decoration: underline;
-}
+    align-self: self-start;
+  }
 
-@media (max-width: 768px) {
-    .login-header {
-        padding: 20px;
-    }
-
-    .login-box {
-        padding: 40px 30px;
-    }
-
-    .login-box h1 {
-        font-size: 28px;
-    }
-}
+  .register-text:hover {
+    color:#b264ff;
+  }
+  
+  /* ---- Düymə ---- */
+  #login-btn{
+    width:100%;
+    padding: 14px;
+    margin-top: 15px;
+    background-color: #9B51E0;
+    color: #ffff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+    transition: all 0.3s ease;
+  }
+  
+  
+  #login-btn:hover {
+      background-color: #7a39b3;
+  }

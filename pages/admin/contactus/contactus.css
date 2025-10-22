@@ -217,3 +217,127 @@ body {
 .search-btn {
     font-size: 18px;
 }
+
+
+/* Contactus Modals Styles */
+.contactus-view-modal {
+  background-color: #171616;
+  width: 600px;
+  padding: 30px 20px 40px 20px;
+  color: #FFFFFF;
+  border-radius: 24px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+.contactus-view{
+  color: #FFFFFF;
+  font-size: 16px;
+}
+
+.contactus-delete-modal {
+  background-color: #171616;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px 30px 40px 30px;
+  width: 400px;
+  margin: auto;
+  border-radius: 24px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+
+.contactus-delete-modal h3 {
+  text-align: center;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.delete-modal-buttons {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.contactus-delete-modal .delete-btn {
+  background-color: #9B51E0;
+  font-size: 16px;
+  font-weight: 400;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+}
+
+.contactus-delete-modal .delete-btn:hover {
+  background-color: #7a39b3;
+}
+
+.contactus-delete-modal .cancel-btn {
+  background-color: #BBBBBB;
+  font-size: 16px;
+  font-weight: 400;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+}
+
+.contactus-delete-modal .cancel-btn:hover {
+  background-color: #888888;
+}
+
+
+/* Pagination Styles */
+.main {
+  position: relative;
+}
+
+.pagination-nav {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.page-item .page-link {
+  background-color: #ffff;
+  color: #000000;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid #000000;
+}
+
+.page-item .page-link:hover {
+  background-color: #7a39b3;
+  color: #ffff;
+  border: none;
+  cursor: pointer;
+  border: 1px solid #000000;
+}
+
+.page-item {
+  color: #000000;
+  border: none;
+}
+
+.page-item.active .page-link {
+  background-color: #9B51DE !important;
+  border: 1px solid #000000;
+}
