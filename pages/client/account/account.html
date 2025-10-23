@@ -3,310 +3,57 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Account - Filmalisa</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="/styles/global.css" />
-    <link rel="stylesheet" href="/pages/client/account/account.css" />
+    <title>Client Account - Filmalisa</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/global.css">
+    <link rel="stylesheet" href="account.css">
   </head>
   <body>
-    <nav class="navbar">
-      <div class="nav-left">
-        <a href="/pages/client/home/home.html" class="logo">
-          <img src="/assets/icons/logo.svg" alt="Filmalisa" />
-          <span>filmalisa</span>
-        </a>
-        <ul class="nav-links">
-          <li><a href="/pages/client/home/home.html">Home</a></li>
-          <li><a href="/pages/client/favorite/favorite.html">My List</a></li>
-        </ul>
-      </div>
-      <div class="nav-right">
-        <a
-          href="/pages/client/searchPanel/searchPanel.html"
-          class="search-icon"
-        >
-          <i class="fas fa-search"></i>
-        </a>
-        <div class="profile-menu active">
-          <img
-            src="/assets/icons/profile-img.svg"
-            alt="Profile"
-            class="profile-img"
-          />
-          <div class="dropdown">
-            <a href="/pages/client/account/account.html" class="active"
-              >Account</a
-            >
-            <a href="#" id="logout">Sign Out</a>
-          </div>
-        </div>
-      </div>
-    </nav>
+    
+   <div class="account-container">
+    <div class="movie-header">
+      <img class="logo-img" src="/assets/icons/logo.svg" alt="">
+      <ul class="movie-header-list">
+          <li class="list-item"><a class="list-link" href="/pages/client/home/home.html"><img src="/assets/icons/home-icon.svg" alt=""></a></li>
+          <li class="list-item"><a class="list-link" href="/pages/client/searchPanel/searchPanel.html"><img src="/assets/icons/search-icon.svg" alt=""></a></li>
+          <li class="list-item active"><a class="list-link" href="/pages/client/account/account.html"><img src="/assets/icons/account-icon.svg" alt=""></a></li>
+          <li class="list-item"><a class="list-link" href="/pages/client/favorite/favorite.html"><img src="/assets/icons/favorite-icon.svg" alt=""></a></li>
+      </ul>
+  </div>
 
-    <div class="account-container">
-      <div class="account-header">
-        <h1><i class="fas fa-user-cog"></i> Account Settings</h1>
-        <p>Manage your account preferences and settings</p>
-      </div>
-
-      <div class="account-content">
-        <!-- Profile Section -->
-        <div class="account-section">
-          <div class="section-header">
-            <h2><i class="fas fa-user"></i> Profile Information</h2>
-            <button class="edit-btn" id="edit-profile-btn">
-              <i class="fas fa-edit"></i> Edit Profile
-            </button>
-          </div>
-
-          <div class="profile-info" id="profile-info">
-            <div class="profile-avatar">
-              <img
-                src="/assets/icons/profile-img.svg"
-                alt="Profile"
-                id="profile-avatar"
-              />
-              <button class="change-avatar-btn" id="change-avatar-btn">
-                <i class="fas fa-camera"></i>
-              </button>
-            </div>
-
-            <div class="profile-details">
-              <div class="detail-item">
-                <label>Username:</label>
-                <span id="profile-username">Loading...</span>
-              </div>
-              <div class="detail-item">
-                <label>Email:</label>
-                <span id="profile-email">Loading...</span>
-              </div>
-              <div class="detail-item">
-                <label>Member Since:</label>
-                <span id="profile-created">Loading...</span>
-              </div>
-              <div class="detail-item">
-                <label>Plan:</label>
-                <span class="plan-badge" id="profile-plan">Premium</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Preferences Section -->
-        <div class="account-section">
-          <div class="section-header">
-            <h2><i class="fas fa-cog"></i> Preferences</h2>
-          </div>
-
-          <div class="preferences-grid">
-            <div class="preference-item">
-              <div class="preference-info">
-                <h3>Email Notifications</h3>
-                <p>Receive notifications about new movies and updates</p>
-              </div>
-              <label class="toggle-switch">
-                <input type="checkbox" id="email-notifications" checked />
-                <span class="slider"></span>
-              </label>
-            </div>
-
-            <div class="preference-item">
-              <div class="preference-info">
-                <h3>Auto-play</h3>
-                <p>Automatically play next episode or movie</p>
-              </div>
-              <label class="toggle-switch">
-                <input type="checkbox" id="auto-play" checked />
-                <span class="slider"></span>
-              </label>
-            </div>
-
-            <div class="preference-item">
-              <div class="preference-info">
-                <h3>Download Quality</h3>
-                <p>Choose download quality for offline viewing</p>
-              </div>
-              <select class="quality-select" id="download-quality">
-                <option value="auto">Auto</option>
-                <option value="high">High (1080p)</option>
-                <option value="medium">Medium (720p)</option>
-                <option value="low">Low (480p)</option>
-              </select>
-            </div>
-
-            <div class="preference-item">
-              <div class="preference-info">
-                <h3>Language</h3>
-                <p>Choose your preferred language</p>
-              </div>
-              <select class="language-select" id="preferred-language">
-                <option value="en">English</option>
-                <option value="tr">Türkçe</option>
-                <option value="es">Español</option>
-                <option value="fr">Français</option>
-                <option value="de">Deutsch</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <!-- Watch History Section -->
-        <div class="account-section">
-          <div class="section-header">
-            <h2><i class="fas fa-history"></i> Watch History</h2>
-            <button class="clear-btn" id="clear-history-btn">
-              <i class="fas fa-trash"></i> Clear History
-            </button>
-          </div>
-
-          <div class="watch-history" id="watch-history">
-            <div class="history-placeholder">
-              <i class="fas fa-clock"></i>
-              <p>Your watch history will appear here</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Statistics Section -->
-        <div class="account-section">
-          <div class="section-header">
-            <h2><i class="fas fa-chart-bar"></i> Your Statistics</h2>
-          </div>
-
-          <div class="stats-grid">
-            <div class="stat-card">
-              <div class="stat-icon">
-                <i class="fas fa-film"></i>
-              </div>
-              <div class="stat-info">
-                <h3 id="movies-watched">0</h3>
-                <p>Movies Watched</p>
-              </div>
-            </div>
-
-            <div class="stat-card">
-              <div class="stat-icon">
-                <i class="fas fa-heart"></i>
-              </div>
-              <div class="stat-info">
-                <h3 id="favorites-count">0</h3>
-                <p>Favorites</p>
-              </div>
-            </div>
-
-            <div class="stat-card">
-              <div class="stat-icon">
-                <i class="fas fa-clock"></i>
-              </div>
-              <div class="stat-info">
-                <h3 id="watch-time">0h</h3>
-                <p>Watch Time</p>
-              </div>
-            </div>
-
-            <div class="stat-card">
-              <div class="stat-icon">
-                <i class="fas fa-calendar"></i>
-              </div>
-              <div class="stat-info">
-                <h3 id="days-active">0</h3>
-                <p>Days Active</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Danger Zone -->
-        <div class="account-section danger-section">
-          <div class="section-header">
-            <h2><i class="fas fa-exclamation-triangle"></i> Danger Zone</h2>
-          </div>
-
-          <div class="danger-actions">
-            <div class="danger-item">
-              <div class="danger-info">
-                <h3>Delete Account</h3>
-                <p>Permanently delete your account and all data</p>
-              </div>
-              <button class="danger-btn" id="delete-account-btn">
-                <i class="fas fa-trash"></i> Delete Account
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="account-section">
+    <div class="logo">
+      <img src="/assets/icons/profile-img.svg" class="logo" alt="logo" />
     </div>
-
-    <!-- Edit Profile Modal -->
-    <div class="modal" id="edit-profile-modal">
-      <div class="modal-content custom-modal-content">
-        <div class="modal-header custom-modal-header">
-          <button class="modal-close" id="modal-close">
-            <i class="fas fa-times"></i>
-          </button>
+    <form id="client-account-form" class="client-account-form" action="">
+        <div class="account-input">
+          <img id="profile-img-icon" src="/assets/icons/key.svg" alt="">
+          <img id="profile-img-eye" src="/assets/icons/password-eye.svg" alt="profile-img">
+          <input id="account-profile-img" type="url" placeholder="profile image url" required />
         </div>
-        <div class="modal-body custom-modal-body">
-          <form id="edit-profile-form" class="custom-edit-profile-form">
-            <div class="profile-image-wrapper">
-              <div class="profile-image-circle">
-                <img
-                  src="/assets/icons/profile-img.svg"
-                  alt="Profile"
-                  style="
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    border-radius: 50%;
-                  "
-                />
-              </div>
-            </div>
-            <div class="input-group">
-              <span class="input-icon"><i class="fas fa-image"></i></span>
-              <input
-                type="text"
-                id="edit-profile-img"
-                placeholder="profile image url"
-              />
-            </div>
-            <div class="input-group">
-              <span class="input-icon"><i class="fas fa-user"></i></span>
-              <input
-                type="text"
-                id="edit-username"
-                placeholder="full name"
-                required
-              />
-            </div>
-            <div class="input-group">
-              <span class="input-icon"><i class="fas fa-envelope"></i></span>
-              <input
-                type="email"
-                id="edit-email"
-                placeholder="email"
-                required
-              />
-            </div>
-            <div class="input-group">
-              <span class="input-icon"><i class="fas fa-lock"></i></span>
-              <input
-                type="password"
-                id="edit-password"
-                placeholder="password"
-              />
-            </div>
-            <button type="submit" class="btn-save custom-save-btn">save</button>
-          </form>
-        </div>
+        <div class="account-input">
+            <img id="fullname-icon" src="/assets/icons/key.svg" alt="">
+            <img id="fullname-eye" src="/assets/icons/password-eye.svg" alt="fullname-eye">
+            <input id="account-fullname" type="text" placeholder="full name" required />
+          </div>
+      <div class="account-input">
+        <img src="/assets/icons/letter.svg" alt="">
+            <input id="account-email" type="email" placeholder="email" required />
       </div>
-    </div>
+      <div class="account-input">
+        <img id="password-icon" src="/assets/icons/key.svg" alt="">
+        <img id="password-eye" src="/assets/icons/password-eye.svg" alt="password-eye">
+        <input id="account-password" type="password" placeholder="password" required />
+      </div>
+      <button id="save-btn" type="submit">Save</button>
+    </form>
+  </div>
+   </div>
 
-    <!-- Toast Notifications -->
-    <div class="toast-container" id="toast-container"></div>
-
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="account.js"></script>
     <script src="/pages/client/account/account.js"></script>
   </body>
 </html>
