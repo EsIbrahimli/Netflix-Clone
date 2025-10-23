@@ -13,31 +13,26 @@
   </head>
   <body>
     <div class="main-container">
-      <aside class="sidebar">
-        <div class="sidebar-logo">
-          <img src="/assets/icons/logo.svg" alt="Logo" style="width: 40px" />
-        </div>
-        <nav class="sidebar-nav">
-          <a href="/pages/client/home/home.html"
-            ><img src="/assets/icons/home.svg" alt="Home"
-          /></a>
-          <a href="#"><img src="/assets/icons/movies.svg" alt="Movies" /></a>
-          <a href="#"
-            ><img src="/assets/icons/comments.svg" alt="Comments"
-          /></a>
-          <a href="#"><img src="/assets/icons/star.svg" alt="Favorite" /></a>
-        </nav>
-      </aside>
+      <div class="movie-header">
+        <img class="logo-img" src="/assets/icons/logo.svg" alt="">
+        <ul class="movie-header-list">
+            <li class="list-item"><a class="list-link" href="/pages/client/home/home.html"><img src="/assets/icons/home-icon.svg" alt=""></a></li>
+            <li class="list-item"><a class="list-link" href="/pages/client/searchPanel/searchPanel.html"><img src="/assets/icons/search-icon.svg" alt=""></a></li>
+            <li class="list-item"><a class="list-link" href="/pages/client/account/account.html"><img src="/assets/icons/account-icon.svg" alt=""></a></li>
+            <li class="list-item"><a class="list-link" href="/pages/client/favorite/favorite.html"><img src="/assets/icons/favorite-icon.svg" alt=""></a></li>
+        </ul>
+    </div>
+
       <section class="content">
         <div class="illustration">
           <img
-            src="/assets/icons/404.svg"
+            src="/assets/icons/404-img.svg"
             alt="Lost"
             style="max-width: 300px"
           />
         </div>
-        <h1 class="title">Lost your way?</h1>
-        <p class="subtitle">
+        <h1 class="error-title">Lost your way?</h1>
+        <p class="error-subtitle">
           Oops! This is awkward. You are looking for something that doesn't
           actually exist.
         </p>

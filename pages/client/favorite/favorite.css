@@ -33,6 +33,11 @@
     height: 32px;
 }
 
+.movie-header-list .list-item:hover{
+    transform: scale(0.9);
+  }
+  
+
 /*Favorite Movies Section*/
 .favorite-movies-section{
     /* margin: 200px 60px 150px 60px; */
