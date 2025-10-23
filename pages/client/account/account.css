@@ -1,7 +1,7 @@
 .account-container {
   display: flex;
   min-height: 100vh;
-  background: #181818;
+  background: #1D1D1D;;
 }
 
 
@@ -35,6 +35,19 @@
   transform: scale(0.9);
 }
 
+.movie-headerlist .list-item{
+  transition: all .3s ease;
+}
+
+.movie-header-list .list-item:hover{
+  transform: scale(0.9);
+}
+
+.movie-header-list .active{
+  filter: brightness(0) saturate(100%) invert(66%) sepia(34%) saturate(1068%) hue-rotate(162deg) brightness(92%) contrast(98%);
+}
+
+
 /*Account Section*/
 .account-section {
   flex: 1;
@@ -51,11 +64,10 @@
   justify-content: center;
   width: 232px;
   height: 232px;
-  border: 1px solid  #72F435;
   border-radius: 50%;
   height: auto;
   /* margin-bottom:20px; */
-  background-color: #027981;
+  background: linear-gradient(to right, lightblue, rgb(14, 149, 176));
 }
 
 .logo img{
@@ -85,7 +97,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top:20px;
+  margin-top:40px;
 }
 
 .account-input {

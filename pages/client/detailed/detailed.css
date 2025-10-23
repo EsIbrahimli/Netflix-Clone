@@ -314,14 +314,14 @@
 .movie-category-name{
     /* display: inline-flex; */
     width: 120px;
-    color:#0FEFFD;
+    color: rgb(97, 207, 244);
     font-size: 14px;
     font-weight: 400;
     backdrop-filter: brightness(70%);
     padding:5px 10px;
     border-radius: 0px 5px 0px 5px;
     position: absolute;
-    bottom:120px;
+    bottom:150px;
     left:30px;
 }
 
@@ -330,27 +330,17 @@
     font-weight: 500;
     color: #FFFFFF;
     position: absolute;
-  
+    bottom:30px;
     left:30px;
     width:400px;
 }
 
-.movie-stars{
+.rating-stars{
     position: absolute;
-    bottom:120px;
+    bottom:100px;
     left:30px;
     width:40px;
     height: 40px;
-}
-
-.similar-movie-card1 .movie-title{
-    bottom: 60px;
-}
-
-.similar-movie-card2 .movie-title{
-    bottom:30px;
-}
-
-.similar-movie-card3 .movie-title{
-    bottom:30px;
+    color:#fff;
+    display:flex;
 }
