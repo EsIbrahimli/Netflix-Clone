@@ -281,7 +281,7 @@
 
 /*Similar Movies Section*/
 .similar-movies-section{
-    margin: 200px 60px 150px 60px;
+    margin: 200px 60px 150px 120px;
 }
 
 
@@ -298,12 +298,14 @@
 }
 
 .similar-movie-card1,
-.similar-movie-card2{
+.similar-movie-card2,
+.similar-movie-card3{
     position: relative;
 }
 
 .similar-movie-card1 img,
-.similar-movie-card2 img{
+.similar-movie-card2 img,
+.similar-movie-card3 img{
     width:504px;
     height: 736px;
     flex:1;
@@ -346,5 +348,9 @@
 }
 
 .similar-movie-card2 .movie-title{
+    bottom:30px;
+}
+
+.similar-movie-card3 .movie-title{
     bottom:30px;
 }
