@@ -1,9 +1,13 @@
 const signInBtn = document.querySelector('#sign-in-btn');
+const emailInput = document.querySelector('#email-input');
+const startBtn = document.querySelector('#start-btn');
+const filmalisaForm = document.querySelector('.filmalisa-form');
 
-
-
+//Token
 const token = localStorage.getItem('token');
-async function registerUser(email, password) {
+
+
+async function registerUser(register) {
     const url = `https://api.sarkhanrahimli.dev/api/filmalisa/auth/signup`;
     const options = {
         method: 'POST',
@@ -11,7 +15,7 @@ async function registerUser(email, password) {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify(register)
     }
     const response = await fetch(url, options);
     const data = await response.json();
@@ -70,4 +74,14 @@ signInBtn.addEventListener('click', () => {
     window.location.href = '../login/login.html';
 });
 
+filmalisaForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const register = {
+        email: emailInput.value
+    }
+  
+    window.location.href = '/pages/client/registr/registr.html';
+    registerUser(register);
+});
 

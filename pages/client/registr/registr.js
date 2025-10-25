@@ -18,8 +18,6 @@ async function registerUser(register) {
         const data = await response.json();
         
         if (!response.ok) {
-            console.error('Registration failed:', data);
-            
             // Check if account already exists
             let errorText = 'Registration failed. Please try again.';
             if (data.message && data.message.toLowerCase().includes('exist')) {
