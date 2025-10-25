@@ -6,6 +6,11 @@
     padding-bottom:30px;
 }
 
+ul,
+li{
+  padding:0px !important;
+}
+
 .hero-cover-img{
     width: 100%;
     height: 650px;

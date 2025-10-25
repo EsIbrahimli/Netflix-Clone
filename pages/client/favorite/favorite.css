@@ -7,6 +7,11 @@
     padding-bottom:200px;
 }
 
+ul,
+li{
+  padding:0px !important;
+}
+
 /*Heaader*/
 .movie-header{
     height: 100%;

@@ -4,6 +4,10 @@
   background: #1D1D1D;;
 }
 
+ul,
+li{
+  padding:0px !important;
+}
 
 /*Heaader*/
 .movie-header{

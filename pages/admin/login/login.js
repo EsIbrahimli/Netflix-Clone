@@ -27,8 +27,6 @@ async function loginUser(login) {
             setTimeout(() => {
                 loginPasswordInput.style = '';
                 loginUsernameInput.style = '';
-                loginUsernameInput.value = '';
-                loginPasswordInput.value = '';
             }, 2000)
             return
         }

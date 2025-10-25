@@ -104,16 +104,26 @@ body {
   }
 
   
-  .register-text {
+  .login-text {
+    align-self: self-start;
+    text-decoration: underline;
+  }
+
+  .login-text:hover {
+    color:#b264ff;
+  }
+
+  .login-text-link {
     font-family: 'Nunito Sans';
     font-size: 14px;
     font-weight: 400;
     color:#99A3BE;
     text-decoration: underline;
+    color:#99A3BE;
     align-self: self-start;
   }
 
-  .register-text:hover {
+  .login-text-link:hover {
     color:#b264ff;
   }
   

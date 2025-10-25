@@ -36,8 +36,12 @@ a{
 
 ul,
 li{
-  list-style: none !important; 
-  padding:0px !important;
+  list-style: none !important;  
+}
+
+ol,
+ul{
+    padding-left:0px !important;
 }
 
 /* Error Handling Styles */
