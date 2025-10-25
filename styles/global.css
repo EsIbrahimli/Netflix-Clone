@@ -36,7 +36,8 @@ a{
 
 ul,
 li{
-  list-style: none !important;  
+  list-style: none !important; 
+  padding:0px !important;
 }
 
 /* Error Handling Styles */

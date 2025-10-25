@@ -41,6 +41,18 @@
     height: 32px;
 }
 
+.movie-headerlist .list-item{
+    transition: all .3s ease;
+}
+
+.movie-header-list .list-item:hover{
+    transform: scale(0.9);
+  }
+
+  .movie-header-list .active{
+    filter: brightness(0) saturate(100%) invert(66%) sepia(34%) saturate(1068%) hue-rotate(162deg) brightness(92%) contrast(98%);
+  }
+
 .movie-hero-info{
     height: 139px;
     width:715px;
