@@ -1,10 +1,15 @@
+body {
+    background-color: #1D1D1D;
+    height: 100vh;
+  }
+
 .search-container {
     position: relative;
     background-color: #1D1D1D;
     width:100%;
-    height: auto;
+    height: 100%;
     margin:auto;
-    padding: 150px 0px 200px 0px;
+    padding: 150px 0px 120px 0px;
 }
 
 ul,
@@ -15,7 +20,7 @@ li{
 /*Heaader*/
 .movie-header{
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 100;
@@ -102,33 +107,55 @@ li{
     padding-bottom: 30px;
 }
 
-.search-movie-card1,
-.search-movie-card2,
-.search-movie-card3,
-.search-movie-card4{
+.search-movie-card1{
     position: relative;
 }
 
-.search-movie-card1 img,
-.search-movie-card2 img,
-.search-movie-card3 img,
-.search-movie-card4 img{
+.search-movie-card1 img{
     width: 292px;
     height: 440px;
     flex-basis: 20%;
+    transition: all 0.3s ease;
+}
+
+.search-movie-card1:hover{
+    transform: scale(1.05);
+}
+
+
+.overlay-movies{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.overlay-movies:hover{
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.539), rgba(0, 0, 0, 0.333)); /* şəklin qaralığı */;
+}
+
+
+.movie-content{
+    position: absolute !important;
+    bottom: 20px;
+    left:30px;
+    transition: all 0.3s ease;
 }
 
 .movie-category-name{
-    /* display: inline-flex; */
+    display: inline-block;
     color: rgb(97, 207, 244);
     font-size: 14px;
     font-weight: 400;
     backdrop-filter: brightness(70%);
     padding:5px 10px;
     border-radius: 0px 5px 0px 5px;
-    position: absolute;
+    /* position: absolute;
     bottom:110px;
-    left:30px;
+    left:30px; */
 }
 
 .movie-title{
@@ -136,20 +163,25 @@ li{
     font-weight: 500;
     width: 200px;
     color: #FFFFFF;
-    position: absolute;
+    /* position: absolute;
     bottom:20px;
-    left:30px;
+    left:30px; */
 }
 
-.rating-stars{
-    position: absolute;
-    bottom:65px;
-    left:30px;
-    height: 40px;
-    color:#fff;
-    display:flex;
-}
-
-.rating-stars i{
-    font-size: 12px;
-}
+.rating-stars i {
+    font-size: 10px;
+    color: gold;
+    margin-right: 3px;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+  
+  .rating-stars i:hover {
+    color: #ffdf00;
+    transform: scale(1.2);
+  }
+  
+  .rating-stars {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+  } 
