@@ -13,7 +13,7 @@
     
    <div class="account-container">
     <div class="movie-header">
-      <img class="logo-img" src="/assets/icons/logo.svg" alt="">
+     <a href="/index.html"><img class="logo-img" src="/assets/icons/logo.svg" alt=""></a> 
       <ul class="movie-header-list">
           <li class="list-item"><a class="list-link" href="/pages/client/home/home.html"><img src="/assets/icons/home-icon.svg" alt=""></a></li>
           <li class="list-item"><a class="list-link" href="/pages/client/searchPanel/searchPanel.html"><img src="/assets/icons/search-icon.svg" alt=""></a></li>
@@ -24,17 +24,15 @@
 
   <div class="account-section">
     <div class="logo">
-      <img src="" class="logo" alt="logo" />
+      <img id="profile-preview-img" src="/assets/images/default.jpg" class="logo" alt="logo" />
     </div>
     <form id="client-account-form" class="client-account-form" action="">
         <div class="account-input">
           <img id="profile-img-icon" src="/assets/icons/key.svg" alt="">
-          <img id="profile-img-eye" src="/assets/icons/password-eye.svg" alt="profile-img">
           <input id="account-profile-img" type="url" placeholder="profile image url" required />
         </div>
         <div class="account-input">
             <img id="fullname-icon" src="/assets/icons/key.svg" alt="">
-            <img id="fullname-eye" src="/assets/icons/password-eye.svg" alt="fullname-eye">
             <input id="account-fullname" type="text" placeholder="full name" required />
           </div>
       <div class="account-input">
@@ -54,6 +52,5 @@
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="account.js"></script>
-    <script src="/pages/client/account/account.js"></script>
   </body>
 </html>

@@ -168,7 +168,7 @@
 /*Actors Table Styles*/
 
 .actors-table {
-    width: 70%;
+    width: 100%;
     border: none;
     font-family: 'Nunito Sans', sans-serif;
     text-align: center;
@@ -179,7 +179,10 @@
 }
 
 .actors-table .movie-icon {
-    padding-right: 15px;
+    width: 34px;
+    height: 40px;
+    border-radius: 5px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
 
@@ -208,11 +211,6 @@
     background-color: #ffff;
 }
 
-.body-table .movie-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 4px;
-}
 
 .edit-btn,
 .delete-btn {

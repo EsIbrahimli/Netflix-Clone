@@ -146,24 +146,47 @@ li{
 
 .watch-btn{
     background-color: transparent;
-    border: 1px solid;
-    border-image-slice: 1;
     color: #FFFFFF;
-    border-radius: 50% !important;
-    padding: 10px 30px;
+    border-radius: 25px;
+    padding: 12px 38px;
     font-size: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
-    border-image-slice: 1;
-    border-width: 1px;
-    border-image-source: linear-gradient(to right, #00c6ff, #7f00ff);
+    border: none;
+    position: relative;
+    isolation: isolate;
+}
+
+.watch-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 25px;
+    padding: 1px;
+    background: linear-gradient(to right, #00c6ff, #7f00ff);
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    z-index: -1;
+}
+
+@supports not (-webkit-mask-composite: xor) {
+    .watch-btn::before {
+        background: none;
+        border: 1px solid;
+        border-image: linear-gradient(to right, #00c6ff, #7f00ff) 1;
+    }
 }
 
 .watch-btn:hover{
-  border: 1px solid linear-gradient(to right, #00c6ff, #7f00ff);
-  background-color: transparent;
   color: rgb(97, 207, 244);
   transform: scale(1.05);
+  opacity:0.6;
 }
 
 
@@ -176,11 +199,9 @@ li{
     width: 100%;
     height: 100%;
     z-index: 1;
-    transition: all 0.3s ease;
-}
-
-.overlay-movies:hover{
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.539), rgba(0, 0, 0, 0.333)); /* şəklin qaralığı */;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.539), rgba(0, 0, 0, 0.333));
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .fantasy-movies-section,
@@ -236,21 +257,29 @@ li{
     cursor: pointer;
 }
 
-.fantasy-movie-card1:hover,
-.action-movie-card1:hover,
-.thriller-movie-card1:hover,
-.mystery-movie-card1:hover,
-.comedy-movie-card1:hover,
-.dram-movie-card1:hover,
-.crime-movie-card1:hover,
-.crimee-movie-card1:hover{
+.fantasy-movie-card1:hover .overlay-movies,
+.action-movie-card1:hover .overlay-movies,
+.thriller-movie-card1:hover .overlay-movies,
+.mystery-movie-card1:hover .overlay-movies,
+.comedy-movie-card1:hover .overlay-movies,
+.dram-movie-card1:hover .overlay-movies,
+.crime-movie-card1:hover .overlay-movies,
+.crimee-movie-card1:hover .overlay-movies{
+    opacity: 1;
+}
 
- .movie-content{
+.fantasy-movie-card1:hover .movie-content,
+.action-movie-card1:hover .movie-content,
+.thriller-movie-card1:hover .movie-content,
+.mystery-movie-card1:hover .movie-content,
+.comedy-movie-card1:hover .movie-content,
+.dram-movie-card1:hover .movie-content,
+.crime-movie-card1:hover .movie-content,
+.crimee-movie-card1:hover .movie-content{
     position: absolute !important;
     bottom: 40px;
     left:30px;
     z-index: 100;
- }
 }
 
 .fantasy-movie-card1 img,
@@ -313,4 +342,85 @@ li{
     display: flex;
     align-items: center;
     margin: 8px 0;
-  } 
+  }
+
+/* YouTube Modal Styles */
+.youtube-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.youtube-modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 1200px;
+    padding: 20px;
+    background-color: #1D1D1D;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.youtube-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #fff;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10000;
+    transition: color 0.3s ease;
+    line-height: 1;
+}
+
+.youtube-modal-close:hover {
+    color: #00c6ff;
+}
+
+#youtubeIframe {
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#youtubeIframe iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 768px) {
+    .youtube-modal-content {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    .youtube-modal-close {
+        font-size: 30px;
+        top: 5px;
+        right: 15px;
+    }
+}

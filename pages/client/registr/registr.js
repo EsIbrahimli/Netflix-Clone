@@ -4,6 +4,14 @@ const registrPasswordInput = document.querySelector('#registr-password');
 const registrFullnameInput = document.querySelector('#registr-fullname');
 const registrBtn = document.querySelector('#registr-btn');
 
+// LandingPage-dən gələn email-i yüklə
+const pendingEmail = localStorage.getItem('pendingEmail');
+if (pendingEmail) {
+    registrEmailInput.value = pendingEmail;
+    // Email-i localStorage-dan sil
+    localStorage.removeItem('pendingEmail');
+}
+
 async function registerUser(register) {
     const url = `https://api.sarkhanrahimli.dev/api/filmalisa/auth/signup`;
     const options = {

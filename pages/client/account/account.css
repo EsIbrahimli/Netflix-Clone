@@ -166,6 +166,24 @@ padding: 0px 45px 0px 45px;
   outline: 1px solid #b264ff;
 }
 
+/* Saved state - solğun rəng */
+#account-email.saved,
+#account-password.saved,
+#account-fullname.saved,
+#account-profile-img.saved {
+  color: #475069;
+  opacity: 0.7;
+}
+
+/* Focus olduqda rəngi bərpa et */
+#account-email.saved:focus,
+#account-password.saved:focus,
+#account-fullname.saved:focus,
+#account-profile-img.saved:focus {
+  color: #ffff;
+  opacity: 1;
+}
+
 
 .account-text {
   font-family: 'Nunito Sans';

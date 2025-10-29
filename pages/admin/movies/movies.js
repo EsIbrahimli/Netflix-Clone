@@ -178,9 +178,14 @@ async function createMovie(newMovie) {
     try {
         const response = await fetch(url, options);
         const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.message || 'Film yaradılarkən xəta baş verdi');
+        }
+        
         return data;
     } catch (error) {
-        console.log('Error:', error);
+        console.error('Error creating movie:', error);
         throw error;
     }
 }
@@ -488,42 +493,92 @@ editInputCover.addEventListener('input', (e) => {
 });
 
 
-btnSubmit.addEventListener('click', async () => {
+btnSubmit.addEventListener('click', async (e) => {
+    e.preventDefault();
+    
+    try {
+        // Validation - category və actors seçilməlidir
+        if (!categoryDropdown.dataset.selectedId) {
+            Toastify({
+                text: "Kateqoriya seçin!",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#a72a28ff",
+            }).showToast();
+            return;
+        }
+        
+        if (!actorsDropdown.dataset.selectedId) {
+            Toastify({
+                text: "Aktyor seçin!",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#a72a28ff",
+            }).showToast();
+            return;
+        }
+
         const newMovie = {
-            title: inputTitle.value,
-            cover_url: inputCover.value,
-            fragman: inputFragman.value,
-            watch_url: inputWatch.value,
-            imdb: inputImdb.value,
-            overview: inputOverview.value,
-            run_time_min: parseInt(inputRunTimeMin.value),
+            title: inputTitle.value.trim(),
+            cover_url: inputCover.value.trim(),
+            fragman: inputFragman.value.trim(),
+            watch_url: inputWatch.value.trim(),
+            imdb: inputImdb.value.trim(),
+            overview: inputOverview.value.trim(),
+            run_time_min: parseInt(inputRunTimeMin.value) || 0,
             category: parseInt(categoryDropdown.dataset.selectedId),
             actors: [parseInt(actorsDropdown.dataset.selectedId)],
             adult: sexCheckbox.checked,
         }
-    await createMovie(newMovie);
-    await renderMovies();
-    moviesModal.style.display = 'none';
-    modalOverlay.classList.remove('active');
-    inputTitle.value = '';
-    inputOverview.value = '';
-    inputCover.value = '';
-    inputFragman.value = '';
-    inputWatch.value = '';
-    inputImdb.value = '';
-    inputRunTimeMin.value = '';
-    categoryDropdown.dataset.selectedId = '';
-    actorsDropdown.dataset.selectedId = '';
-    categoryDropdown.querySelector('.selected-option').innerHTML = 'category <i class="fa-solid fa-chevron-down"></i>';
-    actorsDropdown.querySelector('.selected-option').innerHTML = 'actors <i class="fa-solid fa-chevron-down"></i>';
-    sexCheckbox.checked = false;
-    Toastify({
-        text: "Film uğurla əlavə edildi ✅",
-        duration: 3000,
-        gravity: "top",
-        position: "right",
-        backgroundColor: "#28a745",
-    }).showToast();
+
+        const result = await createMovie(newMovie);
+        
+        if (result && result.result) {
+            await renderMovies();
+            moviesModal.style.display = 'none';
+            modalOverlay.classList.remove('active');
+            inputTitle.value = '';
+            inputOverview.value = '';
+            inputCover.value = '';
+            inputFragman.value = '';
+            inputWatch.value = '';
+            inputImdb.value = '';
+            inputRunTimeMin.value = '';
+            categoryDropdown.dataset.selectedId = '';
+            actorsDropdown.dataset.selectedId = '';
+            categoryDropdown.querySelector('.selected-option').innerHTML = 'category <i class="fa-solid fa-chevron-down"></i>';
+            actorsDropdown.querySelector('.selected-option').innerHTML = 'actors <i class="fa-solid fa-chevron-down"></i>';
+            sexCheckbox.checked = false;
+            modalImage.src = '/assets/images/default.jpg';
+            
+            Toastify({
+                text: "Film uğurla əlavə edildi ✅",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#28a745",
+            }).showToast();
+        } else {
+            Toastify({
+                text: result?.message || "Film əlavə edilərkən xəta baş verdi!",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#a72a28ff",
+            }).showToast();
+        }
+    } catch (error) {
+        console.error('Error creating movie:', error);
+        Toastify({
+            text: "Film əlavə edilərkən xəta baş verdi!",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#a72a28ff",
+        }).showToast();
+    }
 });
 
 btnEditSubmit.addEventListener('click', async () => {

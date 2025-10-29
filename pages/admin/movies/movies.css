@@ -182,9 +182,10 @@
 }
 
 .movie-table .movie-icon {
-    padding-right: 15px;
-    width: 40px;
-    height: 35px;
+    width: 30px;
+    height: 40px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 
 .head-table {
@@ -235,6 +236,7 @@
 .delete-btn i {
     font-size: 18px;
 }
+
 
 
 /*Create Modal Styles*/

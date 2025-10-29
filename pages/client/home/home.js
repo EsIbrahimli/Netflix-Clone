@@ -8,9 +8,21 @@ const dramMoviesCards = document.querySelector('.dram-movies-cards');
 const crimeMoviesCards = document.querySelector('.crime-movies-cards');
 const crimeeMoviesCards = document.querySelector('.crimee-movies-cards');   
 const carouselInner = document.querySelector('.carousel-inner');
+const youtubeModal = document.getElementById('youtubeModal');
+const youtubeIframe = document.querySelector('#youtubeIframe iframe');
+const youtubeModalClose = document.querySelector('.youtube-modal-close');
+
+// YouTube linkləri - hər slide üçün (3 slide)
+const youtubeLinks = [
+    'https://www.youtube.com/embed/EP34Yoxs3FQ?si=uaTspIgJ9kx_vg_3',
+    'https://www.youtube.com/embed/NLOp_6uPccQ?si=PU7V9us7lPKtJYDX', 
+    'https://www.youtube.com/embed/7Aw-XMYBeIQ?si=DsGqukvXrIXMfn8p' 
+];
 
 //Token
 const token = localStorage.getItem('token');
+
+
 
 
 //API Calls
@@ -33,218 +45,52 @@ async function getMovies(){
 }
 
 //----------------------------------------------------------------------------------------------
-async function displayFantasyMovies(){
+// Category name to DOM element mapping
+const categoryCardsMap = {
+    'Fantasy': fantasyMoviesCards,
+    'Action': actionMoviesCards,
+    'Thriller': thrillerMoviesCards,
+    'Mystery': mysteryMoviesCards,
+    'Comedy': comedyMoviesCards,
+    'Dram': dramMoviesCards,
+};
+
+async function displayMoviesByCategory(categoryName) {
     const movies = await getMovies();
-    
-    if(movies && movies.data && movies.data.length > 0){
-        // Find fantasy category
-        const fantasyCategory = movies.data.find(category => category.name === 'Fantasyyy');
-        
-        if(fantasyCategory && fantasyCategory.movies && fantasyCategory.movies.length > 0){
-            fantasyMoviesCards.innerHTML = fantasyCategory.movies.map(movie => `
-                <div class="fantasy-movie-card1">
+    const categoryMovies = movies.data.find(cat => cat.name === categoryName);
+    const categoryCardsElement = categoryCardsMap[categoryName];
+
+
+    if (categoryMovies && categoryMovies.movies && categoryMovies.movies.length > 0) {
+        // Convert category name to lowercase for CSS class name
+        const categoryClass = categoryName.toLowerCase() + '-movie-card1';
+        categoryCardsElement.innerHTML = categoryMovies.movies.map(movie => `
+            <div class="${categoryClass}">
                 <div class="overlay-movies"></div>
-                <img src="${movie.cover_url}" alt="">
-            <div class=movie-content>
-                <h3 class="movie-category-name">${fantasyCategory.name}</h3>
-                <div class="rating-stars">
-               ${generateStars(movie.imdb / 2 || 0)}
-               </div>
-                 <h1 class="movie-title">${movie.title}</h1>
-                 </div>
-             </div> 
-            `).join('');
-        }
-        else{
-            fantasyMoviesCards.innerHTML = 'No fantasy movies found';
-        }
+                <img src="${movie.cover_url}" alt="${movie.title}">
+                <div class="movie-content">
+                    <h3 class="movie-category-name">${categoryMovies.name}</h3>
+                    <div class="rating-stars">
+                        ${generateStars(movie.imdb / 2 || 0)}
+                    </div>
+                    <h1 class="movie-title">${movie.title}</h1>
+                </div>
+            </div>
+        `).join('');
+    } else {
+        categoryCardsElement.innerHTML = '<p style="color: white; font-size: 20px;">No movies found</p>';
     }
 }
 
-displayFantasyMovies();
+// Display movies for each category
+displayMoviesByCategory('Fantasy');
+displayMoviesByCategory('Action');
+displayMoviesByCategory('Thriller');
+displayMoviesByCategory('Mystery');
+displayMoviesByCategory('Comedy');
+displayMoviesByCategory('Dram');
 
-
-async function displayActionMovies(){
-    const movies = await getMovies();
-    const actionMovies = movies.data.find(category => category.name === 'Action');
-
-    if(actionMovies && actionMovies.movies && actionMovies.movies.length > 0){
-        actionMoviesCards.innerHTML = actionMovies.movies.map(movie => `
-             <div class="action-movie-card1">
-             <div class="overlay-movies"></div>
-             <img src="${movie.cover_url}" alt="">
-            <div class=movie-content>
-                <h3 class="movie-category-name">${actionMovies.name}</h3>
-                <div class="rating-stars">
-               ${generateStars(movie.imdb / 2 || 0)}
-               </div>
-                 <h1 class="movie-title">${movie.title}</h1>
-                 </div>
-             </div> `).join('');
-    }
-    else{
-        actionMoviesCards.innerHTML = 'No action movies found';
-    }
-}
-
-displayActionMovies();
-
-
-async function displayThrillerMovies(){
-    const movies = await getMovies();
-    const thrillerMovies = movies.data.find(category => category.name === 'Thriller');
-
-    if(thrillerMovies && thrillerMovies.movies && thrillerMovies.movies.length > 0){
-        thrillerMoviesCards.innerHTML = thrillerMovies.movies.map(movie => `
-            <div class="thriller-movie-card1">
-            <div class="overlay-movies"></div>
-            <img src="${movie.cover_url}" alt="">
-            <div class=movie-content>
-                <h3 class="movie-category-name">${thrillerMovies.name}</h3>
-                <div class="rating-stars">
-               ${generateStars(movie.imdb / 2 || 0)}
-               </div>
-                 <h1 class="movie-title">${movie.title}</h1>
-                 </div>
-             </div> `).join('');
-    }
-    else{
-        thrillerMoviesCards.innerHTML = 'No thriller movies found';
-    }
-}
-
-displayThrillerMovies();
-
-
-async function displayMysteryMovies(){
-    const movies = await getMovies();
-    const mysteryMovies = movies.data.find(category => category.name === 'Mystery');
-
-    if(mysteryMovies && mysteryMovies.movies && mysteryMovies.movies.length > 0){
-        mysteryMoviesCards.innerHTML = mysteryMovies.movies.map(movie => `
-            <div class="mystery-movie-card1">
-            <div class="overlay-movies"></div>
-            <img src="${movie.cover_url}" alt="">
-            <div class=movie-content>
-                <h3 class="movie-category-name">${mysteryMovies.name}</h3>
-                <div class="rating-stars">
-               ${generateStars(movie.imdb / 2 || 0)}
-               </div>
-                 <h1 class="movie-title">${movie.title}</h1>
-                 </div>
-             </div> `).join('');
-    }
-    else{
-        mysteryMoviesCards.innerHTML = 'No mystery movies found';
-    }
-}
-
-displayMysteryMovies();
-
-
-async function displayComedyMovies(){
-    const movies = await getMovies();
-    const comedyMovies = movies.data.find(category => category.name === 'Comedy');
-
-    if(comedyMovies && comedyMovies.movies && comedyMovies.movies.length > 0){
-        comedyMoviesCards.innerHTML = comedyMovies.movies.map(movie => `
-             <div class="comedy-movie-card1">
-             <div class="overlay-movies"></div>
-             <img src="${movie.cover_url}" alt="">
-            <div class=movie-content>
-                <h3 class="movie-category-name">${comedyMovies.name}</h3>
-                <div class="rating-stars">
-               ${generateStars(movie.imdb / 2 || 0)}
-               </div>
-                 <h1 class="movie-title">${movie.title}</h1>
-                 </div>
-             </div> `).join('');
-    }
-    else{
-        comedyMoviesCards.innerHTML = 'No comedy movies found';
-    }
-}
-
-displayComedyMovies();
-
-
-async function displayDramMovies(){
-    const movies = await getMovies();
-    const dramMovies = movies.data.find(category => category.name === 'Dram');
-
-    if(dramMovies && dramMovies.movies && dramMovies.movies.length > 0){
-        dramMoviesCards.innerHTML = dramMovies.movies.map(movie => `
-              <div class="dram-movie-card1">
-              <div class="overlay-movies"></div>
-              <img src="${movie.cover_url}" alt="">
-            <div class=movie-content>
-                <h3 class="movie-category-name">${dramMovies.name}</h3>
-                <div class="rating-stars">
-               ${generateStars(movie.imdb / 2 || 0)}
-               </div>
-                 <h1 class="movie-title">${movie.title}</h1>
-                 </div>
-             </div> `).join('');
-    }
-    else{
-        dramMoviesCards.innerHTML = 'No dram movies found';
-    }
-}
-
-displayDramMovies();
-
-
-async function displayCrimeMovies(){
-    const movies = await getMovies();
-    const crimeMovies = movies.data.find(category => category.name === 'Crime');
-
-    if(crimeMovies && crimeMovies.movies && crimeMovies.movies.length > 0){
-        crimeMoviesCards.innerHTML = crimeMovies.movies.map(movie => `
-            <div class="crime-movie-card1">
-            <div class="overlay-movies"></div>
-            <img src="${movie.cover_url}" alt="">
-            <div class=movie-content>
-                <h3 class="movie-category-name">${crimeMovies.name}</h3>
-                <div class="rating-stars">
-               ${generateStars(movie.imdb / 2 || 0)}
-               </div>
-                 <h1 class="movie-title">${movie.title}</h1>
-                 </div>
-             </div>`).join('');
-    }
-    else{
-        crimeMoviesCards.innerHTML = 'No crime movies found';
-    }
-}
-
-displayCrimeMovies();
-
-
-async function displayCrimeeMovies(){
-    const movies = await getMovies();
-    const crimeeMovies = movies.data.find(category => category.name === 'Crimee');
-
-    if(crimeeMovies && crimeeMovies.movies && crimeeMovies.movies.length > 0){
-        crimeeMoviesCards.innerHTML = crimeeMovies.movies.map(movie => `
-            <div class="crimee-movie-card1">
-            <div class="overlay-movies"></div>
-            <img src="${movie.cover_url}" alt="">
-                <div class=movie-content>
-                <h3 class="movie-category-name">${crimeeMovies.name}</h3>
-                <div class="rating-stars">
-               ${generateStars(movie.imdb / 2 || 0)}
-               </div>
-                 <h1 class="movie-title">${movie.title}</h1>
-                 </div>
-             </div>`).join('');
-    }
-    else{
-        crimeeMoviesCards.innerHTML = 'No crimee movies found';
-    }
-}
-
-displayCrimeeMovies();
-//---------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------
 
 async function carousel() {
     const movies = await getMovies();
@@ -275,7 +121,7 @@ async function carousel() {
            </div>
             <h1 class="slider-movie-title">${movie.title}</h1>
             <p>${movie.overview}</p>
-            <button class="watch-btn">Watch Now</button>
+            <button class="watch-btn" data-youtube-link="${youtubeLinks[index] || ''}" data-slide-index="${index}">Watch Now</button>
           </div>
         </div>
       `).join('');
@@ -284,6 +130,77 @@ async function carousel() {
   
   carousel();
   
+  // YouTube linkini embed formatına çevirir
+  function convertToEmbedUrl(url) {
+    if (!url) return '';
+    
+    // Əgər artıq embed formatındadırsa
+    if (url.includes('youtube.com/embed/')) {
+      return url;
+    }
+    
+    // Əgər watch URL formatındadırsa
+    const watchMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/);
+    if (watchMatch) {
+      return `https://www.youtube.com/embed/${watchMatch[1]}`;
+    }
+    
+    // Əgər embed ID-dir
+    const embedMatch = url.match(/\/embed\/([^&\n?#]+)/);
+    if (embedMatch) {
+      return `https://www.youtube.com/embed/${embedMatch[1]}`;
+    }
+    
+    return url;
+  }
+  
+  // Modal açır və YouTube video yükləyir
+  function openYouTubeModal(youtubeUrl) {
+    if (!youtubeUrl) {
+      alert('YouTube linki tapılmadı!');
+      return;
+    }
+    
+    const embedUrl = convertToEmbedUrl(youtubeUrl);
+    youtubeIframe.src = embedUrl + '?autoplay=1';
+    youtubeModal.style.display = 'flex';
+  }
+  
+  // Modal bağlayır
+  function closeYouTubeModal() {
+    youtubeModal.style.display = 'none';
+    youtubeIframe.src = ''; // Video durdurulur
+  }
+  
+  // Watch Now düymələrinə event listener
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('watch-btn')) {
+      e.preventDefault();
+      e.stopPropagation();
+      const youtubeLink = e.target.getAttribute('data-youtube-link');
+      if (youtubeLink) {
+        openYouTubeModal(youtubeLink);
+      } else {
+        alert('Bu slide üçün YouTube linki təyin edilməyib!');
+      }
+    }
+  });
+  
+  // Modal bağlama düyməsi
+  if (youtubeModalClose) {
+    youtubeModalClose.addEventListener('click', closeYouTubeModal);
+  }
+  
+  // Modal xaricində klikləndikdə bağla
+  youtubeModal.addEventListener('click', function(e) {
+    if (e.target === youtubeModal) {
+      closeYouTubeModal();
+    }
+  });
+  
+
+
+  // Generate stars for the rating
   function generateStars(rating) {
     if (!rating) return '<i class="fa fa-star-o"></i>'.repeat(5);
   
@@ -300,9 +217,3 @@ async function carousel() {
     return starsHTML;
   }
   
-  
-  
-
-function getDetailedPage(){
-    window.location.href = `../detailed/detailed.html`;
-}

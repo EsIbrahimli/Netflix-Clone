@@ -2,6 +2,10 @@ const signInBtn = document.querySelector('#sign-in-btn');
 const emailInput = document.querySelector('#email-input');
 const startBtn = document.querySelector('#start-btn');
 const filmalisaForm = document.querySelector('.filmalisa-form');
+const userDropdown = document.getElementById('user-dropdown');
+const logoutBtn = document.getElementById('logout-btn');
+const userAvatar = document.getElementById('user-avatar');
+const userName = document.getElementById('user-name');
 
 //Token
 const token = localStorage.getItem('token');
@@ -69,19 +73,72 @@ async function loginUser(login) {
 }
 
 
-//EVENTS
-signInBtn.addEventListener('click', () => {
-    window.location.href = '../login/login.html';
+async function getProfile() {
+    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/profile`;
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    }
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+async function showProfile() {
+    const profile = await getProfile();
+    userAvatar.src = profile.data.img_url;
+    userName.textContent = profile.data.full_name;
+}
+
+// Token varsa dropdown göster, yoxsa Sign-in göster
+if (token) {
+    signInBtn.textContent = 'Profile';
+    signInBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        userDropdown.classList.toggle('show');
+        showProfile();
+    });
+} else {
+    signInBtn.addEventListener('click', () => {
+        window.location.href = './pages/client/login/login.html';
+    });
+}
+
+// Logout funksiyası
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = '/index.html';
+    });
+}
+
+// Dropdown xaricində klikləndikdə bağla
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.user-menu')) {
+        userDropdown.classList.remove('show');
+    }
 });
+
+//EVENTS
 
 filmalisaForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    
-    const register = {
-        email: emailInput.value
-    }
-  
+    const email = emailInput.value;
+    if(!token){
+    localStorage.setItem('pendingEmail', email);
     window.location.href = '/pages/client/registr/registr.html';
-    registerUser(register);
+    } else {
+        window.location.href = 'index.html';
+    }
 });
+
 
