@@ -19,7 +19,12 @@ const commentProfileInfo = document.querySelector('.comment-profile-info');
 const commentProfileName = document.querySelector('.comment-profile-name');
 const commentProfileTime = document.querySelector('.comment-profile-time');
 const commentTextContainer = document.querySelector('.comment-text-container');
-const commentText = document.querySelector('.comment-text');``
+const commentText = document.querySelector('.comment-text');
+const similarMoviesCards = document.querySelector('.similar-movies-cards');
+const similarMoviesTitle = document.querySelector('.similar-movies-title');
+const movieTitle = document.querySelector('.movie-title');
+const movieCategoryName = document.querySelector('.movie-category-name');
+
 
 const selectedMovieId = localStorage.getItem('selectedMovieId');
 const token = localStorage.getItem('token');
@@ -140,6 +145,24 @@ async function getAccount() {
     }
 }
 
+async function getCategories() {
+    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/categories`;
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    }
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log('Error:', error);
+    }
+}
+
 //------------------------------------------------------------------------
 async function displayUserProfileImg() {
     if(userImg){
@@ -181,6 +204,74 @@ async function displayMovie() {
         actorImg.src = actors.data[0].img_url;
         actorName.textContent = actors.data[0].name;
     }
+    
+    // Similar movies-i göstər
+    await displaySimilarMovies(movie.data.category.id, movie.data.category.name);
+}
+
+async function displaySimilarMovies(categoryId, categoryName) {
+    const categories = await getCategories();
+    
+    if (!categories || !categories.data) return;
+    
+    // Cari kateqoriyanı tap
+    const currentCategory = categories.data.find(cat => cat.id === categoryId);
+    
+    if (!currentCategory || !currentCategory.movies) return;
+    
+    // Cari filmi çıxar, yalnız digər filmləri göstər
+    const similarMovies = currentCategory.movies.filter(movie => movie.id != selectedMovieId);
+    
+    // Similar movies title-ni yenilə
+    similarMoviesTitle.textContent = `Similar ${categoryName} Movies`;
+    
+    // Similar movies cards-ı təmizlə
+    similarMoviesCards.innerHTML = '';
+    
+    if (similarMovies.length === 0) {
+        similarMoviesCards.innerHTML = '<p style="color: #999; text-align: center; padding: 20px;">Bu kateqoriyada başqa film yoxdur.</p>';
+        return;
+    }
+    
+    // İlk 3 oxşar filmi göstər
+    const moviesToShow = similarMovies.slice(0, 3);
+    
+    moviesToShow.forEach(movie => {
+        const rating = (movie.imdb / 2).toFixed(1);
+        const fullStars = Math.floor(rating);
+        const hasHalfStar = rating % 1 !== 0;
+        const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+        
+        let starsHTML = '';
+        for (let i = 0; i < fullStars; i++) {
+            starsHTML += '<i class="fa fa-star"></i>';
+        }
+        if (hasHalfStar) {
+            starsHTML += '<i class="fa fa-star-half-alt"></i>';
+        }
+        for (let i = 0; i < emptyStars; i++) {
+            starsHTML += '<i class="fa fa-star-o"></i>';
+        }
+        
+        similarMoviesCards.innerHTML += `
+            <div class="similar-movie-card1"><img src="${movie.cover_url}" alt="">
+               <h3 class="movie-category-name">${movie.category.name}</h3>
+               <div class="rating-stars">
+                ${starsHTML}
+              </div>
+                <h1 class="movie-title">${movie.title}</h1>
+            </div>
+        `;
+    });
+    
+    // Movie card-lara click event əlavə et
+    document.querySelectorAll('.similar-movie-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const movieId = this.getAttribute('data-movie-id');
+            localStorage.setItem('selectedMovieId', movieId);
+            window.location.reload(); // Səhifəni yenilə
+        });
+    });
 }
 
 displayMovie();

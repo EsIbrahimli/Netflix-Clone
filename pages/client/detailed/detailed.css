@@ -22,13 +22,13 @@ li{
 }
 
 .movie-header{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 100;
     padding:0px 10px 0px 10px;
     backdrop-filter: blur(7px) brightness(70%);
-    height: 650px;
+    height: 100%;
 }
 
 .movie-header .logo-img{
@@ -381,9 +381,7 @@ li{
     position: relative;
 }
 
-.similar-movie-card1 img,
-.similar-movie-card2 img,
-.similar-movie-card3 img{
+.similar-movie-card1 img{
     width:504px;
     height: 736px;
     flex:1;
