@@ -40,6 +40,8 @@ async function loginUser(login) {
             // İstəsən profil məlumatlarını da saxla
             const profile = data.data.profile;
             localStorage.setItem('user', JSON.stringify(profile));
+            localStorage.setItem('userId', profile.id); // userId-ni də saxla
+            localStorage.setItem('userImg', profile.img_url); // Profil şəklini də saxla
 
             loginEmailInput.style.border = '1px solid antiqueWhite';
             loginPasswordInput.style.border = '1px solid antiqueWhite';

@@ -3,7 +3,7 @@ const addFavIcon = document.querySelector('.add-fav-icon');
 const searchInput = document.querySelector('#search-input');
 const searchMoviesSection = document.querySelector('.search-movies-section');
 const noResultMessage = document.getElementById('no-result-message');
-
+const addSearchIcon = document.querySelector('.add-search-icon');
 
 //Token
 const token = localStorage.getItem('token');
@@ -86,7 +86,7 @@ displayAllMovies();
 
 
 //EVENTS
-searchInput.addEventListener('input', () => {
+addSearchIcon.addEventListener('click', () => {
     const searchValue = searchInput.value.toLowerCase().trim();
     const searchMovies = document.querySelectorAll('.search-movie-card1');
     let found = false;
@@ -101,7 +101,7 @@ searchInput.addEventListener('input', () => {
     // Əks halda filtrlə
     searchMovies.forEach(movie => {
         const movieTitle = movie.querySelector('.movie-title').textContent.toLowerCase();
-        if (movieTitle.startsWith(searchValue)) {
+        if (movieTitle.includes(searchValue)) {
             movie.style.display = 'block';
             found = true;
         } else {

@@ -65,7 +65,7 @@ async function displayMoviesByCategory(categoryName) {
         // Convert category name to lowercase for CSS class name
         const categoryClass = categoryName.toLowerCase() + '-movie-card1';
         categoryCardsElement.innerHTML = categoryMovies.movies.map(movie => `
-            <div class="${categoryClass}">
+            <div class="${categoryClass}" data-movie-id="${movie.id}">
                 <div class="overlay-movies"></div>
                 <img src="${movie.cover_url}" alt="${movie.title}">
                 <div class="movie-content">
@@ -77,6 +77,17 @@ async function displayMoviesByCategory(categoryName) {
                 </div>
             </div>
         `).join('');
+
+// Add click event listeners to movie cards
+const categoryCards = categoryCardsElement.querySelectorAll(`.${categoryClass}`);
+categoryCards.forEach(card => {
+    card.addEventListener('click', () => {
+        const movieId = card.getAttribute('data-movie-id');
+            localStorage.setItem('selectedMovieId', movieId);
+            window.location.href = '/pages/client/detailed/detailed.html';
+        });
+    });
+
     } else {
         categoryCardsElement.innerHTML = '<p style="color: white; font-size: 20px;">No movies found</p>';
     }
@@ -89,6 +100,8 @@ displayMoviesByCategory('Thriller');
 displayMoviesByCategory('Mystery');
 displayMoviesByCategory('Comedy');
 displayMoviesByCategory('Dram');
+
+
 
 //-----------------------------------------------------------------------------------
 

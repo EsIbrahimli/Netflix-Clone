@@ -106,10 +106,11 @@ li{
 }
 
 .movie-info-title{
-    display: inline;
+    display: inline-block;
     font-size: 30px;
     font-weight: 700;
     color:#EBEEF5;
+    vertical-align: middle;
 }
 
 .movie-info-title span{
@@ -118,6 +119,7 @@ li{
     color: #FFAD49;
     background-color: #000000A6;
     padding: 10px 20px;
+    margin-right: 200px;
     border-radius: 10px;
     margin-left: 10px;
     cursor: pointer;
@@ -128,12 +130,20 @@ li{
 }
 
 .add-fav-icon{
+    display: inline-block;
     padding-left: 50px;
     cursor: pointer;
+    vertical-align: middle;
+}
+
+.add-fav-icon img{
+    display: block;
+    width: 40px;
+    height: 40px;
 }
 
 .movie-info-description{
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 400;
     color:#8E95A9;
     width: 670px;
@@ -180,6 +190,29 @@ li{
     color:#FFFFFF;
     font-size: 26px;
     font-weight: 500;
+}
+
+.movie-info-top-cost-icons{
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding-top: 20px;
+}
+
+.movie-info-top-cost-icons img{
+    width: 120px;
+    height:160px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.movie-info-top-cost-icons h1{
+    font-size: 16px;
+    font-weight: 400;
+    color: #C3C8D4;
+    text-align: center;
 }
 
 /* Movie Comment Section */
@@ -242,10 +275,15 @@ li{
     z-index: 10;
     width: 24px;
     height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .comments-container{
     padding: 60px 0px 0px 0px;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .comment-item{
@@ -259,6 +297,27 @@ li{
     flex-direction: column;
     gap: 10px;
     align-items: flex-start;
+    position: relative;
+}
+
+.delete-comment-icon {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    color: #C3C8D4;
+    font-size: 16px;
+    margin-left: 10px;
+    padding: 4px 8px;
+}
+
+.delete-comment-icon:hover {
+    color: #9B51E0;
+    transform: scale(1.1);
+}
+
+.comment-profile-time-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .comment-content{
@@ -272,6 +331,8 @@ li{
 .comment-content .profile-img{
     width: 24px;
     height: 24px;
+    object-fit: cover;
+    border-radius: 50%;
 
 }
 

@@ -133,11 +133,14 @@ document.addEventListener('click', (e) => {
 filmalisaForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = emailInput.value;
-    if(!token){
+    if(!token && email){
     localStorage.setItem('pendingEmail', email);
     window.location.href = '/pages/client/registr/registr.html';
-    } else {
-        window.location.href = 'index.html';
+    } else if(!token && !email){
+        emailInput.style.border = '1px solid red';
+        setTimeout(() => {
+            emailInput.style.border = '';
+        }, 2000);
     }
 });
 
