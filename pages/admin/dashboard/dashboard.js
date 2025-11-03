@@ -9,6 +9,8 @@ const logoutBtn = document.querySelector('.logout');
 
 const token = localStorage.getItem('token');
 
+
+
 async function loadDashboardTotal() {
     const url = `https://api.sarkhanrahimli.dev/api/filmalisa/admin/dashboard`;
     const options = {
@@ -72,8 +74,19 @@ async function renderDashboard() {
 
 renderDashboard();
 
+document.addEventListener('DOMContentLoaded', () => {
+    const profileImg = document.querySelector('.profile-img');
+    const profileName = document.querySelector('.profile-name');
+  
+    const userImg = localStorage.getItem('userImg');
+    profileImg.src = userImg || '/assets/images/default.jpg';
+  
+    const userName = localStorage.getItem('userName');
+    profileName.textContent = userName || 'Admin';
+  });
 
-logoutBtn.addEventListener('click',()=>{
+
+logoutBtn.addEventListener('click',()=>{    // Yalnız token-i sil, profil məlumatlarını saxla (növbəti login üçün)
     localStorage.removeItem('token');
     window.location.href = '/pages/admin/login/login.html';
 })

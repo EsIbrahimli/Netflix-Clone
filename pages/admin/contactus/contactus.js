@@ -231,10 +231,23 @@ window.addEventListener('click', (e) => {
     }
 });
 
-logoutBtn.addEventListener('click', () => {
+
+document.addEventListener('DOMContentLoaded', () => {
+    const profileImg = document.querySelector('.profile-img');
+    const profileName = document.querySelector('.profile-name');
+  
+    const userImg = localStorage.getItem('userImg');
+    profileImg.src = userImg || '/assets/images/default.jpg';
+  
+    const userName = localStorage.getItem('userName');
+    profileName.textContent = userName || 'Admin';
+  });
+
+
+logoutBtn.addEventListener('click',()=>{    // Yalnız token-i sil, profil məlumatlarını saxla (növbəti login üçün)
     localStorage.removeItem('token');
     window.location.href = '/pages/admin/login/login.html';
-});
+})
 
 
 // İlk yükləmə

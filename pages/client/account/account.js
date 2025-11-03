@@ -124,8 +124,13 @@ saveBtn.addEventListener('click', async (event) => {
         const result = await updateAccountData(updatedAccount);
         if (result) {
             console.log('Account updated successfully');
-            // localStorage-də də profil şəklini yenilə
+            
+            // Məlumatları localStorage-a yaz (admin login üçün)
+            localStorage.setItem('userName', accountFullname.value);
             localStorage.setItem('userImg', accountProfileImg.value);
+            localStorage.setItem('userEmail', accountEmail.value);
+            localStorage.setItem('userPassword', accountPassword.value);
+  
             // Save olduqdan sonra input-lara saved class əlavə et
             inputsData.forEach(input => {
                 input.classList.add('saved');

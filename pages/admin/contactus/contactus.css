@@ -114,6 +114,7 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 50px;
+  margin-top: 20px;
 }
 
 .header h3 {
@@ -129,12 +130,17 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  padding-right: 40px;
 }
 
 .profile img {
   width: 35px;
   height: 35px;
   border-radius: 50%;
+}
+
+.profile-name{
+  margin-bottom: 0px;
 }
 
 /* Contact content */

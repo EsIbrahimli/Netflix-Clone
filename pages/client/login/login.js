@@ -2,10 +2,22 @@ const loginForm = document.querySelector('#client-login-form');
 const loginEmailInput = document.querySelector('#login-email');
 const loginPasswordInput = document.querySelector('#login-password');
 const loginBtn = document.querySelector('#login-btn');
+const passwordEye = document.querySelector('#password-eye');
 
 
 //Token
 const token = localStorage.getItem('token');
+
+// Password göstərmək/gizlətmək funksiyası
+if (passwordEye) {
+    passwordEye.addEventListener('click', function() {
+        if (loginPasswordInput.type === 'password') {
+            loginPasswordInput.type = 'text';
+        } else {
+            loginPasswordInput.type = 'password';
+        }
+    });
+}
 
 async function loginUser(login) {
     const url = `https://api.sarkhanrahimli.dev/api/filmalisa/auth/login`;

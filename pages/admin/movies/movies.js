@@ -51,6 +51,18 @@ let allCategories = [];
 let allActors = [];
 
 
+document.addEventListener('DOMContentLoaded', () => {
+    const profileImg = document.querySelector('.profile-img');
+    const profileName = document.querySelector('.profile-name');
+
+    const userImg = localStorage.getItem('userImg');
+    profileImg.src = '/assets/images/default.jpg';
+
+    const userName = JSON.parse(localStorage.getItem('userName'));
+    profileName.textContent = userName || 'Admin';
+});
+
+
 // API Functions
 async function getCategories() {
     const url = `https://api.sarkhanrahimli.dev/api/filmalisa/admin/categories`;
@@ -704,7 +716,19 @@ cancelMovieBtn.addEventListener('click', () => {
     modalOverlay.classList.remove('active');
 });
 
-logoutBtn.addEventListener('click', () => {
+document.addEventListener('DOMContentLoaded', () => {
+    const profileImg = document.querySelector('.profile-img');
+    const profileName = document.querySelector('.profile-name');
+  
+    const userImg = localStorage.getItem('userImg');
+    profileImg.src = userImg || '/assets/images/default.jpg';
+  
+    const userName = localStorage.getItem('userName');
+    profileName.textContent = userName || 'Admin';
+  });
+
+
+logoutBtn.addEventListener('click',()=>{    // Yalnız token-i sil, profil məlumatlarını saxla (növbəti login üçün)
     localStorage.removeItem('token');
     window.location.href = '/pages/admin/login/login.html';
-});
+})

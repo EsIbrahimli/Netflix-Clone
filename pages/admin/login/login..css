@@ -46,8 +46,25 @@
 
 .login-input img {
   position: absolute;
-  left: 10px;
-  top: 22px;
+  width: 20px;
+  height: 20px;
+  top: 34px;
+  transform: translateY(-50%);
+}
+
+.login-input img:first-child {
+  left: 12px;
+}
+
+#password-eye {
+  right: 12px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+#password-eye:hover {
+  opacity: 1;
 }
 
 #login-username,
