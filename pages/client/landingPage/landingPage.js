@@ -6,6 +6,11 @@ const userDropdown = document.getElementById('user-dropdown');
 const logoutBtn = document.getElementById('logout-btn');
 const userAvatar = document.getElementById('user-avatar');
 const userName = document.getElementById('user-name');
+const contactusFullname = document.querySelector('#contactus-fullname');
+const contactusEmail = document.querySelector('#contactus-email');
+const contactusMessage = document.querySelector('#contactus-message');
+const contactusBtn = document.querySelector('#contactus-btn');
+const contactusForm = document.querySelector('.contactus-form');
 
 //Token
 const token = localStorage.getItem('token');
@@ -144,4 +149,109 @@ filmalisaForm.addEventListener('submit', (e) => {
     }
 });
 
+// FAQ Accordion funksionallığı
+const faqItems = document.querySelectorAll('.faq-item');
 
+faqItems.forEach(item => {
+    const question = item.querySelector('.faq-item-question');
+    
+    question.addEventListener('click', () => {
+        // Əgər cari item açıqdırsa, bağla
+        const isActive = item.classList.contains('active');
+        
+        // Bütün FAQ item-ləri bağla
+        faqItems.forEach(faq => {
+            faq.classList.remove('active');
+        });
+        
+        // Əgər cari item bağlı idisə, aç
+        if (!isActive) {
+            item.classList.add('active');
+        }
+    });
+});
+
+// Contact Us funksionallığı
+async function sendContactMessage(contactData) {
+    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/contact`;
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(contactData)
+    }
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+        return null;
+    }
+}
+
+// Contact form submit
+contactusForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const fullname = contactusFullname.value.trim();
+    const email = contactusEmail.value.trim();
+    const message = contactusMessage.value.trim();
+    
+    // Validation
+    if (!fullname || !email || !message) {
+        Toastify({
+            text: "Bütün xanaları doldurun! ❌",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#a72a28ff",
+        }).showToast();
+        return;
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        Toastify({
+            text: "Düzgün email daxil edin! ❌",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#a72a28ff",
+        }).showToast();
+        return;
+    }
+    
+    const contactData = {
+        full_name: fullname,
+        email: email,
+        reason: message
+    };
+    
+    const result = await sendContactMessage(contactData);
+    
+    if (result && result.result === true) {
+        Toastify({
+            text: "Mesajınız uğurla göndərildi! ✅",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#28a745",
+        }).showToast();
+        
+        // Formu təmizlə
+        contactusFullname.value = '';
+        contactusEmail.value = '';
+        contactusMessage.value = '';
+    } else {
+        Toastify({
+            text: "Mesaj göndərilərkən xəta baş verdi! ❌",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#a72a28ff",
+        }).showToast();
+    }
+});

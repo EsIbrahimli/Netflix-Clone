@@ -14,9 +14,9 @@ const youtubeModalClose = document.querySelector('.youtube-modal-close');
 
 // YouTube linkləri - hər slide üçün (3 slide)
 const youtubeLinks = [
-    'https://www.youtube.com/embed/EP34Yoxs3FQ?si=uaTspIgJ9kx_vg_3',
+    'https://www.youtube.com/embed/iM150ZWovZM?si=XbQ-CbKRVm48HE8r',
     'https://www.youtube.com/embed/NLOp_6uPccQ?si=PU7V9us7lPKtJYDX', 
-    'https://www.youtube.com/embed/7Aw-XMYBeIQ?si=DsGqukvXrIXMfn8p' 
+    'https://youtu.be/x8UAUAuKNcU?si=CpY4G5TtPD_bWRm7' 
 ];
 
 //Token
