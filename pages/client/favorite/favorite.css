@@ -1,8 +1,14 @@
+body{
+    height: 100%;
+    overflow: hidden;
+    background-color: #1D1D1D;
+}
+
 .favorite-container {
     position: relative;
     background-color: #1D1D1D;
     width:100%;
-    height: auto;
+    height: 100%;
     margin:auto;
     padding-bottom:200px;
 }
@@ -15,7 +21,7 @@ li{
 /*Heaader*/
 .movie-header{
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 100;
@@ -61,6 +67,8 @@ li{
 .favorite-movies-cards{
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .favorite-movies-title{
@@ -71,18 +79,26 @@ li{
     padding-bottom: 30px;
 }
 
-.favorite-movie-card1,
-.favorite-movie-card2,
-.favorite-movie-card3{
+.favorite-movie-card{
     position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
-.favorite-movie-card1 img,
-.favorite-movie-card2 img,
-.favorite-movie-card3 img{
+.favorite-movie-card:hover img{
+    filter: brightness(0.5);
+}
+
+.favorite-movie-card:hover{
+    transform: scale(1.02);
+}
+
+.favorite-movie-card img{
     width:400px;
     height: 600px;
-    flex:1;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: filter 0.3s ease;
 }
 
 .movie-category-name{
@@ -96,6 +112,11 @@ li{
     position: absolute;
     bottom:130px;
     left:30px;
+    transition: transform 0.3s ease;
+}
+
+.favorite-movie-card:hover .movie-category-name{
+    transform: translateY(-15px);
 }
 
 .movie-title{
@@ -106,18 +127,30 @@ li{
     bottom: 20px;
     left:30px;
     width:400px;
+    transition: transform 0.3s ease;
+}
+
+.favorite-movie-card:hover .movie-title{
+    transform: translateY(-15px);
 }
 
 .rating-stars{
     position: absolute;
     bottom: 80px;
     left:30px;
-    height: 40px;
-    color:#fff;
     display:flex;
+    gap: 5px;
+    align-items: center;
+    color: #FFD700;
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.favorite-movie-card:hover .rating-stars{
+    transform: translateY(-15px);
 }
 
 .rating-stars i{
-    font-size: 12px;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
 }
 

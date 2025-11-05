@@ -1,5 +1,4 @@
 const searchMoviesCards = document.querySelector('.search-movies-cards');
-const addFavIcon = document.querySelector('.add-fav-icon');
 const searchInput = document.querySelector('#search-input');
 const searchMoviesSection = document.querySelector('.search-movies-section');
 const noResultMessage = document.getElementById('no-result-message');
@@ -46,7 +45,7 @@ async function displayAllMovies(){
 
             if(allMovies && allMovies.length > 0){
                 searchMoviesCards.innerHTML = allMovies.map(movie => `
-                        <div class="search-movie-card1">
+                        <div class="search-movie-card1" data-movie-id="${movie.id}" style="cursor: pointer;">
                       <div class="overlay-movies"></div>
                       <img src="${movie.cover_url}" alt="">
                       <div class=movie-content>
@@ -57,6 +56,9 @@ async function displayAllMovies(){
                     <h1 class="movie-title">${movie.title}</h1>
                     </div>
                    </div> `).join('');
+                
+                // Hər card-a click event əlavə et
+                addClickEventsToCards();
             }
         }
        
@@ -80,6 +82,20 @@ function generateStars(rating) {
     for (let i = 0; i < emptyStars; i++) starsHTML += '<i class="fa fa-star-o"></i>';
   
     return starsHTML;
+}
+
+// Movie card-lara click event əlavə et
+function addClickEventsToCards() {
+    const movieCards = document.querySelectorAll('.search-movie-card1');
+    movieCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const movieId = this.getAttribute('data-movie-id');
+            if(movieId) {
+                localStorage.setItem('selectedMovieId', movieId);
+                window.location.href = '/pages/client/detailed/detailed.html';
+            }
+        });
+    });
 }
 
 displayAllMovies();
@@ -111,14 +127,4 @@ addSearchIcon.addEventListener('click', () => {
 
     // Əgər heç bir film tapılmadısa, mesaj göstər
     noResultMessage.style.display = found ? 'none' : 'block';
-});
-
-
-
-addFavIcon.addEventListener('click', () => {
-    const movieId = movie.querySelector('.movie-id').textContent;
-    const movieTitle = movie.querySelector('.movie-title').textContent;
-    const movieCover = movie.querySelector('.movie-cover').src;
-    const movieRating = movie.querySelector('.movie-rating').textContent;
-    const movieCategory = movie.querySelector('.movie-category').textContent;
 });

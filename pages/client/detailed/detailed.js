@@ -10,6 +10,7 @@ const movieInfoGenres = document.querySelector('.movie-info-genres-value');
 const actorImg = document.getElementById('actor-img');
 const actorName = document.getElementById('actor-name');
 const addFavIcon = document.querySelector('.add-fav-icon');
+const removeFavIcon = document.querySelector('.remove-fav-icon');
 const watchLink = document.querySelector('.watch-link');
 const profileImg = document.querySelector('.profile-img'); // comment form'da istifadə edilir
 const commentInput = document.querySelector('#comment-input'); // comment form'da istifadə edilir
@@ -30,6 +31,7 @@ const selectedMovieId = localStorage.getItem('selectedMovieId');
 const token = localStorage.getItem('token');
 const userId = localStorage.getItem('userId');
 const userImg = localStorage.getItem('userImg');
+let currentWatchUrl = '';
 
 // Əgər token və ya userId yoxdursa, login səhifəsinə yönləndir
 if (!token || !userId) {
@@ -69,6 +71,100 @@ async function getActors() {
         return data;
     } catch (error) {
         console.log('Error:', error);
+    }
+}
+
+
+async function getFavMovies() {
+    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/movies/${selectedMovieId}/favorites`;
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    }
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log('Error:', error);
+    }
+}
+
+
+async function addFavMovie(movieId) {
+    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/movie/${selectedMovieId}/favorite`;
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(
+            {
+                user_id: userId,
+                movie_id: selectedMovieId
+            }
+        )
+    }
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log('Error:', error);
+    }
+}
+
+async function deleteFavMovie(movieId) {
+    // ADD ilə eyni endpoint istifadə et: /movie/ (tək)
+    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/movie/${selectedMovieId}/favorite`;
+    console.log('🗑️ DELETE URL:', url);
+    console.log('🎬 Movie ID:', selectedMovieId);
+    const options = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        // Bəzi API-lər DELETE-də də body istəyir
+        body: JSON.stringify({
+            user_id: userId,
+            movie_id: selectedMovieId
+        })
+    }
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log('Error:', error);
+    }
+}
+
+// Filmin favorite-də olub-olmadığını yoxla
+async function checkIfFavorite() {
+    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/movies/favorites`;
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    }
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        if(data && data.data && Array.isArray(data.data)) {
+            const isFavorite = data.data.some(fav => fav.id == selectedMovieId);
+            return isFavorite;
+        }
+        return false;
+    } catch (error) {
+        console.log('Error:', error);
+        return false;
     }
 }
 
@@ -189,11 +285,14 @@ async function displayMovie() {
     movieHeroTitle.textContent = movie.data.title;
     heroCoverImg.src = movie.data.cover_url;
     movieInfoCover.src = movie.data.cover_url;
-    movieInfoTitle.innerHTML = `${movie.data.title} <span class="watch-link"; href="${movie.data.watch_url}">Watch Link</span>`;
+    movieInfoTitle.innerHTML = `${movie.data.title} <span class="watch-link" data-watch-url="${movie.data.watch_url}">Watch Link</span>`;
     movieInfoDescription.textContent = movie.data.overview;
     movieInfoRating.innerHTML = `<img src="/assets/icons/movie-info-star.svg" alt="">${(movie.data.imdb / 2).toFixed(1)}`;
     movieInfoRunTime.textContent = `${movie.data.run_time_min} min`;
     movieInfoGenres.textContent = movie.data.category.name;
+    
+    // Watch URL-i global dəyişənə saxla
+    currentWatchUrl = movie.data.watch_url;
     
     // Actor bilgisi - movie'de varsa onu kullan, yoksa API'den ilk actor'ü al
     if (movie.data.actors && movie.data.actors.length > 0) {
@@ -207,6 +306,16 @@ async function displayMovie() {
     
     // Similar movies-i göstər
     await displaySimilarMovies(movie.data.category.id, movie.data.category.name);
+    
+    // Səhifə yüklənəndə icon statusunu yoxla
+    const isFavorite = await checkIfFavorite();
+    if(isFavorite) {
+        addFavIcon.style.display = 'none';
+        removeFavIcon.style.display = 'inline-block';
+    } else {
+        addFavIcon.style.display = 'inline-block';
+        removeFavIcon.style.display = 'none';
+    }
 }
 
 async function displaySimilarMovies(categoryId, categoryName) {
@@ -254,7 +363,7 @@ async function displaySimilarMovies(categoryId, categoryName) {
         }
         
         similarMoviesCards.innerHTML += `
-            <div class="similar-movie-card1"><img src="${movie.cover_url}" alt="">
+            <div class="similar-movie-card1" data-movie-id="${movie.id}" style="cursor: pointer;"><img src="${movie.cover_url}" alt="">
                <h3 class="movie-category-name">${movie.category.name}</h3>
                <div class="rating-stars">
                 ${starsHTML}
@@ -265,7 +374,7 @@ async function displaySimilarMovies(categoryId, categoryName) {
     });
     
     // Movie card-lara click event əlavə et
-    document.querySelectorAll('.similar-movie-card').forEach(card => {
+    document.querySelectorAll('.similar-movie-card1').forEach(card => {
         card.addEventListener('click', function() {
             const movieId = this.getAttribute('data-movie-id');
             localStorage.setItem('selectedMovieId', movieId);
@@ -355,5 +464,123 @@ commentsContainer.addEventListener('click', async (e) => {
                 backgroundColor: "#28a745",
             }).showToast();
         }
+    }
+});
+
+
+// addFavIcon-a basanda favorite-ə əlavə et və removeFavIcon göstər
+addFavIcon.addEventListener('click', async () => {
+    const result = await addFavMovie(selectedMovieId);
+    console.log('Add Result:', result);
+    if(result.result === true){
+        addFavIcon.style.display = 'none';
+        removeFavIcon.style.display = 'inline-block';
+        Toastify({
+            text: "Favoritlərə əlavə edildi ✅",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#28a745",
+        }).showToast();
+    } else {
+        Toastify({
+            text: "Əlavə edilərkən xəta baş verdi ❌",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#a72a28ff",
+        }).showToast();
+    }
+});
+
+// removeFavIcon-a basanda favorite-dən sil və addFavIcon göstər
+removeFavIcon.addEventListener('click', async () => {
+    console.log('🖱️ Remove Fav Icon CLICKED!');
+    const result = await deleteFavMovie(selectedMovieId);
+    console.log('🔄 Delete Result:', result);
+    if(result && result.result === true){
+        removeFavIcon.style.display = 'none';
+        addFavIcon.style.display = 'inline-block';
+        Toastify({
+            text: "Favoritlərdən silindi ✅",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#ff9800",
+        }).showToast();
+    } else {
+        console.log('⚠️ Delete failed, result:', result);
+        Toastify({
+            text: "Silmə zamanı xəta baş verdi ❌",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#a72a28ff",
+        }).showToast();
+    }
+});
+
+// Video Modal elementləri
+const videoModal = document.getElementById('videoModal');
+const videoFrame = document.getElementById('videoFrame');
+const videoModalClose = document.querySelector('.video-modal-close');
+
+// Watch Link click event
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('watch-link')) {
+        const watchUrl = e.target.getAttribute('data-watch-url');
+        if (watchUrl) {
+            openVideoModal(watchUrl);
+        }
+    }
+});
+
+// Video modal-ı aç
+function openVideoModal(url) {
+    videoFrame.src = url;
+    videoModal.classList.add('show');
+    document.body.style.overflow = 'hidden'; // Scroll-u bağla
+}
+
+// Video modal-ı bağla
+function closeVideoModal() {
+    videoFrame.src = ''; // Video-nu dayandır
+    videoModal.classList.remove('show');
+    document.body.style.overflow = 'auto'; // Scroll-u aç
+}
+
+// Close button click
+videoModalClose.addEventListener('click', closeVideoModal);
+
+// Modal xaricində click edəndə bağla
+videoModal.addEventListener('click', (e) => {
+    if (e.target === videoModal) {
+        closeVideoModal();
+    }
+});
+
+// ESC düyməsi ilə bağla
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && videoModal.classList.contains('show')) {
+        closeVideoModal();
+    }
+});
+
+// Movie Info Cover - Play Icon Animasiyası
+const movieInfoCoverDiv = document.querySelector('.movie-info-cover');
+const movieCoverOverlay = document.querySelector('.movie-cover-overlay');
+
+// 2 saniyədən bir overlay göstər/gizlət
+setInterval(() => {
+    movieCoverOverlay.classList.add('active');
+    setTimeout(() => {
+        movieCoverOverlay.classList.remove('active');
+    }, 1000); // 1 saniyə göstər, sonra gizlət
+}, 2000);
+
+// Movie cover-ə click edəndə video aç
+movieInfoCoverDiv.addEventListener('click', () => {
+    if (currentWatchUrl) {
+        openVideoModal(currentWatchUrl);
     }
 });

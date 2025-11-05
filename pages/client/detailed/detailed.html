@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Client Detailed - Filmalisa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="stylesheet" href="/styles/global.css">
@@ -35,10 +36,16 @@
        <section class="movie-info-section">
          <div class="movie-info-cover">
             <img id="movie-info-cover" src="/assets/images/movie-info-img.png" alt="">
+            <div class="movie-cover-overlay">
+                <div class="play-icon">
+                    <i class="fa fa-play"></i>
+                </div>
+            </div>
          </div>
          <div class="movie-info-content">
              <h1 class="movie-info-title">Dont Miss Out, Click Here!<span class="watch-link">Watch Link</span></h1>
              <span class="add-fav-icon"><img src="/assets/icons/add-fav-icon.svg" alt=""></span>
+             <span class="remove-fav-icon"><i class="fa-regular fa-circle-check"></i></span>
              <p class="movie-info-description">The mission to save Scarecrow takes an unexpected turn, throwing the Resolute into chaos. Judy hatches a plan to get a ship to Alpha Centauri.</p>
              <span class="movie-info-rating"><img src="/assets/icons/movie-info-star.svg" alt="">8.1</span>
             <div class="movie-info-items-container">
@@ -124,6 +131,14 @@
             </div>  -->
          </div>
        </section>
+    </div>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-content">
+            <span class="video-modal-close">&times;</span>
+            <iframe id="videoFrame" src="" frameborder="0" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
