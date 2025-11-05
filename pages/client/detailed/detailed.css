@@ -272,26 +272,47 @@ li{
 }
 
 .movie-info-top-cost-icons{
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
     padding-top: 20px;
 }
 
-.movie-info-top-cost-icons img{
-    width: 120px;
-    height:160px;
-    object-fit: cover;
-    border-radius: 10px;
+.actor-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.3s ease;
 }
 
-.movie-info-top-cost-icons h1{
+.actor-card:hover{
+    transform: translateY(-5px);
+}
+
+.actor-img{
+    width: 120px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #323B54;
+    transition: border-color 0.3s ease;
+}
+
+.actor-card:hover .actor-img{
+    border-color: #9B51E0;
+}
+
+.actor-name{
     font-size: 16px;
     font-weight: 400;
     color: #C3C8D4;
     text-align: center;
+    margin: 0;
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Movie Comment Section */

@@ -7,8 +7,7 @@ const movieInfoDescription = document.querySelector('.movie-info-description');
 const movieInfoRating = document.querySelector('.movie-info-rating');
 const movieInfoRunTime = document.querySelector('.movie-info-episode-run-time-value');
 const movieInfoGenres = document.querySelector('.movie-info-genres-value');
-const actorImg = document.getElementById('actor-img');
-const actorName = document.getElementById('actor-name');
+const actorsContainer = document.getElementById('actors-container');
 const addFavIcon = document.querySelector('.add-fav-icon');
 const removeFavIcon = document.querySelector('.remove-fav-icon');
 const watchLink = document.querySelector('.watch-link');
@@ -278,6 +277,26 @@ async function displayUserProfileImg() {
 
 displayUserProfileImg();
 
+// Actors göstərmə funksiyası
+function displayActors(actors) {
+    actorsContainer.innerHTML = '';
+    
+    if (!actors || actors.length === 0) {
+        actorsContainer.innerHTML = '<p style="color: #999;">No actors available</p>';
+        return;
+    }
+    
+    actors.forEach(actor => {
+        const actorCard = document.createElement('div');
+        actorCard.className = 'actor-card';
+        actorCard.innerHTML = `
+            <img class="actor-img" src="${actor.img_url}" alt="${actor.name}">
+            <h3 class="actor-name">${actor.name}</h3>
+        `;
+        actorsContainer.appendChild(actorCard);
+    });
+}
+
 async function displayMovie() {
     const movie = await getMovieById(selectedMovieId);
     console.log('Movie:', movie);
@@ -294,15 +313,8 @@ async function displayMovie() {
     // Watch URL-i global dəyişənə saxla
     currentWatchUrl = movie.data.watch_url;
     
-    // Actor bilgisi - movie'de varsa onu kullan, yoksa API'den ilk actor'ü al
-    if (movie.data.actors && movie.data.actors.length > 0) {
-        actorImg.src = movie.data.actors[0].img_url;
-        actorName.textContent = movie.data.actors[0].name;
-    } else {
-        const actors = await getActors();
-        actorImg.src = actors.data[0].img_url;
-        actorName.textContent = actors.data[0].name;
-    }
+    // Actors göstər - bütün seçilmiş actorlar
+    displayActors(movie.data.actors);
     
     // Similar movies-i göstər
     await displaySimilarMovies(movie.data.category.id, movie.data.category.name);

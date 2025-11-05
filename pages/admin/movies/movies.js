@@ -49,6 +49,8 @@ const itemsPerPage = 8;
 let allMovies = [];
 let allCategories = [];
 let allActors = [];
+let selectedActors = []; // Create modal üçün
+let selectedEditActors = []; // Edit modal üçün
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -320,11 +322,17 @@ async function loadDropdowns() {
     editCategoryOptions.innerHTML = allCategories.map(c => 
         `<div class="option" data-id="${c.id}">${c.name}</div>`).join('');
     
-    // Actors options
+    // Actors options - multiselect checkbox ilə
     actorsOptions.innerHTML = allActors.map(a => 
-        `<div class="option" data-id="${a.id}">${a.name}</div>`).join('');
+        `<div class="option actor-option" data-id="${a.id}">
+            <input type="checkbox" id="actor-${a.id}" class="actor-checkbox" value="${a.id}">
+            <label for="actor-${a.id}">${a.name}</label>
+        </div>`).join('');
     editActorsOptions.innerHTML = allActors.map(a => 
-        `<div class="option" data-id="${a.id}">${a.name}</div>`).join('');
+        `<div class="option actor-option" data-id="${a.id}">
+            <input type="checkbox" id="edit-actor-${a.id}" class="actor-checkbox" value="${a.id}">
+            <label for="edit-actor-${a.id}">${a.name}</label>
+        </div>`).join('');
     
     // Dropdown açma/bağlama
     categoryDropdown.querySelector('.selected-option').onclick = () => {
@@ -348,12 +356,20 @@ async function loadDropdowns() {
             categoryOptions.style.display = 'none';
         };
     });
-    actorsOptions.querySelectorAll('.option').forEach(opt => {
-        opt.onclick = () => {
-            actorsDropdown.querySelector('.selected-option').innerHTML = opt.textContent + ' <i class="fa-solid fa-chevron-down"></i>';
-            actorsDropdown.dataset.selectedId = opt.dataset.id;
-            actorsOptions.style.display = 'none';
-        };
+    // Actors seçimi - multiselect checkbox
+    actorsOptions.querySelectorAll('.actor-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', (e) => {
+            e.stopPropagation();
+            const actorId = parseInt(e.target.value);
+            if (e.target.checked) {
+                if (!selectedActors.includes(actorId)) {
+                    selectedActors.push(actorId);
+                }
+            } else {
+                selectedActors = selectedActors.filter(id => id !== actorId);
+            }
+            updateActorsDisplay();
+        });
     });
     editCategoryOptions.querySelectorAll('.option').forEach(opt => {
         opt.onclick = () => {
@@ -362,15 +378,45 @@ async function loadDropdowns() {
             editCategoryOptions.style.display = 'none';
         };
     });
-    editActorsOptions.querySelectorAll('.option').forEach(opt => {
-        opt.onclick = () => {
-            editActorsDropdown.querySelector('.selected-option').innerHTML = opt.textContent + ' <i class="fa-solid fa-chevron-down"></i>';
-            editActorsDropdown.dataset.selectedId = opt.dataset.id;
-            editActorsOptions.style.display = 'none';
-        };
+    // Edit Actors seçimi - multiselect checkbox
+    editActorsOptions.querySelectorAll('.actor-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', (e) => {
+            e.stopPropagation();
+            const actorId = parseInt(e.target.value);
+            if (e.target.checked) {
+                if (!selectedEditActors.includes(actorId)) {
+                    selectedEditActors.push(actorId);
+                }
+            } else {
+                selectedEditActors = selectedEditActors.filter(id => id !== actorId);
+            }
+            updateEditActorsDisplay();
+        });
     });
 }
 loadDropdowns();
+
+// Seçilmiş actorları göstər (Create modal)
+function updateActorsDisplay() {
+    const selectedNames = selectedActors.map(id => {
+        const actor = allActors.find(a => a.id === id);
+        return actor ? actor.name : '';
+    }).filter(name => name).join(', ');
+    
+    actorsDropdown.querySelector('.selected-option').innerHTML = 
+        (selectedNames || 'actors') + ' <i class="fa-solid fa-chevron-down"></i>';
+}
+
+// Seçilmiş actorları göstər (Edit modal)
+function updateEditActorsDisplay() {
+    const selectedNames = selectedEditActors.map(id => {
+        const actor = allActors.find(a => a.id === id);
+        return actor ? actor.name : '';
+    }).filter(name => name).join(', ');
+    
+    editActorsDropdown.querySelector('.selected-option').innerHTML = 
+        (selectedNames || 'actors') + ' <i class="fa-solid fa-chevron-down"></i>';
+}
 
 async function chooseMovie(id, action) {
     try {
@@ -398,13 +444,12 @@ async function chooseMovie(id, action) {
                 editCategoryDropdown.dataset.selectedId = selectedCat.id;
             }
             
-            // Seçilmiş actor göstər
-            const actorId = Array.isArray(movie.actor_ids) ? movie.actor_ids[0] : movie.actor_ids;
-            const selectedActor = allActors.find(a => a.id === actorId);
-            if (selectedActor) {
-                editActorsDropdown.querySelector('.selected-option').innerHTML = selectedActor.name + ' <i class="fa-solid fa-chevron-down"></i>';
-                editActorsDropdown.dataset.selectedId = selectedActor.id;
-            }
+            // Seçilmiş actorları göstər və checkbox-ları işarələ
+            selectedEditActors = movie.actor_ids || [];
+            editActorsOptions.querySelectorAll('.actor-checkbox').forEach(checkbox => {
+                checkbox.checked = selectedEditActors.includes(parseInt(checkbox.value));
+            });
+            updateEditActorsDisplay();
             
             moviesEditModal.style.display = 'flex';
             modalOverlay.classList.add('active');
@@ -480,6 +525,13 @@ moviesEditModal.addEventListener('click', (e) => {
 
 // EVENTS
 createBtn.addEventListener('click', async () => {
+      // Create modal açılarkən əvvəlki seçimləri təmizlə
+      selectedActors = [];
+      actorsOptions.querySelectorAll('.actor-checkbox').forEach(checkbox => {
+          checkbox.checked = false;
+      });
+      updateActorsDisplay();
+      
       moviesModal.style.display = 'flex';
       modalOverlay.classList.add('active');
 });
@@ -521,9 +573,9 @@ btnSubmit.addEventListener('click', async (e) => {
             return;
         }
         
-        if (!actorsDropdown.dataset.selectedId) {
+        if (selectedActors.length === 0) {
             Toastify({
-                text: "Aktyor seçin!",
+                text: "Ən azı bir aktyor seçin!",
                 duration: 3000,
                 gravity: "top",
                 position: "right",
@@ -541,7 +593,7 @@ btnSubmit.addEventListener('click', async (e) => {
             overview: inputOverview.value.trim(),
             run_time_min: parseInt(inputRunTimeMin.value) || 0,
             category: parseInt(categoryDropdown.dataset.selectedId),
-            actors: [parseInt(actorsDropdown.dataset.selectedId)],
+            actors: selectedActors,
             adult: sexCheckbox.checked,
         }
 
@@ -559,9 +611,12 @@ btnSubmit.addEventListener('click', async (e) => {
             inputImdb.value = '';
             inputRunTimeMin.value = '';
             categoryDropdown.dataset.selectedId = '';
-            actorsDropdown.dataset.selectedId = '';
             categoryDropdown.querySelector('.selected-option').innerHTML = 'category <i class="fa-solid fa-chevron-down"></i>';
             actorsDropdown.querySelector('.selected-option').innerHTML = 'actors <i class="fa-solid fa-chevron-down"></i>';
+            selectedActors = [];
+            actorsOptions.querySelectorAll('.actor-checkbox').forEach(checkbox => {
+                checkbox.checked = false;
+            });
             sexCheckbox.checked = false;
             modalImage.src = '/assets/images/default.jpg';
             
@@ -608,9 +663,9 @@ btnEditSubmit.addEventListener('click', async () => {
             return;
         }
         
-        if (!editActorsDropdown.dataset.selectedId) {
+        if (selectedEditActors.length === 0) {
             Toastify({
-                text: "Aktyor seçin!",
+                text: "Ən azı bir aktyor seçin!",
                 duration: 3000,
                 gravity: "top",
                 position: "right",
@@ -629,7 +684,7 @@ btnEditSubmit.addEventListener('click', async () => {
             imdb: editInputImdb.value,
             run_time_min: parseInt(editInputRunTimeMin.value),
             watch_url: editInputWatch.value,
-            actors: [parseInt(editActorsDropdown.dataset.selectedId)],
+            actors: selectedEditActors,
         }
         await updateMovieById(movieId, updatedMovie);
         await renderMovies();
@@ -643,9 +698,12 @@ btnEditSubmit.addEventListener('click', async () => {
         editInputImdb.value = '';
         editInputRunTimeMin.value = '';
         editCategoryDropdown.dataset.selectedId = '';
-        editActorsDropdown.dataset.selectedId = '';
         editCategoryDropdown.querySelector('.selected-option').innerHTML = 'category <i class="fa-solid fa-chevron-down"></i>';
         editActorsDropdown.querySelector('.selected-option').innerHTML = 'actors <i class="fa-solid fa-chevron-down"></i>';
+        selectedEditActors = [];
+        editActorsOptions.querySelectorAll('.actor-checkbox').forEach(checkbox => {
+            checkbox.checked = false;
+        });
         editSexCheckbox.checked = false;
         Toastify({
             text: "Film uğurla edit olundu ✅",
