@@ -119,9 +119,7 @@ async function addFavMovie(movieId) {
 
 async function deleteFavMovie(movieId) {
     // ADD ilə eyni endpoint istifadə et: /movie/ (tək)
-    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/movie/${selectedMovieId}/favorite`;
-    console.log('🗑️ DELETE URL:', url);
-    console.log('🎬 Movie ID:', selectedMovieId);
+    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/movies/${selectedMovieId}/favorite`;
     const options = {
         method: 'DELETE',
         headers: {
@@ -397,6 +395,7 @@ async function displaySimilarMovies(categoryId, categoryName) {
 
 displayMovie();
 
+//Comments
 async function displayComments() {
     const comments = await getComments();
     console.log('Selected Movie ID:', selectedMovieId);
