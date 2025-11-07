@@ -87,15 +87,19 @@ body {
   padding: 0px 45px 0px 45px;
 }
 
+/* Avtomatik doldurma üçün arxa rəngi silmək */
 #login-email:-webkit-autofill,
+#login-email:-webkit-autofill:hover,
+#login-email:-webkit-autofill:focus,
+#login-email:-webkit-autofill:active,
 #login-password:-webkit-autofill,
-#login-email:hover,
-#login-email:focus,
-#login-password:hover,
-#login-password:focus {
-  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important; /* istədiyin fon rəngi */
-  -webkit-text-fill-color: #fff !important; /* mətn rəngi */
-  transition: background-color 0.5s ease-in-out 0s; /* autofill effekti gizlə */
+#login-password:-webkit-autofill:hover,
+#login-password:-webkit-autofill:focus,
+#login-password:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  transition: background-color 5000s ease-in-out 0s;
+  border: 1px solid #323B54;
 }
 
   
