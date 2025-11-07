@@ -57,6 +57,8 @@ body {
   height: 20px;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 10;
+  pointer-events: none;
 }
 
 .login-input img:first-child {
@@ -85,6 +87,8 @@ body {
   transition: outline 0.5s ease;
   color:#ffff;
   padding: 0px 45px 0px 45px;
+  position: relative;
+  z-index: 1;
 }
 
 /* Avtomatik doldurma üçün arxa rəngi silmək */
@@ -96,10 +100,11 @@ body {
 #login-password:-webkit-autofill:hover,
 #login-password:-webkit-autofill:focus,
 #login-password:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+  -webkit-box-shadow: 0 0 0 30px #1D1D1D inset !important;
   -webkit-text-fill-color: #ffffff !important;
   transition: background-color 5000s ease-in-out 0s;
   border: 1px solid #323B54;
+  background-color: transparent !important;
 }
 
   
