@@ -34,7 +34,7 @@ let currentWatchUrl = '';
 
 // Əgər token və ya userId yoxdursa, login səhifəsinə yönləndir
 if (!token || !userId) {
-    window.location.href = '/pages/client/login/login.html';
+    window.location.href = '../../../pages/client/login/login.html';
 }
 
 async function getMovieById(id) {
@@ -245,7 +245,7 @@ async function displayUserProfileImg() {
             // localStorage-ə də saxla
             localStorage.setItem('userImg', accountData.data.img_url);
         } else {
-            profileImg.src = '/assets/images/default.jpg';
+            profileImg.src = '../../../assets/images/default.jpg';
         }
     }
 }

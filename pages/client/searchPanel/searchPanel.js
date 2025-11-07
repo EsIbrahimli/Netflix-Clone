@@ -92,7 +92,7 @@ function addClickEventsToCards() {
             const movieId = this.getAttribute('data-movie-id');
             if(movieId) {
                 localStorage.setItem('selectedMovieId', movieId);
-                window.location.href = '/pages/client/detailed/detailed.html';
+                window.location.href = '../../../pages/client/detailed/detailed.html';
             }
         });
     });

@@ -84,7 +84,7 @@ categoryCards.forEach(card => {
     card.addEventListener('click', () => {
         const movieId = card.getAttribute('data-movie-id');
             localStorage.setItem('selectedMovieId', movieId);
-            window.location.href = '/pages/client/detailed/detailed.html';
+            window.location.href = '../../../pages/client/detailed/detailed.html';
         });
     });
 

@@ -82,7 +82,7 @@ async function displayFavoriteMovies() {
         card.addEventListener('click', function() {
             const movieId = this.getAttribute('data-movie-id');
             localStorage.setItem('selectedMovieId', movieId);
-            window.location.href = '/pages/client/detailed/detailed.html';
+            window.location.href = '../../../pages/client/detailed/detailed.html';
         });
     });
 }

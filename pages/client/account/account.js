@@ -64,7 +64,7 @@ async function showAccountData() {
             if (account.data.img_url) {
                 profilePreviewImg.src = account.data.img_url;
                 profilePreviewImg.onerror = function() {
-                    profilePreviewImg.src = '/assets/images/default.jpg';
+                    profilePreviewImg.src = '../../../assets/images/default.jpg';
                 };
             }
         }
@@ -82,10 +82,10 @@ accountProfileImg.addEventListener('input', function() {
         profilePreviewImg.src = imageUrl;
         profilePreviewImg.onerror = function() {
             // If image fails to load, show default image
-            profilePreviewImg.src = '/assets/images/default.jpg';
+            profilePreviewImg.src = '../../../assets/images/default.jpg';
         };
     } else {
-        profilePreviewImg.src = '/assets/images/default.jpg';
+        profilePreviewImg.src = '../../../assets/images/default.jpg';
     }
 });
 
@@ -93,10 +93,10 @@ accountProfileImg.addEventListener('input', function() {
 passwordEye.addEventListener('click', function() {
     if (accountPassword.type === 'password') {
         accountPassword.type = 'text';
-        passwordEye.src = '/assets/icons/password-eye.svg'; 
+        passwordEye.src = '../../../assets/icons/password-eye.svg'; 
     } else {
         accountPassword.type = 'password';
-        passwordEye.src = '/assets/icons/password-eye.svg';
+        passwordEye.src = '../../../assets/icons/password-eye.svg';
     }
 });
 
