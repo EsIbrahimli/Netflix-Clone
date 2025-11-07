@@ -79,7 +79,25 @@
   transition: outline 0.5s ease;
   color:#ffff;
   padding:0px 0px 0px 40px;
+  position: relative;
+  z-index: 1;
 }
+
+  #login-username:-webkit-autofill,
+#login-username:-webkit-autofill:hover,
+#login-username:-webkit-autofill:focus,
+#login-username:-webkit-autofill:active,
+#login-password:-webkit-autofill,
+#login-password:-webkit-autofill:hover,
+#login-password:-webkit-autofill:focus,
+#login-password:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #1D1D1D inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  transition: background-color 5000s ease-in-out 0s;
+  border: 1px solid #323B54;
+  background-color: transparent !important;
+}
+
 
 #login-username::placeholder,
 #login-password::placeholder {
