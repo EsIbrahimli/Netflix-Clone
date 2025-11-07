@@ -117,29 +117,6 @@ async function addFavMovie(movieId) {
     }
 }
 
-async function deleteFavMovie(movieId) {
-    // ADD ilə eyni endpoint istifadə et: /movie/ (tək)
-    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/movie/${selectedMovieId}/favorite`;
-    const options = {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        // Bəzi API-lər DELETE-də də body istəyir
-        body: JSON.stringify({
-            user_id: userId,
-            movie_id: selectedMovieId
-        })
-    }
-    try {
-        const response = await fetch(url, options);
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.log('Error:', error);
-    }
-}
 
 // Filmin favorite-də olub-olmadığını yoxla
 async function checkIfFavorite() {
@@ -482,8 +459,7 @@ commentsContainer.addEventListener('click', async (e) => {
 // addFavIcon-a basanda favorite-ə əlavə et və removeFavIcon göstər
 addFavIcon.addEventListener('click', async () => {
     const result = await addFavMovie(selectedMovieId);
-    console.log('Add Result:', result);
-    if(result.result === true){
+    if(result && result.result === true){
         addFavIcon.style.display = 'none';
         removeFavIcon.style.display = 'inline-block';
         Toastify({
@@ -506,13 +482,10 @@ addFavIcon.addEventListener('click', async () => {
 
 // removeFavIcon-a basanda favorite-dən sil və addFavIcon göstər
 removeFavIcon.addEventListener('click', async () => {
-    console.log('🖱️ Remove Fav Icon CLICKED!');
-    const result = await deleteFavMovie(selectedMovieId);
-    console.log('🔄 Delete Result:', result);
+    const result = await addFavMovie(selectedMovieId);
     if(result && result.result === true){
         removeFavIcon.style.display = 'none';
         addFavIcon.style.display = 'inline-block';
-        localStorage.removeItem('selectedMovieId');
         Toastify({
             text: "Favoritlərdən silindi ✅",
             duration: 3000,
@@ -521,9 +494,8 @@ removeFavIcon.addEventListener('click', async () => {
             backgroundColor: "#ff9800",
         }).showToast();
     } else {
-        console.log('⚠️ Delete failed, result:', result);
         Toastify({
-            text: "Silmə zamanı xəta baş verdi ❌",
+            text: "Silinərkən xəta baş verdi ❌",
             duration: 3000,
             gravity: "top",
             position: "right",
