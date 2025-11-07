@@ -4,7 +4,7 @@ const userId = localStorage.getItem('userId');
 
 // Əgər token və ya userId yoxdursa, login səhifəsinə yönləndir
 if (!token || !userId) {
-    window.location.href = '/pages/client/login/login.html';
+    window.location.href = '../login/login.html';
 }
 
 // User-in bütün favorite movies-larını API-dən çək
@@ -40,7 +40,7 @@ async function displayFavoriteMovies() {
         favoriteMoviesCards.innerHTML = `
             <div style="width: 100%; text-align: center; padding: 100px 0;">
                 <p style="color: #999; font-size: 20px;">Hələ ki favorite filminiz yoxdur.</p>
-                <a href="/pages/client/home/home.html" style="color: #9B51E0; text-decoration: none; font-size: 18px; margin-top: 20px; display: inline-block;">Filmləri kəşf edin</a>
+                <a href="../home/home.html" style="color: #9B51E0; text-decoration: none; font-size: 18px; margin-top: 20px; display: inline-block;">Filmləri kəşf edin</a>
             </div>
         `;
         return;

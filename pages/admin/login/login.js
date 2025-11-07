@@ -99,7 +99,7 @@ async function loginUser(login) {
             
             // Dashboard-a yönləndir
             setTimeout(() => {
-                window.location.href = '/pages/admin/dashboard/dashboard.html';
+                window.location.href = '../dashboard/dashboard.html';
             }, 500);
 
         }

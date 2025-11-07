@@ -396,5 +396,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
 logoutBtn.addEventListener('click',()=>{    // Yalnız token-i sil, profil məlumatlarını saxla (növbəti login üçün)
     localStorage.removeItem('token');
-    window.location.href = '/pages/admin/login/login.html';
+    window.location.href = '../login/login.html';
 })

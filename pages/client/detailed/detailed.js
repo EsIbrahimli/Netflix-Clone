@@ -281,7 +281,7 @@ async function displayMovie() {
     movieInfoCover.src = movie.data.cover_url;
     movieInfoTitle.innerHTML = `${movie.data.title} <span class="watch-link" data-watch-url="${movie.data.watch_url}">Watch Link</span>`;
     movieInfoDescription.textContent = movie.data.overview;
-    movieInfoRating.innerHTML = `<img src="/assets/icons/movie-info-star.svg" alt="">${(movie.data.imdb / 2).toFixed(1)}`;
+    movieInfoRating.innerHTML = `<img src="../../../assets/icons/movie-info-star.svg" alt="">${(movie.data.imdb / 2).toFixed(1)}`;
     movieInfoRunTime.textContent = `${movie.data.run_time_min} min`;
     movieInfoGenres.textContent = movie.data.category.name;
     
