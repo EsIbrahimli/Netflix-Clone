@@ -140,7 +140,7 @@ filmalisaForm.addEventListener('submit', (e) => {
     const email = emailInput.value;
     if(!token && email){
     localStorage.setItem('pendingEmail', email);
-    window.location.href = "../../../pages/client/registr/registr.html";
+    window.location.href = "./pages/client/registr/registr.html";
     } else if(!token && !email){
         emailInput.style.border = '1px solid red';
         setTimeout(() => {
