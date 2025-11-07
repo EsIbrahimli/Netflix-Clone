@@ -57,7 +57,7 @@ async function loginUser(login) {
 
             loginEmailInput.style.border = '1px solid antiqueWhite';
             loginPasswordInput.style.border = '1px solid antiqueWhite';
-            window.location.href = '/pages/client/home/home.html';
+            window.location.href = '../../../pages/client/home/home.html';
 
         }
     } catch (error) {
