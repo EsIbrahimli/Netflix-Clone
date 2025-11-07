@@ -115,6 +115,8 @@ width: 20px;
 height: 20px;
 top: 50%;
 transform: translateY(-50%);
+z-index: 10;
+pointer-events: none;
 }
 
 .account-input img:first-child {
@@ -128,6 +130,7 @@ right: 12px;
 cursor: pointer;
 opacity: 0.7;
 transition: opacity 0.3s ease;
+pointer-events: auto;
 }
 
 .account-input #password-eye:hover,
@@ -160,7 +163,15 @@ z-index: 1;
 #account-password:-webkit-autofill,
 #account-password:-webkit-autofill:hover,
 #account-password:-webkit-autofill:focus,
-#account-password:-webkit-autofill:active {
+#account-password:-webkit-autofill:active,
+#account-fullname:-webkit-autofill,
+#account-fullname:-webkit-autofill:hover,
+#account-fullname:-webkit-autofill:focus,
+#account-fullname:-webkit-autofill:active,
+#account-profile-img:-webkit-autofill,
+#account-profile-img:-webkit-autofill:hover,
+#account-profile-img:-webkit-autofill:focus,
+#account-profile-img:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px #1D1D1D inset !important;
   -webkit-text-fill-color: #ffffff !important;
   transition: background-color 5000s ease-in-out 0s;

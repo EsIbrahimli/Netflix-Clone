@@ -57,6 +57,8 @@ body {
   height: 20px;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 10;
+  pointer-events: none;
 }
 
 .registr-input img:first-child {
@@ -69,6 +71,7 @@ body {
   cursor: pointer;
   opacity: 0.7;
   transition: opacity 0.3s ease;
+  pointer-events: auto;
 }
 
 .registr-input #password-eye:hover,
@@ -99,7 +102,11 @@ body {
 #registr-password:-webkit-autofill,
 #registr-password:-webkit-autofill:hover,
 #registr-password:-webkit-autofill:focus,
-#registr-password:-webkit-autofill:active {
+#registr-password:-webkit-autofill:active,
+#registr-fullname:-webkit-autofill,
+#registr-fullname:-webkit-autofill:hover,
+#registr-fullname:-webkit-autofill:focus,
+#registr-fullname:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px #1D1D1D inset !important;
   -webkit-text-fill-color: #ffffff !important;
   transition: background-color 5000s ease-in-out 0s;

@@ -70,6 +70,7 @@ body {
   cursor: pointer;
   opacity: 0.7;
   transition: opacity 0.3s ease;
+  pointer-events: auto;
 }
 
 .login-input #password-eye:hover {
