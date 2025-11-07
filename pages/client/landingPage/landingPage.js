@@ -69,7 +69,7 @@ async function loginUser(login) {
 
             loginPasswordInput.style = 'border: 1px solid antiqueWhite';
             loginUsernameInput.style = 'border: 1px solid antiqueWhite';
-            window.location.href = '/pages/admin/dashboard/dashboard.html';
+            window.location.href = '/pages/client/account/account.html';
 
         }
     } catch (error) {
@@ -112,7 +112,7 @@ if (token) {
     });
 } else {
     signInBtn.addEventListener('click', () => {
-        window.location.href = '/pages/client/login/login.html';
+        window.location.href = '../login/login.html';
     });
 }
 
@@ -140,7 +140,7 @@ filmalisaForm.addEventListener('submit', (e) => {
     const email = emailInput.value;
     if(!token && email){
     localStorage.setItem('pendingEmail', email);
-    window.location.href = "/pages/client/registr/registr.html";
+    window.location.href = "../registr/registr.html";
     } else if(!token && !email){
         emailInput.style.border = '1px solid red';
         setTimeout(() => {
