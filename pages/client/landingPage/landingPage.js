@@ -112,7 +112,7 @@ if (token) {
     });
 } else {
     signInBtn.addEventListener('click', () => {
-        window.location.href = '../../client/login/login.html';
+        window.location.href = '../login/login.html';
     });
 }
 
