@@ -69,7 +69,7 @@ async function loginUser(login) {
 
             loginPasswordInput.style = 'border: 1px solid antiqueWhite';
             loginUsernameInput.style = 'border: 1px solid antiqueWhite';
-            window.location.href = '../../../pages/client/home/home.html';
+            window.location.href = './pages/client/home/home.html';
 
         }
     } catch (error) {
@@ -112,7 +112,7 @@ if (token) {
     });
 } else {
     signInBtn.addEventListener('click', () => {
-        window.location.href = '../../../pages/client/login/login.html';
+        window.location.href = './pages/client/login/login.html';
     });
 }
 
@@ -122,7 +122,7 @@ if (logoutBtn) {
         e.preventDefault();
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        window.location.href = '../../../index.html';
+        window.location.href = './index.html';
     });
 }
 
