@@ -76,7 +76,7 @@ async function registerUser(register) {
             registrPasswordInput.style.border = '1px solid antiqueWhite';
             registrFullnameInput.style.border = '1px solid antiqueWhite';
             
-            window.location.href = '/pages/client/login/login.html';
+            window.location.href = '../../../pages/client/login/login.html';
 
       
         }   
