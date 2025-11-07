@@ -63,6 +63,11 @@
 .about-filmalisa{
   text-align: center;
   margin-top:180px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
 }
 
 .about-filmalisa h1{

@@ -119,7 +119,7 @@ async function addFavMovie(movieId) {
 
 async function deleteFavMovie(movieId) {
     // ADD ilə eyni endpoint istifadə et: /movie/ (tək)
-    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/movies/${selectedMovieId}/favorite`;
+    const url = `https://api.sarkhanrahimli.dev/api/filmalisa/movie/${selectedMovieId}/favorite`;
     const options = {
         method: 'DELETE',
         headers: {
@@ -512,6 +512,7 @@ removeFavIcon.addEventListener('click', async () => {
     if(result && result.result === true){
         removeFavIcon.style.display = 'none';
         addFavIcon.style.display = 'inline-block';
+        localStorage.removeItem('selectedMovieId');
         Toastify({
             text: "Favoritlərdən silindi ✅",
             duration: 3000,
