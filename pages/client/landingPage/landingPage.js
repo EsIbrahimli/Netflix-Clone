@@ -69,7 +69,7 @@ async function loginUser(login) {
 
             loginPasswordInput.style = 'border: 1px solid antiqueWhite';
             loginUsernameInput.style = 'border: 1px solid antiqueWhite';
-            window.location.href = '../home/home.html';
+            window.location.href = '../../../pages/client/home/home.html';
 
         }
     } catch (error) {
