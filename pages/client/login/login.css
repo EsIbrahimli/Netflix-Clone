@@ -86,6 +86,18 @@ body {
   color:#ffff;
   padding: 0px 45px 0px 45px;
 }
+
+#login-email:-webkit-autofill,
+#login-password:-webkit-autofill,
+#login-email:hover,
+#login-email:focus,
+#login-password:hover,
+#login-password:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #475069 inset !important; /* istədiyin fon rəngi */
+  -webkit-text-fill-color: #fff !important; /* mətn rəngi */
+  transition: background-color 0.5s ease-in-out 0s; /* autofill effekti gizlə */
+}
+
   
   #login-email::placeholder,
   #login-password::placeholder {
