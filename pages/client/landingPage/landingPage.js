@@ -112,7 +112,7 @@ if (token) {
     });
 } else {
     signInBtn.addEventListener('click', () => {
-        window.location.href = '../login/login.html';
+        window.location.href = '/pages/client/login/login.html';
     });
 }
 
@@ -122,7 +122,7 @@ if (logoutBtn) {
         e.preventDefault();
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        window.location.href = '../../../index.html';
+        window.location.href = '/index.html';
     });
 }
 
@@ -140,7 +140,7 @@ filmalisaForm.addEventListener('submit', (e) => {
     const email = emailInput.value;
     if(!token && email){
     localStorage.setItem('pendingEmail', email);
-    window.location.href = "../../../pages/client/registr/registr.html";
+    window.location.href = "/pages/client/registr/registr.html";
     } else if(!token && !email){
         emailInput.style.border = '1px solid red';
         setTimeout(() => {
