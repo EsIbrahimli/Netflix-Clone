@@ -161,3 +161,104 @@ body {
   #login-btn:hover {
       background-color: #7a39b3;
   }
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablet və kiçik desktop (1024px və aşağı) */
+@media (max-width: 1024px) {
+  .login-container {
+    margin-top: 60px;
+    padding: 0 20px;
+  }
+
+  .client-logo-title {
+    font-size: 56px;
+  }
+
+  .client-logo-text {
+    font-size: 32px;
+  }
+
+  #login-email,
+  #login-password {
+    width: 100%;
+    max-width: 547px;
+  }
+}
+
+/* Tablet (768px və aşağı) */
+@media (max-width: 768px) {
+  .login-container {
+    margin-top: 40px;
+    padding: 0 15px;
+  }
+
+  .client-logo-title {
+    font-size: 48px;
+  }
+
+  .client-logo-text {
+    font-size: 28px;
+  }
+
+  #login-email,
+  #login-password {
+    width: 100%;
+    height: 56px;
+    padding: 0px 40px 0px 40px;
+  }
+
+  .client-login-form {
+    width: 100%;
+  }
+}
+
+/* Mobil (480px və aşağı) */
+@media (max-width: 480px) {
+  .login-container {
+    margin-top: 30px;
+    padding: 0 10px;
+  }
+
+  .logo {
+    width: 180px;
+  }
+
+  .client-logo-title {
+    font-size: 36px;
+  }
+
+  .client-logo-text {
+    font-size: 24px;
+  }
+
+  #login-email,
+  #login-password {
+    width: 100%;
+    height: 50px;
+    padding: 0px 35px 0px 35px;
+    font-size: 14px;
+  }
+
+  .login-input img {
+    width: 18px;
+    height: 18px;
+  }
+
+  .login-input img:first-child {
+    left: 10px;
+  }
+
+  .login-input #password-eye {
+    right: 10px;
+  }
+
+  #login-btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .register-text-link {
+    font-size: 12px;
+  }
+}

@@ -424,3 +424,281 @@ li{
         right: 15px;
     }
 }
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablet və kiçik desktop (1024px və aşağı) */
+@media (max-width: 1024px) {
+  .movie-header {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 15px 10px;
+  }
+
+  .movie-header .logo-img {
+    padding: 10px 0px;
+  }
+
+  .movie-header .logo-img img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .movie-header-list {
+    flex-direction: row;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .movie-header-list img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .carousel-content {
+    left: 50px;
+    top: 100px;
+  }
+
+  .carousel-content p {
+    width: 400px;
+    font-size: 13px;
+  }
+
+  .slider-movie-title {
+    font-size: 48px;
+  }
+
+  .carousel-item img {
+    height: 500px;
+  }
+
+  .fantasy-movies-section,
+  .action-movies-section,
+  .thriller-movies-section,
+  .mystery-movies-section,
+  .comedy-movies-section,
+  .dram-movies-section,
+  .crime-movies-section,
+  .crimee-movies-section {
+    margin: 60px 30px 100px 30px;
+  }
+
+  .fantasy-movie-card1 img,
+  .action-movie-card1 img,
+  .thriller-movie-card1 img,
+  .mystery-movie-card1 img,
+  .comedy-movie-card1 img,
+  .dram-movie-card1 img,
+  .crime-movie-card1 img,
+  .crimee-movie-card1 img {
+    width: 250px;
+    height: 350px;
+  }
+}
+
+/* Tablet (768px və aşağı) */
+@media (max-width: 768px) {
+  .movie-header {
+    padding: 10px 8px;
+  }
+
+  .movie-header .logo-img {
+    padding: 8px 0px;
+  }
+
+  .movie-header .logo-img img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .movie-header-list {
+    gap: 12px;
+  }
+
+  .movie-header-list img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .carousel-content {
+    left: 30px;
+    top: 80px;
+  }
+
+  .carousel-content p {
+    width: 90%;
+    max-width: 400px;
+    font-size: 12px;
+  }
+
+  .slider-movie-title {
+    font-size: 36px;
+  }
+
+  .carousel-item img {
+    height: 400px;
+  }
+
+  .fantasy-movies-section,
+  .action-movies-section,
+  .thriller-movies-section,
+  .mystery-movies-section,
+  .comedy-movies-section,
+  .dram-movies-section,
+  .crime-movies-section,
+  .crimee-movies-section {
+    margin: 40px 20px 80px 20px;
+  }
+
+  .fantasy-movies-title,
+  .action-movies-title,
+  .thriller-movies-title,
+  .mystery-movies-title,
+  .comedy-movies-title,
+  .dram-movies-title,
+  .crime-movies-title,
+  .crimee-movies-title {
+    font-size: 28px;
+  }
+
+  .fantasy-movies-cards,
+  .action-movies-cards,
+  .thriller-movies-cards,
+  .mystery-movies-cards,
+  .comedy-movies-cards,
+  .dram-movies-cards,
+  .crime-movies-cards,
+  .crimee-movies-cards {
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .fantasy-movie-card1 img,
+  .action-movie-card1 img,
+  .thriller-movie-card1 img,
+  .mystery-movie-card1 img,
+  .comedy-movie-card1 img,
+  .dram-movie-card1 img,
+  .crime-movie-card1 img,
+  .crimee-movie-card1 img {
+    width: 200px;
+    height: 280px;
+  }
+
+  .movie-title {
+    font-size: 20px;
+    width: 180px;
+  }
+}
+
+/* Mobil (480px və aşağı) */
+@media (max-width: 480px) {
+  .movie-header {
+    padding: 8px 5px;
+  }
+
+  .movie-header .logo-img {
+    padding: 5px 0px;
+  }
+
+  .movie-header .logo-img img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .movie-header-list {
+    gap: 8px;
+  }
+
+  .movie-header-list img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .carousel-content {
+    left: 15px;
+    top: 60px;
+  }
+
+  .carousel-content p {
+    width: 90%;
+    font-size: 11px;
+    line-height: 18px;
+  }
+
+  .slider-movie-title {
+    font-size: 24px;
+  }
+
+  .slider-movie-category-name {
+    font-size: 12px;
+  }
+
+  .watch-btn {
+    padding: 10px 24px;
+    font-size: 14px;
+  }
+
+  .carousel-item img {
+    height: 300px;
+  }
+
+  .fantasy-movies-section,
+  .action-movies-section,
+  .thriller-movies-section,
+  .mystery-movies-section,
+  .comedy-movies-section,
+  .dram-movies-section,
+  .crime-movies-section,
+  .crimee-movies-section {
+    margin: 30px 10px 60px 10px;
+  }
+
+  .fantasy-movies-title,
+  .action-movies-title,
+  .thriller-movies-title,
+  .mystery-movies-title,
+  .comedy-movies-title,
+  .dram-movies-title,
+  .crime-movies-title,
+  .crimee-movies-title {
+    font-size: 24px;
+    padding-bottom: 20px;
+  }
+
+  .fantasy-movies-cards,
+  .action-movies-cards,
+  .thriller-movies-cards,
+  .mystery-movies-cards,
+  .comedy-movies-cards,
+  .dram-movies-cards,
+  .crime-movies-cards,
+  .crimee-movies-cards {
+    gap: 15px;
+  }
+
+  .fantasy-movie-card1 img,
+  .action-movie-card1 img,
+  .thriller-movie-card1 img,
+  .mystery-movie-card1 img,
+  .comedy-movie-card1 img,
+  .dram-movie-card1 img,
+  .crime-movie-card1 img,
+  .crimee-movie-card1 img {
+    width: 150px;
+    height: 210px;
+  }
+
+  .movie-title {
+    font-size: 16px;
+    width: 130px;
+  }
+
+  .movie-category-name {
+    font-size: 12px;
+  }
+}

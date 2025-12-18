@@ -139,3 +139,152 @@ li{
       max-width: 200px;
     }
   }
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablet və kiçik desktop (1024px və aşağı) */
+@media (max-width: 1024px) {
+  .movie-header {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 15px 10px;
+  }
+
+  .movie-header .logo-img {
+    padding: 10px 0px;
+  }
+
+  .movie-header .logo-img img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .movie-header-list {
+    flex-direction: row;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .movie-header-list img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .main-container {
+    flex-direction: column;
+  }
+
+  .content {
+    padding: 40px 20px;
+  }
+
+  .error-title {
+    font-size: 2.4rem;
+  }
+
+  .error-subtitle {
+    font-size: 15px;
+  }
+}
+
+/* Tablet (768px və aşağı) */
+@media (max-width: 768px) {
+  .movie-header {
+    padding: 10px 8px;
+  }
+
+  .movie-header .logo-img {
+    padding: 8px 0px;
+  }
+
+  .movie-header .logo-img img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .movie-header-list {
+    gap: 12px;
+  }
+
+  .movie-header-list img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .content {
+    padding: 30px 15px;
+  }
+
+  .error-title {
+    font-size: 2rem;
+  }
+
+  .error-subtitle {
+    font-size: 14px;
+    max-width: 90%;
+  }
+
+  .illustration img {
+    max-width: 280px;
+  }
+
+  .go-home-btn {
+    font-size: 1rem;
+    padding: 12px 32px;
+  }
+}
+
+/* Mobil (480px və aşağı) */
+@media (max-width: 480px) {
+  .movie-header {
+    padding: 8px 5px;
+  }
+
+  .movie-header .logo-img {
+    padding: 5px 0px;
+  }
+
+  .movie-header .logo-img img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .movie-header-list {
+    gap: 8px;
+  }
+
+  .movie-header-list img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .content {
+    padding: 20px 10px;
+  }
+
+  .error-title {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+  }
+
+  .error-subtitle {
+    font-size: 13px;
+    margin-bottom: 24px;
+    max-width: 95%;
+  }
+
+  .illustration {
+    margin-bottom: 24px;
+  }
+
+  .illustration img {
+    max-width: 200px;
+  }
+
+  .go-home-btn {
+    font-size: 0.9rem;
+    padding: 10px 24px;
+  }
+}

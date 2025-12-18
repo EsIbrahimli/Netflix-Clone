@@ -154,3 +154,180 @@ li{
     text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
 }
 
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablet və kiçik desktop (1024px və aşağı) */
+@media (max-width: 1024px) {
+  .movie-header {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 15px 10px;
+  }
+
+  .movie-header .logo-img {
+    padding: 10px 0px;
+  }
+
+  .movie-header .logo-img img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .movie-header-list {
+    flex-direction: row;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .movie-header-list img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .favorite-movies-section {
+    padding: 120px 30px 0px 30px;
+  }
+
+  .favorite-movies-title {
+    font-size: 28px;
+  }
+
+  .favorite-movie-card img {
+    width: 320px;
+    height: 480px;
+  }
+
+  .movie-title {
+    width: 320px;
+    font-size: 24px;
+  }
+}
+
+/* Tablet (768px və aşağı) */
+@media (max-width: 768px) {
+  .movie-header {
+    padding: 10px 8px;
+  }
+
+  .movie-header .logo-img {
+    padding: 8px 0px;
+  }
+
+  .movie-header .logo-img img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .movie-header-list {
+    gap: 12px;
+  }
+
+  .movie-header-list img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .favorite-movies-section {
+    padding: 100px 20px 0px 20px;
+  }
+
+  .favorite-movies-title {
+    font-size: 24px;
+    padding-left: 10px;
+  }
+
+  .favorite-movies-cards {
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .favorite-movie-card img {
+    width: 250px;
+    height: 375px;
+  }
+
+  .movie-title {
+    width: 250px;
+    font-size: 20px;
+  }
+
+  .movie-category-name {
+    font-size: 12px;
+  }
+
+  .rating-stars {
+    font-size: 11px;
+  }
+}
+
+/* Mobil (480px və aşağı) */
+@media (max-width: 480px) {
+  .movie-header {
+    padding: 8px 5px;
+  }
+
+  .movie-header .logo-img {
+    padding: 5px 0px;
+  }
+
+  .movie-header .logo-img img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .movie-header-list {
+    gap: 8px;
+  }
+
+  .movie-header-list img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .favorite-container {
+    padding-bottom: 150px;
+  }
+
+  .favorite-movies-section {
+    padding: 80px 10px 0px 10px;
+  }
+
+  .favorite-movies-title {
+    font-size: 20px;
+    padding-left: 5px;
+    padding-bottom: 20px;
+  }
+
+  .favorite-movies-cards {
+    gap: 10px;
+  }
+
+  .favorite-movie-card img {
+    width: 160px;
+    height: 240px;
+  }
+
+  .movie-category-name {
+    font-size: 11px;
+    padding: 4px 8px;
+    bottom: 100px;
+    left: 20px;
+  }
+
+  .movie-title {
+    width: 140px;
+    font-size: 16px;
+    bottom: 15px;
+    left: 20px;
+  }
+
+  .rating-stars {
+    bottom: 60px;
+    left: 20px;
+    font-size: 10px;
+    gap: 3px;
+  }
+}
+

@@ -501,3 +501,291 @@
 .footer-list-item:hover{
   color: #FFFFFF;
 }
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablet və kiçik desktop (1024px və aşağı) */
+@media (max-width: 1024px) {
+  .top-bar {
+    width: 90%;
+  }
+
+  .about-filmalisa h1 {
+    font-size: 40px;
+  }
+
+  .about-filmalisa :nth-child(2) {
+    font-size: 20px;
+  }
+
+  .about-filmalisa :nth-child(3) {
+    font-size: 18px;
+  }
+
+  .filmalisa-form {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .filmalisa-form .email-input {
+    width: 100%;
+    max-width: 368px;
+  }
+
+  .features-container {
+    width: 90%;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .features-content {
+    flex-basis: 100%;
+    align-items: center;
+  }
+
+  .features-title {
+    font-size: 36px;
+    padding-left: 0;
+    text-align: center;
+  }
+
+  .features-description {
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .features-image img {
+    width: 100%;
+    max-width: 546px;
+    height: auto;
+  }
+
+  .contactus-form input,
+  .contactus-form textarea {
+    width: 100%;
+    max-width: 478px;
+  }
+
+  .faq-container {
+    width: 90%;
+  }
+
+  .faq-item {
+    width: 100%;
+  }
+
+  .footer-container {
+    width: 90%;
+  }
+
+  .footer-content {
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+}
+
+/* Tablet (768px və aşağı) */
+@media (max-width: 768px) {
+  .hero-section {
+    height: 600px;
+  }
+
+  .top-bar {
+    width: 95%;
+    padding: 20px 0px;
+  }
+
+  .filmalisa-logo img {
+    height: 50px;
+    width: 52px;
+  }
+
+  .logo-name {
+    font-size: 24px;
+  }
+
+  .about-filmalisa {
+    margin-top: 120px;
+    padding: 0 20px;
+  }
+
+  .about-filmalisa h1 {
+    font-size: 32px;
+  }
+
+  .about-filmalisa :nth-child(2),
+  .about-filmalisa :nth-child(3) {
+    font-size: 16px;
+  }
+
+  .filmalisa-form .email-input {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .start-btn {
+    width: 100%;
+    max-width: 368px;
+  }
+
+  .features-section {
+    height: auto;
+    padding: 60px 0;
+  }
+
+  .features-title {
+    font-size: 28px;
+  }
+
+  .features-description {
+    font-size: 18px;
+  }
+
+  .contactus-section {
+    height: auto;
+    padding: 60px 20px;
+  }
+
+  .contactus-title {
+    font-size: 36px;
+    padding-left: 0;
+  }
+
+  .contactus-form input,
+  .contactus-form textarea {
+    width: 100%;
+  }
+
+  .faq-title {
+    font-size: 36px;
+    padding-left: 0;
+  }
+
+  .faq-item h2 {
+    font-size: 18px;
+  }
+
+  .faq-item-answer p {
+    font-size: 18px;
+  }
+
+  .footer-container {
+    width: 95%;
+    padding: 60px 0;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-list {
+    width: 100%;
+  }
+}
+
+/* Mobil (480px və aşağı) */
+@media (max-width: 480px) {
+  .hero-section {
+    height: 500px;
+  }
+
+  .top-bar {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .about-filmalisa {
+    margin-top: 80px;
+    padding: 0 15px;
+  }
+
+  .about-filmalisa h1 {
+    font-size: 24px;
+  }
+
+  .about-filmalisa :nth-child(2),
+  .about-filmalisa :nth-child(3) {
+    font-size: 14px;
+  }
+
+  .filmalisa-form {
+    width: 100%;
+    padding: 0 15px;
+  }
+
+  .filmalisa-form .email-input {
+    height: 48px;
+    font-size: 14px;
+  }
+
+  .start-btn {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+
+  .features-section {
+    padding: 40px 0;
+  }
+
+  .features-title {
+    font-size: 24px;
+  }
+
+  .features-description {
+    font-size: 16px;
+  }
+
+  .contactus-section {
+    padding: 40px 15px;
+  }
+
+  .contactus-title {
+    font-size: 28px;
+  }
+
+  .contactus-form input,
+  .contactus-form textarea {
+    height: 48px;
+    font-size: 14px;
+  }
+
+  .contactus-form textarea {
+    height: 100px;
+  }
+
+  .contactus-btn {
+    font-size: 16px;
+    padding: 10px 40px;
+  }
+
+  .faq-container {
+    padding-top: 40px;
+  }
+
+  .faq-title {
+    font-size: 28px;
+    padding-bottom: 20px;
+  }
+
+  .faq-item-question {
+    padding: 18px 20px;
+  }
+
+  .faq-item h2 {
+    font-size: 16px;
+  }
+
+  .faq-icon {
+    font-size: 20px;
+  }
+
+  .faq-item-answer p {
+    font-size: 16px;
+  }
+
+  .footer-container {
+    padding: 40px 0;
+  }
+}

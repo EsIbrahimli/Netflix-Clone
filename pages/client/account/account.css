@@ -245,3 +245,201 @@ z-index: 1;
 #save-btn:hover {
     background-color: #7a39b3;
 }
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablet və kiçik desktop (1024px və aşağı) */
+@media (max-width: 1024px) {
+  .account-container {
+    flex-direction: column;
+  }
+
+  .movie-header {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 15px 10px;
+  }
+
+  .movie-header .logo-img {
+    padding: 10px 0px;
+  }
+
+  .movie-header .logo-img img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .movie-header-list {
+    flex-direction: row;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .movie-header-list img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .account-section {
+    padding: 40px 20px;
+  }
+
+  .client-logo-title {
+    font-size: 56px;
+  }
+
+  .client-logo-text {
+    font-size: 32px;
+  }
+
+  #account-email,
+  #account-password,
+  #account-fullname,
+  #account-profile-img {
+    width: 100%;
+    max-width: 547px;
+  }
+}
+
+/* Tablet (768px və aşağı) */
+@media (max-width: 768px) {
+  .movie-header {
+    padding: 10px 8px;
+  }
+
+  .movie-header .logo-img {
+    padding: 8px 0px;
+  }
+
+  .movie-header .logo-img img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .movie-header-list {
+    gap: 12px;
+  }
+
+  .movie-header-list img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .account-section {
+    padding: 30px 15px;
+  }
+
+  .logo {
+    width: 180px;
+    height: 180px;
+  }
+
+  .logo img {
+    width: 180px;
+    height: 180px;
+  }
+
+  .client-logo-title {
+    font-size: 48px;
+  }
+
+  .client-logo-text {
+    font-size: 28px;
+  }
+
+  #account-email,
+  #account-password,
+  #account-fullname,
+  #account-profile-img {
+    width: 100%;
+    height: 56px;
+    padding: 0px 40px 0px 40px;
+  }
+
+  .client-account-form {
+    width: 100%;
+  }
+}
+
+/* Mobil (480px və aşağı) */
+@media (max-width: 480px) {
+  .movie-header {
+    padding: 8px 5px;
+  }
+
+  .movie-header .logo-img {
+    padding: 5px 0px;
+  }
+
+  .movie-header .logo-img img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .movie-header-list {
+    gap: 8px;
+  }
+
+  .movie-header-list img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .account-section {
+    padding: 20px 10px;
+  }
+
+  .logo {
+    width: 150px;
+    height: 150px;
+  }
+
+  .logo img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .client-logo-title {
+    font-size: 36px;
+  }
+
+  .client-logo-text {
+    font-size: 24px;
+  }
+
+  #account-email,
+  #account-password,
+  #account-fullname,
+  #account-profile-img {
+    width: 100%;
+    height: 50px;
+    padding: 0px 35px 0px 35px;
+    font-size: 14px;
+  }
+
+  .account-input img {
+    width: 18px;
+    height: 18px;
+  }
+
+  .account-input img:first-child {
+    left: 10px;
+  }
+
+  .account-input #password-eye,
+  .account-input #fullname-eye,
+  .account-input #profile-img-eye {
+    right: 10px;
+  }
+
+  #save-btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .account-text {
+    font-size: 12px;
+  }
+}

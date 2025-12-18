@@ -170,3 +170,108 @@ body {
   #registr-btn:hover {
       background-color: #7a39b3;
   }
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablet və kiçik desktop (1024px və aşağı) */
+@media (max-width: 1024px) {
+  .registr-container {
+    margin-top: 60px;
+    padding: 0 20px;
+  }
+
+  .client-logo-title {
+    font-size: 56px;
+  }
+
+  .client-logo-text {
+    font-size: 32px;
+  }
+
+  #registr-email,
+  #registr-password,
+  #registr-fullname {
+    width: 100%;
+    max-width: 547px;
+  }
+}
+
+/* Tablet (768px və aşağı) */
+@media (max-width: 768px) {
+  .registr-container {
+    margin-top: 40px;
+    padding: 0 15px;
+  }
+
+  .client-logo-title {
+    font-size: 48px;
+  }
+
+  .client-logo-text {
+    font-size: 28px;
+  }
+
+  #registr-email,
+  #registr-password,
+  #registr-fullname {
+    width: 100%;
+    height: 56px;
+    padding: 0px 40px 0px 40px;
+  }
+
+  .client-registr-form {
+    width: 100%;
+  }
+}
+
+/* Mobil (480px və aşağı) */
+@media (max-width: 480px) {
+  .registr-container {
+    margin-top: 30px;
+    padding: 0 10px;
+  }
+
+  .logo {
+    width: 180px;
+  }
+
+  .client-logo-title {
+    font-size: 36px;
+  }
+
+  .client-logo-text {
+    font-size: 24px;
+  }
+
+  #registr-email,
+  #registr-password,
+  #registr-fullname {
+    width: 100%;
+    height: 50px;
+    padding: 0px 35px 0px 35px;
+    font-size: 14px;
+  }
+
+  .registr-input img {
+    width: 18px;
+    height: 18px;
+  }
+
+  .registr-input img:first-child {
+    left: 10px;
+  }
+
+  .registr-input #password-eye,
+  .registr-input #fullname-eye {
+    right: 10px;
+  }
+
+  #registr-btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .login-text-link {
+    font-size: 12px;
+  }
+}
